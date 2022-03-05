@@ -1,0 +1,14 @@
+//
+// Created by yassine on 05/03/2022.
+//
+
+#ifndef PROJET_BESTIOLES_COMPORTEMENT_GREGAIRE_H
+#define PROJET_BESTIOLES_COMPORTEMENT_GREGAIRE_H
+
+
+class Comportement_gregaire {
+
+};
+
+
+#endif //PROJET_BESTIOLES_COMPORTEMENT_GREGAIRE_H
