@@ -12,7 +12,7 @@ int* ComportementGregaire::get_couleur(){
 
 ComportementGregaire::ComportementGregaire(void){
     couleur = new int[ 3 ];
-    couleur[ 0 ] = 10;
-    couleur[ 1 ] = 10;
-    couleur[ 2 ] = 10;
+    couleur[ 0 ] = 0;
+    couleur[ 1 ] = 255;
+    couleur[ 2 ] = 0;
 }

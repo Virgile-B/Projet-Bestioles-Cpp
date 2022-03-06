@@ -6,6 +6,9 @@
 
 #include  "Comportement.h"
 #include "ComportementGregaire.h"
+#include "ComportementKamikaze.h"
+#include "ComportementPrevoyante.h"
+#include "ComportementPeureuse.h"
 #include <iostream>
 
 using namespace std;
@@ -30,8 +33,10 @@ private :
    double            cumulX, cumulY;
    double            orientation;
    double            vitesse;
-
+   bool              comportement_multiple;
    int               * couleur;
+   time_t            last_change;
+   int               timer;
 
 private :
    void bouge( int xLim, int yLim );
@@ -47,9 +52,11 @@ public :                                           // Forme canonique :
    bool jeTeVois( const Bestiole & b ) const;
 
    void initCoords( int xLim, int yLim );
-
+   bool estMultiple(const Bestiole b);
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
-
+   void randomComportement();
+   bool changerComportement(time_t curr);
+   void setComportement(int comprotement);
 };
 
 

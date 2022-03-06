@@ -1,7 +1,5 @@
 #include "Bestiole.h"
-
 #include "Milieu.h"
-
 #include <cstdlib>
 #include <cmath>
 
@@ -24,12 +22,62 @@ Bestiole::Bestiole(const std::string comportement)
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
-   if (comportement == "grégaire"){
+   if (comportement == "gregaire"){
+       comportement_multiple = false;
        couleur = ComportementGregaire::get_gregaire()->get_couleur();
    }
+   if (comportement == "kamikaze"){
+       comportement_multiple = false;
+       couleur = ComportementKamikaze::get_kamikaze()->get_couleur();
+   }
+   if (comportement == "peureuse"){
+       comportement_multiple = false;
+       couleur = ComportementPeureuse::get_peureuse()->get_couleur();
+   }
+   if (comportement == "prevoyante"){
+      comportement_multiple = false;
+      couleur = ComportementPrevoyante::get_prevoyante()->get_couleur();
+   }
+   if (comportement == "multiple"){
+      // lance un timer pour l'état courrant
+      comportement_multiple = true;
+      timer = 10;
+      setComportement(0);
+   }
 }
-
-
+bool Bestiole::changerComportement(time_t curr){
+   if( int(difftime(curr, last_change)) > timer) {
+      randomComportement();
+   }
+}
+void Bestiole::randomComportement(){
+   int num_type;
+   int nb_comportement = 4;
+   last_change = time(NULL);
+   num_type = (rand() % static_cast<int>(nb_comportement+1));
+   setComportement(num_type);
+}
+void Bestiole::setComportement(int comportement)
+{
+   switch (comportement)
+   {
+   case 1:
+      couleur = ComportementGregaire::get_gregaire()->get_couleur();
+      break;
+   case 2:
+      couleur = ComportementKamikaze::get_kamikaze()->get_couleur();
+      break;         
+   case 3:
+      couleur = ComportementPeureuse::get_peureuse()->get_couleur();
+      break;            
+   case 4:
+      couleur = ComportementPrevoyante::get_prevoyante()->get_couleur();
+      break;
+   default :
+      couleur = ComportementPrevoyante::get_prevoyante()->get_couleur();
+      break;
+   }
+}
 Bestiole::Bestiole( const Bestiole & b )
 {
 
@@ -120,7 +168,10 @@ bool operator==( const Bestiole & b1, const Bestiole & b2 )
 
 }
 
-
+bool Bestiole::estMultiple(const Bestiole b)
+{
+   return b.comportement_multiple;
+}
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
 

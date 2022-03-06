@@ -19,6 +19,9 @@ private :
 
    int                     width, height;
    std::vector<Bestiole>   listeBestioles;
+   int               timer;
+   time_t           start;
+   time_t           curr;
 
 public :
    Milieu( int _width, int _height );
@@ -28,6 +31,7 @@ public :
    int getHeight( void ) const { return height; };
 
    void step( void );
+   void comportement ( void );
 
    void addMember( const Bestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
    int nbVoisins( const Bestiole & b );
