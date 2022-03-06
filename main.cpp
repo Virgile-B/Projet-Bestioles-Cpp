@@ -12,8 +12,8 @@ int main()
 
    Aquarium       ecosysteme( 1920, 1080, 1 );
 
-   for ( int i = 1; i <= 2; ++i )
-      ecosysteme.getMilieu().addMember( Bestiole() );
+   for ( int i = 1; i <= 10; ++i )
+      ecosysteme.getMilieu().addMember( Bestiole("grégaire") );
    ecosysteme.run();
 
 

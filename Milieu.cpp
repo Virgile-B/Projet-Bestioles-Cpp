@@ -18,14 +18,6 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
 }
 
 
-Milieu::~Milieu( void )
-{
-
-   cout << "dest Milieu" << endl;
-
-}
-
-
 void Milieu::step( void )
 {
 

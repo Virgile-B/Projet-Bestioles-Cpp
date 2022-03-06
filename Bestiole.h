@@ -37,9 +37,9 @@ private :
    void bouge( int xLim, int yLim );
 
 public :                                           // Forme canonique :
-   Bestiole();                               // Constructeur par defaut
+   Bestiole(const std::string comportement);                               // Constructeur par defaut
    Bestiole( const Bestiole & b );                 // Constructeur de copies
-   ~Bestiole( void );                              // Destructeur
+   ~Bestiole( void )=default;                              // Destructeur
                                                    // Operateur d'affectation binaire par defaut
    void action( Milieu & monMilieu );
    void draw( UImg & support );
