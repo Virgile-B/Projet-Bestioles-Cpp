@@ -6,11 +6,11 @@
 #define PROJET_BESTIOLES_COMPORTEMENT_H
 
 /*
- * Interface comportement
+ * Interface Comportement
 */
-class comportement {
+class Comportement {
 public:
-    T               * couleur;
+    int               * couleur;
     virtual void action() = 0;
 };
 

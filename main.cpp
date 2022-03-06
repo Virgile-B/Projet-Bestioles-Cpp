@@ -12,11 +12,10 @@ int main()
 
    Aquarium       ecosysteme( 1920, 1080, 1 );
 
-   for ( int i = 1; i <= 200; ++i )
+   for ( int i = 1; i <= 2; ++i )
       ecosysteme.getMilieu().addMember( Bestiole() );
    ecosysteme.run();
 
 
    return 0;
-
 }

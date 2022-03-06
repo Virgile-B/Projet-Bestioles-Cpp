@@ -4,6 +4,8 @@
 
 #include "UImg.h"
 
+#include  "Comportement.h"
+#include "ComportementGregaire.h"
 #include <iostream>
 
 using namespace std;
@@ -29,13 +31,13 @@ private :
    double            orientation;
    double            vitesse;
 
-   T               * couleur;
+   int               * couleur;
 
 private :
    void bouge( int xLim, int yLim );
 
 public :                                           // Forme canonique :
-   Bestiole( void );                               // Constructeur par defaut
+   Bestiole();                               // Constructeur par defaut
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
                                                    // Operateur d'affectation binaire par defaut
