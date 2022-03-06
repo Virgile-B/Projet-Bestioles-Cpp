@@ -1,0 +1,105 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam class {
+BackgroundColor Whitesmoke
+ArrowColor Black
+BorderColor Black
+}
+
+class Bestiole{
+	+ AFF_SIZE: const double
+    + MAX_VITESSE : const double
+    + LIMITE_VUE : const double
+    + next : int
+    - identie : int
+    - x,y : int
+    - cumulX, cumulY : double
+    - orientation : double
+    - vitesse : double
+    - T : *couleur 
+    - bouge( int xLim, int yLim )
+    + Bestiole(void)
+    + Bestiole(const Bestiole & b)
+    + ~Bestiole(void)
+    + initCoords( int xLim, int yLim )
+    + action( Milieu & monMilieu )
+    + draw( UImg & support )
+    + jeTeVois( const Bestiole & b ) const
+}
+class Milieu{
+	- white[]: const T
+    - width, height: int
+    /'- listBestioles : vector<Bestiole>'/
+    + getWidth(): int
+    + getHeigth() : int
+    + Milieu( int _width, int _height )
+    + ~Milieu( void ) 
+    + step( void ) : void
+    + nbVoisins( const Bestiole & b ) : int
+    + addMember( const Bestiole & b ) : void
+}
+
+ class Aquarium{
+    + Aquarium( int width, int height, int _delay )
+    + ~Aquarium( void )
+    + run( void )
+    + getMilieu( void )  
+    + * flotte : Milieu 
+}
+
+abstract class Comportement{
+    - couleur: *couleur
+    + getCouleur(): *couleur
+    + action(): void
+}
+class Kamikaze{
+ 
+}
+class Gregaire{
+    
+}
+class Peureuse{
+  
+}
+class Prevoyante{
+    
+}
+class Multiple{
+
+}
+abstract class Accessoires{
+    + accessoire()
+}
+abstract class Capteurs{
+    + capte()
+
+}
+/'*********************'/
+/' DEFINITION DES LIENS'/
+/'*********************'/
+/'Definition liens Milieu '/
+Milieu "1" <-l- "1" Aquarium : environement
+Milieu "1" o-r-> "0..n" Bestiole : bestioles
+
+/'Definition liens comportement'/
+Kamikaze -u-|> Comportement
+Peureuse -u-|> Comportement
+Gregaire -u-|> Comportement
+Multiple -u-|> Comportement
+Prevoyante -u-|> Comportement
+
+/' Definition liens capteurs '/
+Yeux -u-|> Capteurs
+Oreilles -u-|> Capteurs
+
+/' Definition liens Accessoires '/
+Nageoire -u-|> Accessoires
+Camouflage -u-|> Accessoires
+Carapace -u-|> Accessoires
+
+/' Definition liens vers bestioles '/
+Accessoires "0..*" -u- "0..*" Bestiole : accessoires
+Comportement "1"-u- "0..*" Bestiole : comportement
+Capteurs "0..*"-u-  "0..*" Bestiole : capteurs
+
+@enduml
