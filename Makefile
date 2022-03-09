@@ -1,4 +1,4 @@
-main : main.cpp Aquarium.o Bestiole.o Milieu.o ComportementGregaire.o Comportement.o
+main : main.cpp Aquarium.o Bestiole.o Milieu.o ComportementGregaire.o Comportement.o ComportementKamikaze.o ComportementPeureuse.o ComportementPrevoyante.o
 	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Milieu.o ComportementGregaire.o ComportementPeureuse.o ComportementPrevoyante.o ComportementKamikaze.o Comportement.o -I . -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp

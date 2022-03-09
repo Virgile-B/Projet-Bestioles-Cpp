@@ -91,7 +91,7 @@ Bestiole::Bestiole( const Bestiole & b )
    orientation = b.orientation;
    vitesse = b.vitesse;
    couleur = b.couleur;
-
+   comportement_multiple = b.comportement_multiple;
 }
 
 
