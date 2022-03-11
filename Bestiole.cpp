@@ -157,13 +157,14 @@ void Bestiole::bouge( int xLim, int yLim )
 
 }
 
-
 void Bestiole::action( Milieu & monMilieu )
 {
    //this->meurt(monMilieu);
    if (this->estMultiple()){
       this->changerComportement();
    }
+   comportement->action(this,monMilieu);
+
    bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 
 }
@@ -202,3 +203,8 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
    return ( dist <= LIMITE_VUE );
 
 }
+
+double Bestiole::get_orientation() {return this->orientation;}
+void Bestiole::set_orientation(double orientation) {this->orientation = orientation;}
+
+

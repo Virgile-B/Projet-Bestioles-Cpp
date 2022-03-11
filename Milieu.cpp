@@ -28,18 +28,14 @@ void Milieu::step( void )
 
 }
 
-int Milieu::nbVoisins( const Bestiole & b )
+std::vector<Bestiole> Milieu::Voisins( const Bestiole & b) 
 {
-
-   int         nb = 0;
-
-
+   std::vector<Bestiole> listeVoisins;
    for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
       if ( !(b == *it) && b.jeTeVois(*it) )
-         ++nb;
+         listeVoisins.push_back(*it);
 
-   return nb;
-
+   return listeVoisins;
 }
 
 void Milieu::naissance(char* type)
