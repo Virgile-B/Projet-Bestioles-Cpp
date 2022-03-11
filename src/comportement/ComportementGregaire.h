@@ -6,6 +6,8 @@
 #define PROJET_BESTIOLES_COMPORTEMENT_GREGAIRE_H
 
 #include  "Comportement.h"
+#include "../Milieu.h"
+#include "../Bestiole.h"
 
 /*
  * Singleton class ComportementGrégaire
@@ -26,9 +28,7 @@ public:
 
     T *get_couleur();
 
-    void action() {};
-
-    ~ComportementGregaire();
+    void action(Bestiole *actualBestiole, Milieu &monMilieu);
 };
 
 

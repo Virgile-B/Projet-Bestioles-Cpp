@@ -26,8 +26,7 @@ public:
 
     T *get_couleur();
 
-    void action() {};
-    ~ComportementPeureuse();
+    void action(Bestiole *actualBestiole, Milieu &monMilieu) {};
 };
 
 

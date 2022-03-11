@@ -27,8 +27,7 @@ public:
 
     T *get_couleur();
 
-    void action() {};
-    ~ComportementKamikaze();
+    void action(Bestiole *actualBestiole, Milieu &monMilieu) {};
 };
 
 

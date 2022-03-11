@@ -28,8 +28,7 @@ public:
 
     T *get_couleur();
 
-    void action() {};
-    ~ComportementPrevoyante();
+    void action(Bestiole *actualBestiole, Milieu &monMilieu) {};
 };
 
 
