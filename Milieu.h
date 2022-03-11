@@ -4,9 +4,10 @@
 
 #include "UImg.h"
 #include "Bestiole.h"
-
 #include <iostream>
 #include <vector>
+#include <list>
+#include <cstdlib>
 
 using namespace std;
 
@@ -18,10 +19,10 @@ private :
    static const T          white[];
 
    int                     width, height;
-   std::vector<Bestiole>   listeBestioles;
-   int               timer;
-   time_t           start;
-   time_t           curr;
+   std::list<Bestiole>   listeBestioles;
+   static const int        PROBA_NAIS;
+   char* type;
+   int nbBestioles;
 
 public :
    Milieu( int _width, int _height );
@@ -33,7 +34,12 @@ public :
    void step( void );
 
    void addMember( const Bestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
+   void removeMember( const Bestiole & b ) { listeBestioles.remove(b); }
    int nbVoisins( const Bestiole & b );
+   void naissance(char* type);
+   void setSimulation(int nbBestiole, char* type);  
+   int getNbBestioles();
+   char* getType();
 
 };
 

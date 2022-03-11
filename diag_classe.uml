@@ -18,7 +18,7 @@ class Bestiole{
     - vitesse : double
     - T : *couleur 
     - estMultiple : bool
-    - bouge( int xLim, int yLim )
+    + bouge( int xLim, int yLim )
     + Bestiole(void)
     + Bestiole(const Bestiole & b)
     + ~Bestiole(void)

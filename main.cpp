@@ -9,10 +9,9 @@ using namespace std;
 int main(int argc, char** argv)
 {
    Aquarium       ecosysteme( 1920, 1080, 10 );
-   int nbBestioles =  std::atoi(argv[1]);
-   char* type = argv[2];
-    for ( int i = 1; i <=nbBestioles; ++i )
-      ecosysteme.getMilieu().addMember( Bestiole(type) );
+   ecosysteme.getMilieu().setSimulation(std::atoi(argv[1]), argv[2]);
+    for ( int i = 1; i <=ecosysteme.getMilieu().getNbBestioles(); ++i )
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu().getType()) );
    ecosysteme.run();
 
    return 0;

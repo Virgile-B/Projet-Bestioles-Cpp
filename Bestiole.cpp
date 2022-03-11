@@ -37,6 +37,9 @@ Bestiole::Bestiole(const std::string comportement)
       comportement_multiple = true;
       randomComportement();
    }
+   if (comportement == "random"){
+      randomComportement();
+   }
 }
 Bestiole::Bestiole()
 {
