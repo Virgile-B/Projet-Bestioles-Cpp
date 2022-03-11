@@ -9,7 +9,7 @@ const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
 int               Bestiole::NB_COMPORTEMENT = 4;
-
+int               Bestiole::delta=3;
 Bestiole::Bestiole(const std::string comportement)
 {
 
@@ -19,7 +19,9 @@ Bestiole::Bestiole(const std::string comportement)
    comportement_multiple = false;
    x = y = 0;
    cumulX = cumulY = 0.;
+   vision = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
+   gamma = static_cast<double>( rand() )/RAND_MAX;
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
    if (comportement == "gregaire"){
       setComportement(0);
@@ -53,14 +55,17 @@ Bestiole::Bestiole()
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
    randomComportement();
+   vision = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
+   gamma = static_cast<double>( rand() )/RAND_MAX;
 }
 void Bestiole::setEsperanceVie(){
    this->esperanceVie = rand() % 100 + 1;
 }
 void Bestiole::meurt(Milieu & monMilieu){
    if( (rand() % 100+1) > 90) {
-      monMilieu.removeMember(*this);
+      //monMilieu.removeMember(*this);
       //delete(this);
+      return;
    }
 }
 bool Bestiole::changerComportement(){
@@ -110,6 +115,8 @@ Bestiole::Bestiole( const Bestiole & b )
    vitesse = b.vitesse;
    couleur = b.couleur;
    comportement_multiple = b.comportement_multiple;
+   vision = b.vision;
+   gamma = b.gamma;
 }
 
 
@@ -194,11 +201,11 @@ const bool Bestiole::estMultiple()
 }
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
-
-   double         dist;
-
-
-   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
-   return ( dist <= LIMITE_VUE );
-
+    // reste a comparer avec camouflage
+   cosinus = cos(vision/2);
+   sinus = sin(vision/2);
+    if (b.x < cosinus *x && b.y <sinus *y && cosinus < b.x/delta){
+        std::cout << "I see you" << std::endl;
+        return true;
+    }else{ return false;}
 }

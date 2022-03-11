@@ -26,12 +26,15 @@ private :
    static const double     LIMITE_VUE;
    static int              next;
    static int              NB_COMPORTEMENT;
+   static int              delta;
 
 private :
    int               identite;
    int               x, y;
    double            cumulX, cumulY;
    double            orientation;
+   double            vision;
+   double            gamma;
    double            vitesse;
    bool              comportement_multiple;
    T                 * couleur;
@@ -61,6 +64,7 @@ public :                                           // Forme canonique :
    void setComportement(int comprotement);
    void setEsperanceVie();
    void meurt(Milieu & monMilieu);
+
 
 };
 
