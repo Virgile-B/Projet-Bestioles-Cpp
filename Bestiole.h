@@ -3,17 +3,11 @@
 
 
 #include "UImg.h"
-
-#include  "Comportement.h"
-#include "ComportementGregaire.h"
-#include "ComportementKamikaze.h"
-#include "ComportementPrevoyante.h"
-#include "ComportementPeureuse.h"
 #include <iostream>
 
 using namespace std;
 
-
+class Comportement;
 class Milieu;
 
 
