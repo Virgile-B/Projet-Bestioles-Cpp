@@ -25,6 +25,7 @@ private :
    static const double     MAX_VITESSE;
    static const double     LIMITE_VUE;
    static int              next;
+   static int              NB_COMPORTEMENT;
 
 private :
    int               identite;
@@ -33,10 +34,10 @@ private :
    double            orientation;
    double            vitesse;
    bool              comportement_multiple;
-   int               timer;
    T                 * couleur;
-   time_t            last_change;   
    Comportement      * comportement;
+   int               esperanceVie;
+
 
 private :
    void bouge( int xLim, int yLim );
@@ -44,6 +45,7 @@ private :
 public :                                           // Forme canonique :
    Bestiole(const std::string comportement);                               // Constructeur par defaut
    Bestiole( const Bestiole & b );                 // Constructeur de copies
+   Bestiole();
    ~Bestiole( void )=default;                              // Destructeur
                                                    // Operateur d'affectation binaire par defaut
    void action( Milieu & monMilieu );
@@ -55,8 +57,10 @@ public :                                           // Forme canonique :
    const bool estMultiple();
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
    void randomComportement();
-   bool changerComportement(time_t curr);
+   bool changerComportement();
    void setComportement(int comprotement);
+   void setEsperanceVie();
+   void meurt(Milieu & monMilieu);
 
 };
 
