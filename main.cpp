@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-   Aquarium       ecosysteme( 1920, 1080, 10 );
+   Aquarium       ecosysteme( 500, 500, 30 );
    ecosysteme.getMilieu().setSimulation(std::atoi(argv[1]), argv[2]);
     for ( int i = 1; i <=ecosysteme.getMilieu().getNbBestioles(); ++i ){
         std::cout<< "first iteration" << std::endl;

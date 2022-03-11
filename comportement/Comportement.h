@@ -7,7 +7,9 @@
 
 #include "../UImg.h"
 #include "../Milieu.h"
-#include "../Bestiole.h"
+
+class Bestiole;
+
 /*
  * Interface Comportement
 */

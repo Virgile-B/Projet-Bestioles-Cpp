@@ -3,6 +3,12 @@
 #include <cstdlib>
 #include <cmath>
 
+#include "Comportement.h"
+#include "ComportementGregaire.h"
+#include "ComportementKamikaze.h"
+#include "ComportementPeureuse.h"
+#include "ComportementPrevoyante.h"
+
 
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
@@ -110,6 +116,8 @@ Bestiole::Bestiole( const Bestiole & b )
    vitesse = b.vitesse;
    couleur = b.couleur;
    comportement_multiple = b.comportement_multiple;
+   esperanceVie = b.esperanceVie;
+   comportement = b.comportement;
 }
 
 
