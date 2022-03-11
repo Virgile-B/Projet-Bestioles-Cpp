@@ -61,6 +61,8 @@ public :                                           // Forme canonique :
    void setComportement(int comprotement);
    void setEsperanceVie();
    void meurt(Milieu & monMilieu);
+   double get_orientation();
+   void set_orientation(double orientation);
 
 };
 

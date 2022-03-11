@@ -35,7 +35,7 @@ public :
 
    void addMember( const Bestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
    void removeMember( const Bestiole & b ) { listeBestioles.remove(b); }
-   int nbVoisins( const Bestiole & b );
+   std::vector<Bestiole> Voisins( const Bestiole & b);
    void naissance(char* type);
    void setSimulation(int nbBestiole, char* type);  
    int getNbBestioles();
