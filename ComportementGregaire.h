@@ -13,9 +13,6 @@
 class ComportementGregaire : public Comportement {
     static ComportementGregaire *comportement_gregaire;  // Pointer to the singleton
     ComportementGregaire();
-
-    int *couleur;
-
 public:
 
     /*
@@ -27,7 +24,7 @@ public:
         return comportement_gregaire;
     }
 
-    int *get_couleur();
+    T *get_couleur();
 
     void action() {};
 };

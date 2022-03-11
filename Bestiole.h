@@ -24,7 +24,6 @@ private :
    static const double     AFF_SIZE;
    static const double     MAX_VITESSE;
    static const double     LIMITE_VUE;
-
    static int              next;
 
 private :
@@ -34,9 +33,10 @@ private :
    double            orientation;
    double            vitesse;
    bool              comportement_multiple;
-   int               * couleur;
-   time_t            last_change;
    int               timer;
+   T                 * couleur;
+   time_t            last_change;   
+   Comportement      * comportement;
 
 private :
    void bouge( int xLim, int yLim );
@@ -52,11 +52,12 @@ public :                                           // Forme canonique :
    bool jeTeVois( const Bestiole & b ) const;
 
    void initCoords( int xLim, int yLim );
-   bool estMultiple(const Bestiole b);
+   const bool estMultiple();
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
    void randomComportement();
    bool changerComportement(time_t curr);
    void setComportement(int comprotement);
+
 };
 
 

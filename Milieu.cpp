@@ -16,7 +16,6 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
 
 }
 
-
 void Milieu::step( void )
 {
 
@@ -26,21 +25,6 @@ void Milieu::step( void )
 
       it->action( *this );
       it->draw( *this );
-      if(it->estMultiple(*it)){
-         it->changerComportement(time(NULL));     
-      }
-
-   } 
-
-}
-
-void Milieu::comportement( void )
-{
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-   {
-      if(it->estMultiple(*it)){
-         it->changerComportement(time(NULL));     
-      }
    } 
 
 }

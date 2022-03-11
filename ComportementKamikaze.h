@@ -14,8 +14,6 @@ class ComportementKamikaze : public Comportement {
     static ComportementKamikaze *comportement_kamikaze;  // Pointer to the singleton
     ComportementKamikaze();
 
-    int *couleur;
-
 public:
 
     /*
@@ -27,7 +25,7 @@ public:
         return comportement_kamikaze;
     }
 
-    int *get_couleur();
+    T *get_couleur();
 
     void action() {};
 };

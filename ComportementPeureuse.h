@@ -13,9 +13,6 @@
 class ComportementPeureuse : public Comportement {
     static ComportementPeureuse *comportement_peureuse;  // Pointer to the singleton
     ComportementPeureuse();
-
-    int *couleur;
-
 public:
 
     /*
@@ -27,7 +24,7 @@ public:
         return comportement_peureuse;
     }
 
-    int *get_couleur();
+    T *get_couleur();
 
     void action() {};
 };

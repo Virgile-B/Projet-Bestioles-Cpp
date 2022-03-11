@@ -4,14 +4,15 @@
 
 #ifndef PROJET_BESTIOLES_COMPORTEMENT_H
 #define PROJET_BESTIOLES_COMPORTEMENT_H
-
+#include "UImg.h"
 /*
  * Interface Comportement
 */
 class Comportement {
 public:
-    int               * couleur;
+    T              * couleur;
     virtual void action() = 0;
+    virtual T * get_couleur() = 0;
 };
 
 

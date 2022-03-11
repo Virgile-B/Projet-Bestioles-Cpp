@@ -31,7 +31,6 @@ public :
    int getHeight( void ) const { return height; };
 
    void step( void );
-   void comportement ( void );
 
    void addMember( const Bestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
    int nbVoisins( const Bestiole & b );

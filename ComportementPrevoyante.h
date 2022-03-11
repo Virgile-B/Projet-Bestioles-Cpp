@@ -14,7 +14,6 @@ class ComportementPrevoyante : public Comportement {
     static ComportementPrevoyante *comportement_prevoyante;  // Pointer to the singleton
     ComportementPrevoyante();
 
-    int *couleur;
 
 public:
 
@@ -27,7 +26,7 @@ public:
         return comportement_prevoyante;
     }
 
-    int *get_couleur();
+    T *get_couleur();
 
     void action() {};
 };

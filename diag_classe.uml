@@ -17,6 +17,7 @@ class Bestiole{
     - orientation : double
     - vitesse : double
     - T : *couleur 
+    - estMultiple : bool
     - bouge( int xLim, int yLim )
     + Bestiole(void)
     + Bestiole(const Bestiole & b)
@@ -25,6 +26,9 @@ class Bestiole{
     + action( Milieu & monMilieu )
     + draw( UImg & support )
     + jeTeVois( const Bestiole & b ) const
+    + setComportement( int comportement) : void
+    + randomComportement() : void
+    + changerComportement(time_t curr) : bool
 }
 class Milieu{
 	- white[]: const T
@@ -64,9 +68,7 @@ class Peureuse{
 class Prevoyante{
     
 }
-class Multiple{
 
-}
 abstract class Accessoires{
     + accessoire()
 }
@@ -82,11 +84,10 @@ Milieu "1" <-l- "1" Aquarium : environement
 Milieu "1" o-r-> "0..n" Bestiole : bestioles
 
 /'Definition liens comportement'/
-Kamikaze -u-|> Comportement
-Peureuse -u-|> Comportement
-Gregaire -u-|> Comportement
-Multiple -u-|> Comportement
-Prevoyante -u-|> Comportement
+Kamikaze -u- Comportement
+Peureuse -u- Comportement
+Gregaire -u- Comportement
+Prevoyante -u- Comportement
 
 /' Definition liens capteurs '/
 Yeux -u-|> Capteurs
@@ -98,8 +99,20 @@ Camouflage -u-|> Accessoires
 Carapace -u-|> Accessoires
 
 /' Definition liens vers bestioles '/
-Accessoires "0..*" -u- "0..*" Bestiole : accessoires
-Comportement "1"-u- "0..*" Bestiole : comportement
-Capteurs "0..*"-u-  "0..*" Bestiole : capteurs
+Accessoires "0..*" -u-* "0..*" Bestiole : accessoires
+Comportement "1"-u* "0..*" Bestiole : comportement
+Capteurs "0..*"-u*  "0..*" Bestiole : capteurs
 
-@enduml
+/' Lien entre les types  '/
+Kamikaze -- Bestiole
+Gregaire -- Bestiole
+Peureuse -- Bestiole
+Prevoyante -- Bestiole
+
+Nageoire -- Bestiole
+Carapace -- Bestiole
+Camouflage -- Bestiole 
+
+Yeux -- Bestiole
+Oreilles -- Bestiole
+@enduml 

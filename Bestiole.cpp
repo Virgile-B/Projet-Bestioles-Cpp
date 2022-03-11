@@ -7,7 +7,6 @@
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
-
 int               Bestiole::next = 0;
 
 
@@ -17,36 +16,36 @@ Bestiole::Bestiole(const std::string comportement)
    identite = ++next;
 
    cout << "const Bestiole (" << identite << ") par defaut" << endl;
-
+   comportement_multiple = false;
    x = y = 0;
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
    if (comportement == "gregaire"){
-       comportement_multiple = false;
-       couleur = ComportementGregaire::get_gregaire()->get_couleur();
+      this->comportement = ComportementGregaire::get_gregaire();
+      couleur = this->comportement->get_couleur();
    }
    if (comportement == "kamikaze"){
-       comportement_multiple = false;
-       couleur = ComportementKamikaze::get_kamikaze()->get_couleur();
+      this->comportement = ComportementKamikaze::get_kamikaze();
+      couleur = this->comportement->get_couleur();
    }
    if (comportement == "peureuse"){
-       comportement_multiple = false;
-       couleur = ComportementPeureuse::get_peureuse()->get_couleur();
+      this->comportement = ComportementPeureuse::get_peureuse();
+      couleur = this->comportement->get_couleur();
    }
    if (comportement == "prevoyante"){
-      comportement_multiple = false;
-      couleur = ComportementPrevoyante::get_prevoyante()->get_couleur();
+      this->comportement = ComportementPrevoyante::get_prevoyante();
+      couleur = this->comportement->get_couleur();
    }
    if (comportement == "multiple"){
       // lance un timer pour l'état courrant
       comportement_multiple = true;
-      timer = 10;
-      setComportement(0);
+      randomComportement();
    }
 }
 bool Bestiole::changerComportement(time_t curr){
-   if( int(difftime(curr, last_change)) > timer) {
+   std::cout << timer;
+   if( difftime(curr, last_change) > timer) {
       randomComportement();
    }
 }
@@ -54,7 +53,7 @@ void Bestiole::randomComportement(){
    int num_type;
    int nb_comportement = 4;
    last_change = time(NULL);
-   num_type = (rand() % static_cast<int>(nb_comportement+1));
+   num_type = (rand() % nb_comportement+1);
    setComportement(num_type);
 }
 void Bestiole::setComportement(int comportement)
@@ -142,11 +141,12 @@ void Bestiole::bouge( int xLim, int yLim )
 
 void Bestiole::action( Milieu & monMilieu )
 {
-
+   if (this->estMultiple()){
+      this->changerComportement(time(NULL));
+   }
    bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 
 }
-
 
 void Bestiole::draw( UImg & support )
 {
@@ -168,9 +168,9 @@ bool operator==( const Bestiole & b1, const Bestiole & b2 )
 
 }
 
-bool Bestiole::estMultiple(const Bestiole b)
+const bool Bestiole::estMultiple()
 {
-   return b.comportement_multiple;
+   return comportement_multiple;
 }
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
