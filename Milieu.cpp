@@ -22,11 +22,11 @@ void Milieu::step(void) {
     for (std::list<Bestiole>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
         it->action(*this);
         it->draw(*this);
-        for (std::vector<Bestiole>::iterator it2 = listeBestioles.begin(); it2 != listeBestioles.end(); ++it2) {
+        for (std::list<Bestiole>::iterator it2 = listeBestioles.begin(); it2 != listeBestioles.end(); ++it2) {
             it->jeTeVois(*it2);
+            it->jeTentends(*it2);
         }
     }
-
 }
 
 int Milieu::nbVoisins(const Bestiole &b) {
