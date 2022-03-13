@@ -12,9 +12,7 @@ int               Bestiole::NB_COMPORTEMENT = 5;
 
 Bestiole::Bestiole(const std::string comportement)
 {
-
    identite = ++next;
-
    cout << "const Bestiole (" << identite << ") par defaut" << endl;
    comportement_multiple = false;
    x = y = 0;
@@ -53,10 +51,11 @@ Bestiole::Bestiole()
    randomComportement();
 }
 
-void Bestiole::meurt(Milieu & monMilieu, int nbBestioles){
+bool Bestiole::meurt(){
    if( (rand() % 100+1) > 99 ) {
-      monMilieu.removeMember(*this);
+     return true;
    }
+   return false;
 }
 void Bestiole::changerComportement(){
    if( (rand() % 100+1) > 90) {
@@ -160,9 +159,6 @@ void Bestiole::action( Milieu & monMilieu )
       this->changerComportement();
    }
    bouge( monMilieu.getWidth(), monMilieu.getHeight());
-
-   this->meurt(monMilieu, monMilieu.getNbBestioles());
-
 }
 
 void Bestiole::draw( UImg & support )

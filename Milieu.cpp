@@ -18,13 +18,23 @@ void Milieu::step( void )
 {
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    this->naissance(this->type);
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   if(listeBestioles.size()!=0)
    {
-      it->action( *this );
-      if(listeBestioles.size()==0){break;};
-      it->draw( *this );
+      for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+      {
+         if(it->meurt())
+         {
+            removeMember(*it);
+         }
+         else
+         {
+            it->action( *this );
+            it->draw( *this );
+         }
+      }
+      nbBestioles = listeBestioles.size();
    } 
-   nbBestioles = listeBestioles.size();
+      
 }
 
 int Milieu::nbVoisins( const Bestiole & b )
@@ -43,24 +53,25 @@ int Milieu::nbVoisins( const Bestiole & b )
 
 void Milieu::naissance(char* type)
 {
-   if(type == "random")
-   {
-      if( (std::rand() % 100+1) > (100 - PROBA_NAIS)){
-        addMember(Bestiole());
+   if(strcmp(type, "random") == 0)   {
+      if( (std::rand() % 100+1) < PROBA_NAIS){
+          std::cout<< "second iteration random"<< std::endl;
+          addMember(Bestiole());
       }
    }
    else 
-   {  if((std::rand() % 100+1) > (100 - PROBA_NAIS))
-      {
-         addMember(Bestiole(type));
-      }
+   {
+       if( (std::rand() % 100+1) < PROBA_NAIS){
+           std::cout<< "second iteration not random"<< std::endl;
+           addMember(Bestiole(type));
+       }
    }
    nbBestioles = listeBestioles.size();
 }
 void Milieu::removeMember(Bestiole & b)
 {
-   //listeBestioles.erase(std::remove(listeBestioles.begin(), listeBestioles.end(), b), listeBestioles.end());
-   std::remove(listeBestioles.begin(), listeBestioles.end(), b);
+   listeBestioles.erase(std::remove(listeBestioles.begin(), listeBestioles.end(), b), listeBestioles.end());
+   //std::remove(listeBestioles.begin(), listeBestioles.end(), b);
 }
 
 void Milieu::setSimulation(int nbBestioles, char* type)
