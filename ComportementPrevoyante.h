@@ -29,6 +29,7 @@ public:
     T *get_couleur();
 
     void action() {};
+    ~ComportementPrevoyante();
 };
 
 

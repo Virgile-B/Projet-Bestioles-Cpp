@@ -19,7 +19,7 @@ private :
    static const T          white[];
 
    int                     width, height;
-   std::list<Bestiole>   listeBestioles;
+   std::vector<Bestiole>   listeBestioles;
    static const int        PROBA_NAIS;
    char* type;
    int nbBestioles;
@@ -33,9 +33,9 @@ public :
 
    void step( void );
 
-   void addMember( const Bestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
-   void removeMember( const Bestiole & b ) { listeBestioles.remove(b); }
-   int nbVoisins( const Bestiole & b );
+   void addMember( const Bestiole & b ) { listeBestioles.push_back(b); }
+   void removeMember( Bestiole & b );
+   int  nbVoisins( const Bestiole & b );
    void naissance(char* type);
    void setSimulation(int nbBestiole, char* type);  
    int getNbBestioles();

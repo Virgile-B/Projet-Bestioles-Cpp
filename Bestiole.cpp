@@ -8,7 +8,7 @@ const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
-int               Bestiole::NB_COMPORTEMENT = 4;
+int               Bestiole::NB_COMPORTEMENT = 5;
 
 Bestiole::Bestiole(const std::string comportement)
 {
@@ -43,9 +43,7 @@ Bestiole::Bestiole(const std::string comportement)
 }
 Bestiole::Bestiole()
 {
-
    identite = ++next;
-
    cout << "const Bestiole (" << identite << ") par defaut" << endl;
    comportement_multiple = false;
    x = y = 0;
@@ -54,16 +52,13 @@ Bestiole::Bestiole()
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
    randomComportement();
 }
-void Bestiole::setEsperanceVie(){
-   this->esperanceVie = rand() % 100 + 1;
-}
-void Bestiole::meurt(Milieu & monMilieu){
-   if( (rand() % 100+1) > 90) {
+
+void Bestiole::meurt(Milieu & monMilieu, int nbBestioles){
+   if( (rand() % 100+1) > 99 ) {
       monMilieu.removeMember(*this);
-      //delete(this);
    }
 }
-bool Bestiole::changerComportement(){
+void Bestiole::changerComportement(){
    if( (rand() % 100+1) > 90) {
       randomComportement();
    }
@@ -77,19 +72,21 @@ void Bestiole::setComportement(int comportement)
    {
    case 0:
       this->comportement = ComportementGregaire::get_gregaire();
-      this->couleur = this->comportement->get_couleur();
       break;
    case 1:
       this->comportement = ComportementKamikaze::get_kamikaze();
-      this->couleur = this->comportement->get_couleur();
       break;         
    case 2:
       this->comportement = ComportementPeureuse::get_peureuse();
-      this->couleur = this->comportement->get_couleur();
       break;            
    case 3:
       this->comportement = ComportementPrevoyante::get_prevoyante();
-      this->couleur = this->comportement->get_couleur();;
+      break;
+   case 4:
+      if (!this->estMultiple()){
+         this->comportement_multiple = true;
+         randomComportement();
+      }
       break;
    default :
       randomComportement();
@@ -98,18 +95,17 @@ void Bestiole::setComportement(int comportement)
 }
 Bestiole::Bestiole( const Bestiole & b )
 {
-
-   identite = ++next;
-
+   Bestiole bestiole = Bestiole();
+   identite = b.identite;
    cout << "const Bestiole (" << identite << ") par copie" << endl;
-
    x = b.x;
    y = b.y;
-   cumulX = cumulY = 0.;
+   cumulX = b.cumulX;
+   cumulY = b.cumulY;
    orientation = b.orientation;
    vitesse = b.vitesse;
-   couleur = b.couleur;
    comportement_multiple = b.comportement_multiple;
+   comportement = b.comportement;
 }
 
 
@@ -160,11 +156,12 @@ void Bestiole::bouge( int xLim, int yLim )
 
 void Bestiole::action( Milieu & monMilieu )
 {
-   //this->meurt(monMilieu);
    if (this->estMultiple()){
       this->changerComportement();
    }
-   bouge( monMilieu.getWidth(), monMilieu.getHeight() );
+   bouge( monMilieu.getWidth(), monMilieu.getHeight());
+
+   this->meurt(monMilieu, monMilieu.getNbBestioles());
 
 }
 
@@ -174,9 +171,8 @@ void Bestiole::draw( UImg & support )
    double         xt = x + cos( orientation )*AFF_SIZE/2.1;
    double         yt = y - sin( orientation )*AFF_SIZE/2.1;
 
-
-   support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
-   support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
+   support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., this->comportement->get_couleur() );
+   support.draw_circle( xt, yt, AFF_SIZE/2., this->comportement->get_couleur() );
 
 }
 
@@ -187,6 +183,22 @@ bool operator==( const Bestiole & b1, const Bestiole & b2 )
    return ( b1.identite == b2.identite );
 
 }
+Bestiole& Bestiole::operator=(const Bestiole& b){
+   if (this == &b)
+   {
+      return *this;
+   }
+   this->identite = b.identite;
+   this->x = b.x;
+   this->y = b.y;
+   this->cumulX = b.cumulX;
+   this->cumulY = b.cumulY;
+   this->orientation = b.orientation;
+   this->vitesse = b.vitesse;
+   this->comportement_multiple = b.comportement_multiple;
+   this->comportement = b.comportement;
+   return *this;
+}
 
 const bool Bestiole::estMultiple()
 {
@@ -196,8 +208,6 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
 
    double         dist;
-
-
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
    return ( dist <= LIMITE_VUE );
 

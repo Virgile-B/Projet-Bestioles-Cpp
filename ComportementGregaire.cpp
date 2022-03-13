@@ -8,7 +8,7 @@
 ComportementGregaire *ComportementGregaire::comportement_gregaire = nullptr;  // Instantiating the Pointer to the singleton
 
 T* ComportementGregaire::get_couleur(){
-    return ComportementGregaire::get_gregaire()->couleur;
+    return couleur;
 }
 
 ComportementGregaire::ComportementGregaire(void){
@@ -16,4 +16,8 @@ ComportementGregaire::ComportementGregaire(void){
     couleur[ 0 ] = 0;
     couleur[ 1 ] = 255;
     couleur[ 2 ] = 0;
+}
+
+ComportementGregaire::~ComportementGregaire(){
+    delete[] couleur;
 }
