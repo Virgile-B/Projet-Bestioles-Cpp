@@ -6,8 +6,8 @@
 #define PROJET_BESTIOLES_COMPORTEMENT_GREGAIRE_H
 
 #include  "Comportement.h"
-#include "Milieu.h"
-#include "Bestiole.h"
+#include "../Milieu.h"
+#include "../Bestiole.h"
 
 /*
  * Singleton class ComportementGrégaire
