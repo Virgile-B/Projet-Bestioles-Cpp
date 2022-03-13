@@ -44,15 +44,19 @@ int Milieu::nbVoisins( const Bestiole & b )
 
 void Milieu::naissance(char* type)
 {
-   if(type == "random")
-   {
-      if( (std::rand() % 100+1) > PROBA_NAIS){
-        addMember(Bestiole());
+
+   if(strcmp(type, "random") == 0)   {
+      if( (std::rand() % 100+1) < PROBA_NAIS){
+          std::cout<< "second iteration random"<< std::endl;
+          addMember(Bestiole());
       }
    }
    else 
    {
-      addMember(Bestiole(type));
+       if( (std::rand() % 100+1) < PROBA_NAIS){
+           std::cout<< "second iteration not random"<< std::endl;
+           addMember(Bestiole(type));
+       }
    }
 }
 

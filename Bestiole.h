@@ -4,11 +4,11 @@
 
 #include "UImg.h"
 
-#include  "Comportement.h"
-#include "ComportementGregaire.h"
-#include "ComportementKamikaze.h"
-#include "ComportementPrevoyante.h"
-#include "ComportementPeureuse.h"
+#include  "comportement/Comportement.h"
+#include "comportement/ComportementGregaire.h"
+#include "comportement/ComportementKamikaze.h"
+#include "comportement/ComportementPrevoyante.h"
+#include "comportement/ComportementPeureuse.h"
 #include <iostream>
 
 using namespace std;
