@@ -202,8 +202,8 @@ const bool Bestiole::estMultiple()
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
     // reste a comparer avec camouflage
-   cosinus = cos(vision/2);
-   sinus = sin(vision/2);
+   double cosinus = cos(vision/2);
+   double sinus = sin(vision/2);
     if (b.x < cosinus *x && b.y <sinus *y && cosinus < b.x/delta){
         std::cout << "I see you" << std::endl;
         return true;
