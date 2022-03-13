@@ -5,8 +5,8 @@
 #ifndef PROJET_BESTIOLES_COMPORTEMENT_H
 #define PROJET_BESTIOLES_COMPORTEMENT_H
 
-#include "UImg.h"
-#include "Milieu.h"
+#include "../UImg.h"
+#include "../Milieu.h"
 
 class Bestiole;
 

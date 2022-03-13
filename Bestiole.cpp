@@ -3,11 +3,11 @@
 #include <cstdlib>
 #include <cmath>
 
-#include "Comportement.h"
-#include "ComportementGregaire.h"
-#include "ComportementKamikaze.h"
-#include "ComportementPeureuse.h"
-#include "ComportementPrevoyante.h"
+#include "comportement/Comportement.h"
+#include "comportement/ComportementGregaire.h"
+#include "comportement/ComportementKamikaze.h"
+#include "comportement/ComportementPeureuse.h"
+#include "comportement/ComportementPrevoyante.h"
 
 
 const double      Bestiole::AFF_SIZE = 8.;

@@ -10,20 +10,20 @@ Bestiole.o : Bestiole.h Bestiole.cpp
 Milieu.o : Milieu.h Milieu.cpp
 	g++ -Wall -std=c++11  -c Milieu.cpp -I .
 
-Comportement.o : Comportement.h Comportement.cpp
-	g++ -Wall -std=c++11  -c Comportement.cpp -I .
+Comportement.o : comportement/Comportement.h comportement/Comportement.cpp
+	g++ -Wall -std=c++11  -c comportement/Comportement.cpp -I .
 
-ComportementGregaire.o : ComportementGregaire.h ComportementGregaire.cpp
-	g++ -Wall -std=c++11  -c ComportementGregaire.cpp -I .
+ComportementGregaire.o : comportement/ComportementGregaire.h comportement/ComportementGregaire.cpp
+	g++ -Wall -std=c++11  -c comportement/ComportementGregaire.cpp -I .
 
-ComportementKamikaze.o : ComportementKamikaze.h ComportementKamikaze.cpp
-	g++ -Wall -std=c++11  -c ComportementKamikaze.cpp -I .
+ComportementKamikaze.o : comportement/ComportementKamikaze.h comportement/ComportementKamikaze.cpp
+	g++ -Wall -std=c++11  -c comportement/ComportementKamikaze.cpp -I .
 
-ComportementPeureuse.o : ComportementPeureuse.h ComportementPeureuse.cpp
-	g++ -Wall -std=c++11  -c ComportementPeureuse.cpp -I .
+ComportementPeureuse.o : comportement/ComportementPeureuse.h comportement/ComportementPeureuse.cpp
+	g++ -Wall -std=c++11  -c comportement/ComportementPeureuse.cpp -I .
 
-ComportementPrevoyante.o : ComportementPrevoyante.h ComportementPrevoyante.cpp
-	g++ -Wall -std=c++11  -c ComportementPrevoyante.cpp -I .
+ComportementPrevoyante.o : comportement/ComportementPrevoyante.h comportement/ComportementPrevoyante.cpp
+	g++ -Wall -std=c++11  -c comportement/ComportementPrevoyante.cpp -I .
 
 clean:
 	rm -rf *.o main
