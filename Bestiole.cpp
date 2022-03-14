@@ -84,8 +84,8 @@ void Bestiole::setComportement(int comportement) {
         case 4:
             if (!this->estMultiple()) {
                 this->comportement_multiple = true;
-                randomComportement();
             }
+            randomComportement();
             break;
         default :
             randomComportement();
