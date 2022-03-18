@@ -78,6 +78,10 @@ public :                                           // Forme canonique :
 
     void meurt(Milieu &monMilieu);
 
+    void draw_oreilles( UImg & support );
+
+    void draw_yeux( UImg & support );
+
 
 };
 

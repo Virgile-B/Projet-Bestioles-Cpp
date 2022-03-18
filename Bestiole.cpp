@@ -90,16 +90,6 @@ Bestiole::Bestiole() {
     delta_yeux = RandomValues(global_delta_yeux_min, global_delta_yeux_max);
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
     std::cout << gamma_yeux << std::endl;
-    /*
-    gamma_yeux = Milieu::gamma_yeux_min +
-                 (static_cast<double>(rand()) % (Milieu::gamma_yeux_max - Milieu::gamma_yeux_min + 1));
-    gamma_ouie = Milieu::gamma_ouie_min +
-                 (static_cast<double>(rand()) % (Milieu::gamma_ouie_max - Milieu::gamma_ouie_min + 1));
-    delta_yeux = Milieu::delta_yeux_min +
-                 (static_cast<double>(rand()) % (Milieu::delta_yeux_max - Milieu::delta_yeux_min + 1));
-    delta_ouie = Milieu::delta_ouie_min +
-                 (static_cast<double>(rand()) % (Milieu::delta_ouie_max - Milieu::delta_ouie_min + 1));
-                 */
 }
 
 void Bestiole::setEsperanceVie() {
@@ -245,12 +235,21 @@ const bool Bestiole::estMultiple() {
 }
 
 bool Bestiole::jeTeVois(const Bestiole &b) const {
-    std::cout << "je te vois" << std::endl;
+    cout << "orientation : "<< orientation << endl;
+    cout << "identité : "<< identite<< " x: "<< x << endl;
+    cout << "identité : "<< identite<< " y: "<<y << endl;
     // reste a comparer avec camouflage
-    double cosinus = cos(vision / 2);
-    double sinus = sin(vision / 2);
-    if (b.x < cosinus * x && b.y < sinus * y && cosinus < (b.x / delta_yeux)) { //Faut rajouter aussi le gamma
-        std::cout << "I see you" << std::endl;
+    double cosinus = cos(orientation / 2);
+    double sinus = -sin(orientation / 2);
+    if ((0 <= (b.x-x) <= cosinus * delta_yeux) && (0 <= (b.y-y) <= sinus * delta_yeux) && identite != b.identite) { //Faut rajouter aussi le gamma
+
+        cout << "identité : "<< b.identite<< "b.x : "<< b.x << endl;
+        cout << "identité : "<< b.identite<< "b.y : "<< b.y << endl;
+        cout << "identité : "<< identite<< " x: "<< x << endl;
+        cout << "identité : "<< identite<< " y: "<<y << endl;
+        cout << "cosinus * delta_yeux : "<< cosinus * delta_yeux << endl;
+        cout << "vision : "<< vision << endl;
+        //std::cout << "I see you" << std::endl;
         return true;
     } else { return false; }
 }
@@ -259,7 +258,56 @@ bool Bestiole::jeTeVois(const Bestiole &b) const {
 bool Bestiole::jeTentends(const Bestiole &b) const {
     double dist = std::sqrt((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
     if (dist <= delta_ouie) {
-        std::cout << "I hear you" << std::endl;
+    //    std::cout << "I hear you" << std::endl;
         return true;
     } else { return false; }
+}
+
+void Bestiole::draw_oreilles( UImg & support )//dessiner les oreilles
+{
+    extern double global_delta_ouie_min;
+    extern double global_delta_ouie_max;
+    double xt = x + delta*cos(orientation) * AFF_SIZE / 2;
+    double yt = y - 50*sin(orientation) * AFF_SIZE / 2;
+    std::cout << "vision" << vision<< std:: endl;
+    vision = 0.5;
+    double xx = x+delta_ouie*cos(orientation + vision/2);
+    double xx2 = x+delta*cos(orientation - vision/2);
+    double yy = y -50*sin(orientation+vision/2);
+    double yy2 = y -50*sin(orientation-vision/2);
+
+
+    double rayon_oreilles= (AFF_SIZE)*(delta_ouie/(global_delta_ouie_max-global_delta_ouie_min));
+    //support.draw_circle(xt+xd,yt+yd,rayon_oreilles,couleur);
+    //support.draw_circle(xt-xd,yt-yd,rayon_oreilles,couleur);
+    support.draw_line(x, y, xx,yy, couleur );
+    support.draw_line(x, y, xx2,yy2, couleur );
+    //support.draw_line(x, y, x+50*cos(-orientation / M_PI * 180.),y+50*sin(-orientation / M_PI * 180.), couleur );
+    support.draw_circle(xt-xd,yt-yd,delta_ouie, couleur, 0.5);
+}
+
+
+void Bestiole::draw_yeux( UImg & support )
+{
+    extern double global_delta_yeux_min;
+    extern double global_delta_yeux_max;
+    double xt_av = x + cos(-orientation / M_PI * 180.) * AFF_SIZE; // posiion avant
+    double yt_av = y - sin(-orientation / M_PI * 180.) * AFF_SIZE;
+  //  double xx = -sin(-orientation / M_PI * 180.)*AFF_SIZE/3.5;
+  //  double yy = cos(-orientation / M_PI * 180.)*AFF_SIZE/3.5;
+
+    double xx = x+delta_yeux*cos(orientation + vision/2);
+    double xx2 = x+delta_yeux*cos(orientation - vision/2);
+    double yy = y -delta_yeux*sin(orientation+vision/2);
+    double yy2 = y -delta_yeux*sin(orientation-vision/2);
+
+    double cosinus1 = cos(-orientation / M_PI * 180. / 2);
+    double sinus1 = -sin(-orientation / M_PI * 180. / 2);
+    double cosinus2 = cos(orientation / M_PI * 180. / 2);
+    double sinus2 = -sin(orientation / M_PI * 180. / 2);
+    support.draw_circle(xt_av+xx,yt_av+yy,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),couleur);//cercle des oreilles
+    support.draw_circle(xt_av-xx,yt_av-yy,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),couleur);//cercle des oreilles
+  //  support.draw_triangle(xt_av-xx, yt_av-yy, xt_av-xx+cosinus1*delta_yeux, yt_av-yy*sinus1*delta_yeux, xt_av-xx+cosinus2*delta_yeux, yt_av-yy*sinus2*delta_yeux,  couleur, 0.5);
+  //  support.draw_triangle(xt_av-xx, yt_av-yy, xt_av-xx+cosinus1*delta_yeux, yt_av-yy*sinus1*delta_yeux, xt_av-xx+cosinus2*delta_yeux, yt_av-yy*sinus2*delta_yeux,  couleur, 0.5);
+
 }
