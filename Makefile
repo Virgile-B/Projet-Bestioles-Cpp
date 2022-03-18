@@ -26,6 +26,6 @@ ComportementPrevoyante.o : src/comportement/ComportementPrevoyante.h src/comport
 	g++ -Wall -std=c++11  -c src/comportement/ComportementPrevoyante.cpp -o bin/ComportementPrevoyante.o -I .
 
 clean:
-	rm -rf bin/*.o bin/main
+	rm -rf bin/*.o bin/main *.o
 info:
 $(info $$DATA = $(DATA))
