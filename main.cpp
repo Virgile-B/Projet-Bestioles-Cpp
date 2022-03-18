@@ -8,10 +8,12 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-   Aquarium       ecosysteme( 500, 500, 60 );
+   Aquarium       ecosysteme( 500, 500, 30 );
    ecosysteme.getMilieu().setSimulation(std::atoi(argv[1]), argv[2]);
-    for ( int i = 1; i <=ecosysteme.getMilieu().getNbBestioles(); ++i )
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu().getType()) );
+    for ( int i = 1; i <=ecosysteme.getMilieu().getNbBestioles(); ++i ){
+        std::cout<< "first iteration" << std::endl;
+        ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu().getType()) );
+    }
    ecosysteme.run();
 
    return 0;
