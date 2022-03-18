@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <cmath>
 
-const double      Bestiole::AFF_SIZE = 8.;
+const double      Bestiole::AFF_SIZE = 20.;
 const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
@@ -267,12 +267,12 @@ void Bestiole::draw_oreilles( UImg & support )//dessiner les oreilles
 {
     extern double global_delta_ouie_min;
     extern double global_delta_ouie_max;
-    double xt = x + delta*cos(orientation) * AFF_SIZE / 2;
-    double yt = y - 50*sin(orientation) * AFF_SIZE / 2;
+    //double xt = x + delta*cos(orientation) * AFF_SIZE / 2;
+    //double yt = y - 50*sin(orientation) * AFF_SIZE / 2;
     std::cout << "vision" << vision<< std:: endl;
     vision = 0.5;
     double xx = x+delta_ouie*cos(orientation + vision/2);
-    double xx2 = x+delta*cos(orientation - vision/2);
+    double xx2 = x+delta_ouie*cos(orientation - vision/2);
     double yy = y -50*sin(orientation+vision/2);
     double yy2 = y -50*sin(orientation-vision/2);
 
@@ -283,7 +283,7 @@ void Bestiole::draw_oreilles( UImg & support )//dessiner les oreilles
     support.draw_line(x, y, xx,yy, couleur );
     support.draw_line(x, y, xx2,yy2, couleur );
     //support.draw_line(x, y, x+50*cos(-orientation / M_PI * 180.),y+50*sin(-orientation / M_PI * 180.), couleur );
-    support.draw_circle(xt-xd,yt-yd,delta_ouie, couleur, 0.5);
+    //support.draw_circle(xt-xd,yt-yd,delta_ouie, couleur, 0.5);
 }
 
 
@@ -291,8 +291,15 @@ void Bestiole::draw_yeux( UImg & support )
 {
     extern double global_delta_yeux_min;
     extern double global_delta_yeux_max;
-    double xt_av = x + cos(-orientation / M_PI * 180.) * AFF_SIZE; // posiion avant
-    double yt_av = y - sin(-orientation / M_PI * 180.) * AFF_SIZE;
+    double xt_av_pupille = x + cos(orientation-0.5 ) * AFF_SIZE/1.4;
+    double xt_av = x + cos(orientation-0.5 ) * AFF_SIZE/1.8;
+    double xt_av2_pupille = x + cos(orientation+0.5 ) * AFF_SIZE/1.4;
+    double xt_av2 = x + cos(orientation+0.5 ) * AFF_SIZE/1.8;
+    double yt_av = y - sin(orientation-0.5 ) * AFF_SIZE/1.8;
+    double yt_av_pupille = y - sin(orientation-0.5 ) * AFF_SIZE/1.8;
+    double yt_av2 = y - sin(orientation + 0.5 ) * AFF_SIZE/1.8;
+    double yt_av2_pupille = y - sin(orientation + 0.5 ) * AFF_SIZE/1.8;
+
   //  double xx = -sin(-orientation / M_PI * 180.)*AFF_SIZE/3.5;
   //  double yy = cos(-orientation / M_PI * 180.)*AFF_SIZE/3.5;
 
@@ -305,9 +312,23 @@ void Bestiole::draw_yeux( UImg & support )
     double sinus1 = -sin(-orientation / M_PI * 180. / 2);
     double cosinus2 = cos(orientation / M_PI * 180. / 2);
     double sinus2 = -sin(orientation / M_PI * 180. / 2);
-    support.draw_circle(xt_av+xx,yt_av+yy,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),couleur);//cercle des oreilles
-    support.draw_circle(xt_av-xx,yt_av-yy,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),couleur);//cercle des oreilles
-  //  support.draw_triangle(xt_av-xx, yt_av-yy, xt_av-xx+cosinus1*delta_yeux, yt_av-yy*sinus1*delta_yeux, xt_av-xx+cosinus2*delta_yeux, yt_av-yy*sinus2*delta_yeux,  couleur, 0.5);
-  //  support.draw_triangle(xt_av-xx, yt_av-yy, xt_av-xx+cosinus1*delta_yeux, yt_av-yy*sinus1*delta_yeux, xt_av-xx+cosinus2*delta_yeux, yt_av-yy*sinus2*delta_yeux,  couleur, 0.5);
+    int black[3];
+    black[0]=0;
+    black[1]=0;
+    black[2]=0;
+    int white[3];
+    white[0]=255;
+    white[1]=255;
+    white[2]=255;
+    support.draw_circle(xt_av,yt_av,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),white);//cercle des oreilles
+    support.draw_circle(xt_av2,yt_av2,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),white);//cercle des oreilles
+    support.draw_circle(xt_av_pupille,yt_av_pupille,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min)))*0.6,black);//cercle des oreilles
+    support.draw_circle(xt_av2_pupille,yt_av2_pupille,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min)))*0.6,black);//cercle des oreilles
+    support.draw_line(x, y, xx,yy, couleur );
+    support.draw_line(x, y, xx2,yy2, couleur );
+    //support.draw_circle(x,y,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),black);//cercle des oreilles
+    //support.draw_circle(xt_av-xx,yt_av-yy,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),couleur);//cercle des oreilles
+   // support.draw_triangle(x, y, xt_av-xx+cosinus1*delta_yeux, yt_av-yy*sinus1*delta_yeux, xt_av-xx+cosinus2*delta_yeux, yt_av-yy*sinus2*delta_yeux,  couleur, 0.5);
+   // support.draw_triangle(xt_av-xx, yt_av-yy, xt_av-xx+cosinus1*delta_yeux, yt_av-yy*sinus1*delta_yeux, xt_av-xx+cosinus2*delta_yeux, yt_av-yy*sinus2*delta_yeux,  couleur, 0.5);
 
 }
