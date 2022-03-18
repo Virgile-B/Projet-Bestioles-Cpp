@@ -67,13 +67,13 @@ public :                                           // Forme canonique :
 
     void randomComportement();
 
-    bool changerComportement();
+    void changerComportement();
 
     void setComportement(int comprotement);
 
     void setEsperanceVie();
 
-    void meurt(Milieu &monMilieu);
+    bool meurt();
 
     void draw_oreilles( UImg & support );
 

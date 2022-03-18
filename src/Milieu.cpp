@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
+
 const T    Milieu::white[] = {(T) 255, (T) 255, (T) 255};
 const int   Milieu::PROBA_NAIS = 10; // en %
 
@@ -17,6 +18,7 @@ void Milieu::step(void) {
     cimg_forXY(*this, x, y)
     fillC(x, y, 0, white[0], white[1], white[2]);
     this->naissance(this->type);
+    cout << "and now" << endl;
     if (listeBestioles.size() != 0) {
         for (std::vector<Bestiole>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
             if (it->meurt()) {
@@ -24,34 +26,38 @@ void Milieu::step(void) {
             } else {
                 it->action(*this);
                 it->draw(*this);
+                it->draw_oreilles(*this);
+                it->draw_yeux(*this);
             }
+            nbBestioles = listeBestioles.size();
         }
-        nbBestioles = listeBestioles.size();
     }
+    cout << "fin de step"<< endl;
 }
 
-int Milieu::nbVoisins(const Bestiole &b) {
-
+int Milieu::nbVoisins( const Bestiole & b ){
     int nb = 0;
-
-
-    for (std::vector<Bestiole>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it)
-        if (!(b == *it) && b.jeTeVois(*it))
+    for (std::vector<Bestiole>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it){
+        if ( !(b == *it) && b.jeTeVois(*it) ){
             ++nb;
-
+        }
+    }
     return nb;
-
 }
 
-void Milieu::naissance(char *type) {
-    if (strcmp(type, "random") == 0) {
-        if ((std::rand() % 100 + 1) < PROBA_NAIS) {
-            std::cout << "second iteration random" << std::endl;
+void Milieu::naissance(char* type)
+{
+
+    if(strcmp(type, "random") == 0)   {
+        if( (std::rand() % 100+1) < PROBA_NAIS){
+            std::cout<< "second iteration random"<< std::endl;
             addMember(Bestiole());
         }
-    } else {
-        if ((std::rand() % 100 + 1) < PROBA_NAIS) {
-            std::cout << "second iteration not random" << std::endl;
+    }
+    else
+    {
+        if( (std::rand() % 100+1) < PROBA_NAIS){
+            std::cout<< "second iteration not random"<< std::endl;
             addMember(Bestiole(type));
         }
     }
@@ -75,4 +81,3 @@ char *Milieu::getType() {
 int Milieu::getNbBestioles() {
     return this->nbBestioles;
 }
-
