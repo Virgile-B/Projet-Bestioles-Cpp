@@ -4,7 +4,7 @@
 #include <ctime>
 
 const T    Milieu::white[] = {(T) 255, (T) 255, (T) 255};
-const int   Milieu::PROBA_NAIS = 5; // en %
+const int   Milieu::PROBA_NAIS = 10; // en %
 
 Milieu::Milieu(int _width, int _height) : UImg(_width, _height, 1, 3),
                                           width(_width), height(_height) {
@@ -61,7 +61,6 @@ void Milieu::naissance(char *type) {
 void Milieu::removeMember(Bestiole &b) {
     std::remove(listeBestioles.begin(), listeBestioles.end(), b);
     b.Bestiole::~Bestiole();
-    //std::remove(listeBestioles.begin(), listeBestioles.end(), b);
 }
 
 void Milieu::setSimulation(int nbBestioles, char *type) {
