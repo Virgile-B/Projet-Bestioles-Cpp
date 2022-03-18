@@ -107,7 +107,7 @@ Bestiole::Bestiole( const Bestiole & b )
 
    identite = ++next;
 
-   //cout << "const Bestiole (" << identite << ") par copie" << endl;
+   cout << "const Bestiole (" << identite << ") par copie" << endl;
 
    x = b.x;
    y = b.y;

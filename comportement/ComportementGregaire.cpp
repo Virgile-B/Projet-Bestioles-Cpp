@@ -19,14 +19,13 @@ ComportementGregaire::ComportementGregaire(void){
 }
 
 void ComportementGregaire::action(Bestiole *actualBestiole, Milieu &monMilieu){
-    float dir_moy = 0;
-    std::cout << actualBestiole->get_orientation() << std::endl;
+    float dir_moy = actualBestiole->get_orientation();
     std::vector<Bestiole> mesVoisins = monMilieu.Voisins(*actualBestiole);
     if (mesVoisins.size() != 0){
         for ( std::vector<Bestiole>::iterator it = mesVoisins.begin() ; it != mesVoisins.end() ; ++it ){
         dir_moy += (it->get_orientation());
     }
-    actualBestiole->set_orientation(dir_moy/(mesVoisins.size()));
+    actualBestiole->set_orientation(dir_moy/(mesVoisins.size()+1));
     }
 }
 
