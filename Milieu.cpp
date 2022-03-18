@@ -22,7 +22,7 @@ void Milieu::step(void) {
     for (std::list<Bestiole>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
         it->action(*this);
         it->draw(*this);
-        //it ->draw_oreilles(*this);
+        it ->draw_oreilles(*this);
         it ->draw_yeux(*this);
         for (std::list<Bestiole>::iterator it2 = listeBestioles.begin(); it2 != listeBestioles.end(); ++it2) {
             it->jeTeVois(*it2);
