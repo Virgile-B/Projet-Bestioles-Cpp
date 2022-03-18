@@ -57,6 +57,8 @@ public :                                           // Forme canonique :
    void meurt(Milieu & monMilieu);
    double get_orientation();
    void set_orientation(double orientation);
+   double get_x();
+   double get_y();
 
 };
 

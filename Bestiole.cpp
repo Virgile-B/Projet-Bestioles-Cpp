@@ -26,7 +26,7 @@ Bestiole::Bestiole(const std::string comportement)
    x = y = 0;
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
-   vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
+   vitesse = static_cast<double>(6); // rand() )/RAND_MAX*MAX_VITESSE;
    if (comportement == "gregaire"){
       setComportement(0);
    }
@@ -107,7 +107,7 @@ Bestiole::Bestiole( const Bestiole & b )
 
    identite = ++next;
 
-   cout << "const Bestiole (" << identite << ") par copie" << endl;
+   //cout << "const Bestiole (" << identite << ") par copie" << endl;
 
    x = b.x;
    y = b.y;
@@ -214,5 +214,6 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 
 double Bestiole::get_orientation() {return this->orientation;}
 void Bestiole::set_orientation(double orientation) {this->orientation = orientation;}
-
+double Bestiole::get_x() {return this->x + this->cumulX;}
+double Bestiole::get_y() {return this->y + this->cumulY;}
 

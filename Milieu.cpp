@@ -48,7 +48,7 @@ void Milieu::naissance(char* type)
    }
    else 
    {
-      addMember(Bestiole(type));
+      //addMember(Bestiole(type));
    }
 }
 

@@ -6,6 +6,7 @@
 #define PROJET_BESTIOLES_COMPORTEMENT_KAMIKAZE_H
 
 #include  "Comportement.h"
+#include <vector>
 
 /*
  * Singleton class ComportementKamikaze
@@ -27,7 +28,7 @@ public:
 
     T *get_couleur();
 
-    void action(Bestiole *actualBestiole, Milieu &monMilieu) {};
+    void action(Bestiole *actualBestiole, Milieu &monMilieu);
 };
 
 
