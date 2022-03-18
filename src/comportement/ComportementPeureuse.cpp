@@ -16,3 +16,7 @@ ComportementPeureuse::ComportementPeureuse(void){
     couleur[ 1 ] = 125;
     couleur[ 2 ] = 125;
 }
+ComportementPeureuse::~ComportementPeureuse()
+{
+    delete[] couleur;
+}

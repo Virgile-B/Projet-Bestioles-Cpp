@@ -4,7 +4,7 @@
 
 #include "UImg.h"
 
-#include "comportement/Comportement.h"
+#include  "comportement/Comportement.h"
 #include "comportement/ComportementGregaire.h"
 #include "comportement/ComportementKamikaze.h"
 #include "comportement/ComportementPrevoyante.h"
@@ -20,11 +20,11 @@ class Milieu;
 class Bestiole {
 
 private :
-    static const double AFF_SIZE;
-    static const double MAX_VITESSE;
-    static const double LIMITE_VUE;
-    static int next;
-    static int NB_COMPORTEMENT;
+   static const double     AFF_SIZE;
+   static const double     MAX_VITESSE;
+   static const double     LIMITE_VUE;
+   static int              next;
+   static int              NB_COMPORTEMENT;
 
 private :
     int identite;
@@ -44,19 +44,16 @@ private :
 
 
 private :
-    void bouge(int xLim, int yLim);
-public:
+   void bouge( int xLim, int yLim );
 
 public :                                           // Forme canonique :
-    Bestiole(const std::string comportement);                               // Constructeur par defaut
-    Bestiole(const Bestiole &b);                 // Constructeur de copies
-    Bestiole();
-
-    ~Bestiole(void) = default;                              // Destructeur
-    // Operateur d'affectation binaire par defaut
-    void action(Milieu &monMilieu);
-
-    void draw(UImg &support);
+   Bestiole(const std::string comportement);                               // Constructeur par defaut
+   Bestiole( const Bestiole & b );                 // Constructeur de copies
+   Bestiole();
+   ~Bestiole( void )=default;                              // Destructeur
+                                                   // Operateur d'affectation binaire par defaut
+   void action( Milieu & monMilieu );
+   void draw( UImg & support );
 
     bool jeTeVois(const Bestiole &b) const;
 
@@ -81,6 +78,8 @@ public :                                           // Forme canonique :
     void draw_oreilles( UImg & support );
 
     void draw_yeux( UImg & support );
+
+    Bestiole& operator=(const Bestiole& b);
 
 
 };

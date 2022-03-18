@@ -16,3 +16,8 @@ ComportementKamikaze::ComportementKamikaze(void){
     couleur[ 1 ] = 0;
     couleur[ 2 ] = 0;
 }
+
+ComportementKamikaze::~ComportementKamikaze()
+{
+    delete[] couleur;
+}
