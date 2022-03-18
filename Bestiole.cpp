@@ -22,7 +22,7 @@ Bestiole::Bestiole(const std::string comportement) {
     comportement_multiple = false;
     x = y = 0;
     cumulX = cumulY = 0.;
-    vision = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
+    vision = static_cast<double>( rand()) / RAND_MAX * M_PI.;
     orientation = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
     extern double global_gamma_yeux_min;
     extern double global_gamma_yeux_max;
@@ -324,11 +324,11 @@ void Bestiole::draw_yeux( UImg & support )
     support.draw_circle(xt_av2,yt_av2,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),white);//cercle des oreilles
     support.draw_circle(xt_av_pupille,yt_av_pupille,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min)))*0.6,black);//cercle des oreilles
     support.draw_circle(xt_av2_pupille,yt_av2_pupille,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min)))*0.6,black);//cercle des oreilles
-    support.draw_line(x, y, xx,yy, couleur );
-    support.draw_line(x, y, xx2,yy2, couleur );
+    //support.draw_line(x, y, xx,yy, couleur );
+    //support.draw_line(x, y, xx2,yy2, couleur );
     //support.draw_circle(x,y,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),black);//cercle des oreilles
     //support.draw_circle(xt_av-xx,yt_av-yy,((AFF_SIZE/4)*(delta_yeux/(global_delta_yeux_max-global_delta_yeux_min))),couleur);//cercle des oreilles
-   // support.draw_triangle(x, y, xt_av-xx+cosinus1*delta_yeux, yt_av-yy*sinus1*delta_yeux, xt_av-xx+cosinus2*delta_yeux, yt_av-yy*sinus2*delta_yeux,  couleur, 0.5);
+    support.draw_triangle(x, y, xx, yy, xx2, yy2,  couleur, 0.5);
    // support.draw_triangle(xt_av-xx, yt_av-yy, xt_av-xx+cosinus1*delta_yeux, yt_av-yy*sinus1*delta_yeux, xt_av-xx+cosinus2*delta_yeux, yt_av-yy*sinus2*delta_yeux,  couleur, 0.5);
 
 }
