@@ -26,6 +26,6 @@ ComportementPrevoyante.o : comportement/ComportementPrevoyante.h comportement/Co
 	g++ -Wall -std=c++11  -c comportement/ComportementPrevoyante.cpp -I .
 
 clean:
-	rm -rf *.o main
+	rm -rf *.o main *.o
 info:
 $(info $$DATA = $(DATA))
