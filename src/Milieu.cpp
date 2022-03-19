@@ -19,14 +19,14 @@ void Milieu::step( void )
 
     cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
     this->naissance(this->type);
-    cout << "and now" << endl;
     if (listeBestioles.size() != 0) {
         for (std::vector<Bestiole>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
             if (it->meurt()) {
                 removeMember(*it);
             } else {
-        it->action( *this );
-        it->draw( *this );
+                this -> collision(*it);
+                it->action( *this );
+                it->draw( *this );
                 it->draw_oreilles(*this);
                 it->draw_yeux(*this);
             }
@@ -93,4 +93,13 @@ char* Milieu::getType()
 int Milieu::getNbBestioles()
 {
     return this->nbBestioles;
+}
+
+void Milieu::collision(Bestiole & b){
+    std::vector<Bestiole> voisins = this->Voisins(b);
+    for ( std::vector<Bestiole>::iterator it = voisins.begin() ; it != voisins.end() ; ++it ){
+        if ((it->get_x() == b.get_x()) && (it->get_y() == b.get_y())){
+            b.inverse_orientation(*it);
+        }
+    }
 }
