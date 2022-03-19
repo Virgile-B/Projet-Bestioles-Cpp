@@ -104,7 +104,7 @@ void Bestiole::setEsperanceVie(){
 }
 
 bool Bestiole::meurt() {
-    if ((rand() % 100 + 1) > 101) {
+    if ((rand() % 100 + 1) > 99) {
         return true;
     }
     return false;
@@ -299,8 +299,8 @@ void Bestiole::draw_oreilles(UImg &support)//dessiner les oreilles
 
 double Bestiole::get_orientation() {return this->orientation;}
 void Bestiole::set_orientation(double orientation) {this->orientation = orientation;}
-double Bestiole::get_x() {return this->x + this->cumulX;}
-double Bestiole::get_y() {return this->y + this->cumulY;}
+double Bestiole::get_x() const {return this->x + this->cumulX;}
+double Bestiole::get_y() const {return this->y + this->cumulY;}
 
 void Bestiole::draw_yeux(UImg &support) {
     extern double global_delta_yeux_min;
@@ -343,4 +343,9 @@ void Bestiole::draw_yeux(UImg &support) {
                         black);//cercle des oreilles
     support.draw_triangle(x, y, xx, yy, xx2, yy2, couleur, 0.3);
     support.draw_circle(centre_rayon_x, centre_rayon_y, rayon, couleur, 0.05);
+}
+
+void Bestiole::inverse_orientation(Bestiole& b){
+    b.orientation =  M_PI - b.orientation;
+    orientation =  M_PI - orientation;
 }

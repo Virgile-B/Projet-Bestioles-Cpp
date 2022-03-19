@@ -42,6 +42,8 @@ public :
    int getNbBestioles();
    char* getType();
 
+   void collision(Bestiole & b);
+
 };
 
 

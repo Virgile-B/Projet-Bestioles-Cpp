@@ -75,10 +75,10 @@ public :                                           // Forme canonique :
 
     double get_orientation();
     void set_orientation(double orientation);
-    double get_x();
-    double get_y();
+    double get_x() const;
+    double get_y() const;
     int get_identite() const{ return this->identite;}
-
+    void inverse_orientation(Bestiole& b);
 };
 
 
