@@ -16,8 +16,9 @@ ComportementPrevoyante::ComportementPrevoyante(void){
     couleur[ 1 ] = 0;
     couleur[ 2 ] = 255;
 }
-
+/*
 ComportementPrevoyante::~ComportementPrevoyante()
 {
     delete[] couleur;
 }
+*/

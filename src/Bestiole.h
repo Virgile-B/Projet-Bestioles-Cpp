@@ -4,39 +4,35 @@
 
 #include "UImg.h"
 
-#include  "comportement/Comportement.h"
-#include "comportement/ComportementGregaire.h"
-#include "comportement/ComportementKamikaze.h"
-#include "comportement/ComportementPrevoyante.h"
-#include "comportement/ComportementPeureuse.h"
 #include <iostream>
 
 using namespace std;
 
-
+class Comportement;
 class Milieu;
 
 
-class Bestiole {
+class Bestiole
+{
 
 private :
-   static const double     AFF_SIZE;
-   static const double     MAX_VITESSE;
-   static const double     LIMITE_VUE;
-   static int              next;
-   static int              NB_COMPORTEMENT;
+    static const double     AFF_SIZE;
+    static const double     MAX_VITESSE;
+    static const double     LIMITE_VUE;
+    static int              next;
+    static int              NB_COMPORTEMENT;
 
 private :
-    int identite;
-    int x, y;
-    double cumulX, cumulY;
-    double orientation;
+    int               identite;
+    int               x, y;
+    double            cumulX, cumulY;
+    double            orientation;
     double vision;
-    double vitesse;
-    bool comportement_multiple;
-    T *couleur;
-    Comportement *comportement;
-    int esperanceVie;
+    double            vitesse;
+    bool              comportement_multiple;
+    T                 * couleur;
+    Comportement      * comportement;
+    int               esperanceVie;
     double gamma_yeux;
     double gamma_ouie;
     double delta_yeux;
@@ -44,33 +40,29 @@ private :
 
 
 private :
-   void bouge( int xLim, int yLim );
+    void bouge( int xLim, int yLim );
 
 public :                                           // Forme canonique :
-   Bestiole(const std::string comportement);                               // Constructeur par defaut
-   Bestiole( const Bestiole & b );                 // Constructeur de copies
-   Bestiole();
-   ~Bestiole( void )=default;                              // Destructeur
-                                                   // Operateur d'affectation binaire par defaut
-   void action( Milieu & monMilieu );
-   void draw( UImg & support );
+    Bestiole(const std::string comportement);                               // Constructeur par defaut
+    Bestiole( const Bestiole & b );                 // Constructeur de copies
+    Bestiole();
+    ~Bestiole( void )=default;                              // Destructeur
+    // Operateur d'affectation binaire par defaut
+    void action( Milieu & monMilieu );
+    void draw( UImg & support );
 
-    bool jeTeVois(const Bestiole &b) const;
+    bool jeTeVois( const Bestiole & b ) const;
 
     bool jeTentends(const Bestiole &b) const;
 
-    void initCoords(int xLim, int yLim);
-
+    void initCoords( int xLim, int yLim );
     const bool estMultiple();
-
-    friend bool operator==(const Bestiole &b1, const Bestiole &b2);
-
+    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
     void randomComportement();
 
     void changerComportement();
 
     void setComportement(int comprotement);
-
     void setEsperanceVie();
 
     bool meurt();
@@ -81,6 +73,11 @@ public :                                           // Forme canonique :
 
     Bestiole& operator=(const Bestiole& b);
 
+    double get_orientation();
+    void set_orientation(double orientation);
+    double get_x();
+    double get_y();
+    int get_identite() const{ return this->identite;}
 
 };
 

@@ -40,7 +40,7 @@ Bestiole::Bestiole(const std::string comportement)
     x = y = 0;
     cumulX = cumulY = 0.;
     vision = static_cast<double>( rand()) / RAND_MAX * M_PI;
-    orientation = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
+    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
     extern double global_gamma_yeux_min;
     extern double global_gamma_yeux_max;
     extern double global_gamma_ouie_min;
@@ -53,24 +53,24 @@ Bestiole::Bestiole(const std::string comportement)
     gamma_ouie = RandomValues(global_gamma_ouie_min, global_gamma_ouie_max);
     delta_yeux = RandomValues(global_delta_yeux_min, global_delta_yeux_max);
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
-    vitesse = static_cast<double>( rand()) / RAND_MAX * MAX_VITESSE;
-    if (comportement == "gregaire") {
+    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
+    if (comportement == "gregaire"){
         setComportement(0);
     }
-    if (comportement == "kamikaze") {
+    if (comportement == "kamikaze"){
         setComportement(1);
     }
-    if (comportement == "peureuse") {
+    if (comportement == "peureuse"){
         setComportement(2);
     }
-    if (comportement == "prevoyante") {
+    if (comportement == "prevoyante"){
         setComportement(3);
     }
-    if (comportement == "multiple") {
+    if (comportement == "multiple"){
         comportement_multiple = true;
         randomComportement();
     }
-    if (comportement == "random") {
+    if (comportement == "random"){
         randomComportement();
     }
 }
@@ -99,25 +99,23 @@ Bestiole::Bestiole() {
     delta_yeux = RandomValues(global_delta_yeux_min, global_delta_yeux_max);
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
 }
-
-void Bestiole::setEsperanceVie() {
+void Bestiole::setEsperanceVie(){
     this->esperanceVie = rand() % 100 + 1;
 }
 
 bool Bestiole::meurt() {
-    if ((rand() % 100 + 1) > 99) {
+    if ((rand() % 100 + 1) > 101) {
         return true;
     }
     return false;
 }
 
 void Bestiole::changerComportement() {
-    if ((rand() % 100 + 1) > 90) {
+    if( (rand() % 100+1) > 90) {
         randomComportement();
     }
 }
-
-void Bestiole::randomComportement() {
+void Bestiole::randomComportement(){
     setComportement(rand() % NB_COMPORTEMENT);
 }
 
@@ -218,6 +216,7 @@ void Bestiole::action(Milieu &monMilieu) {
     if (this->estMultiple()) {
         this->changerComportement();
     }
+    comportement->action(this,monMilieu);
     bouge(monMilieu.getWidth(), monMilieu.getHeight());
 
 }
@@ -256,11 +255,12 @@ Bestiole &Bestiole::operator=(const Bestiole &b) {
     return *this;
 }
 
-const bool Bestiole::estMultiple() {
+const bool Bestiole::estMultiple()
+{
     return comportement_multiple;
 }
-
-bool Bestiole::jeTeVois(const Bestiole &b) const {
+bool Bestiole::jeTeVois( const Bestiole & b ) const
+{
 
 
     double xx = x + delta_yeux * cos(orientation + vision / 2);
@@ -297,6 +297,10 @@ void Bestiole::draw_oreilles(UImg &support)//dessiner les oreilles
     support.draw_circle(x, y, delta_ouie, couleur, 0.2);
 }
 
+double Bestiole::get_orientation() {return this->orientation;}
+void Bestiole::set_orientation(double orientation) {this->orientation = orientation;}
+double Bestiole::get_x() {return this->x + this->cumulX;}
+double Bestiole::get_y() {return this->y + this->cumulY;}
 
 void Bestiole::draw_yeux(UImg &support) {
     extern double global_delta_yeux_min;
