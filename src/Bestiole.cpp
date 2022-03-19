@@ -3,6 +3,13 @@
 #include <cstdlib>
 #include <cmath>
 
+#include "comportement/Comportement.h"
+#include "comportement/ComportementGregaire.h"
+#include "comportement/ComportementKamikaze.h"
+#include "comportement/ComportementPeureuse.h"
+#include "comportement/ComportementPrevoyante.h"
+
+
 const double      Bestiole::AFF_SIZE = 20.;
 const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
@@ -14,7 +21,17 @@ float RandomValues(double min, double max) {
     return min + r * (max - min);
 }
 
-Bestiole::Bestiole(const std::string comportement) {
+bool estDedans(double x, double x1, double x2){
+    if ((x1 <= x && x <= x2) || (x1 >= x && x >= x2)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+Bestiole::Bestiole(const std::string comportement)
+{
 
     identite = ++next;
 
@@ -151,7 +168,6 @@ Bestiole::Bestiole(const Bestiole &b) {
     gamma_ouie = b.gamma_ouie;
     delta_yeux = b.delta_yeux;
     delta_ouie = b.delta_ouie;
-    cout << "okay" << endl;
 }
 
 
@@ -251,8 +267,7 @@ bool Bestiole::jeTeVois(const Bestiole &b) const {
     double xx2 = x + delta_yeux * cos(orientation - vision / 2);
     double yy = y - delta_yeux * sin(orientation + vision / 2);
     double yy2 = y - delta_yeux * sin(orientation - vision / 2);
-
-    if (xx <= b.x && b.x <= xx2 && yy <= b.y && b.y <= yy2 && this != &b) {
+    if (estDedans(b.x, xx, xx2) && estDedans(b.y, yy, yy2) && this != &b){
         return true;
     } else { return false; }
 }
@@ -308,6 +323,9 @@ void Bestiole::draw_yeux(UImg &support) {
     white[0] = 255;
     white[1] = 255;
     white[2] = 255;
+    double centre_rayon_x = min(xx, xx2) + abs(xx-xx2)/2;
+    double centre_rayon_y = min(yy, yy2) + abs(yy-yy2)/2;
+    double rayon = std::sqrt((centre_rayon_x - xx) * (centre_rayon_x - xx) + (centre_rayon_y - yy) * (centre_rayon_y - yy));
     support.draw_circle(xt_av, yt_av, ((AFF_SIZE / 4) * (delta_yeux / (global_delta_yeux_max - global_delta_yeux_min))),
                         white);//cercle des oreilles
     support.draw_circle(xt_av2, yt_av2,
@@ -320,4 +338,5 @@ void Bestiole::draw_yeux(UImg &support) {
                         ((AFF_SIZE / 4) * (delta_yeux / (global_delta_yeux_max - global_delta_yeux_min))) * 0.6,
                         black);//cercle des oreilles
     support.draw_triangle(x, y, xx, yy, xx2, yy2, couleur, 0.3);
+    support.draw_circle(centre_rayon_x, centre_rayon_y, rayon, couleur, 0.05);
 }
