@@ -8,7 +8,10 @@
 #include "comportement/ComportementKamikaze.h"
 #include "comportement/ComportementPeureuse.h"
 #include "comportement/ComportementPrevoyante.h"
-
+#include "accessoire/Accessoire.h"
+#include "accessoire/NoAccessoire.h"
+#include "accessoire/AccessoireNageoire.h"
+#include "utils.cpp"
 
 const double      Bestiole::AFF_SIZE = 20.;
 const double      Bestiole::MAX_VITESSE = 10.;
@@ -16,19 +19,6 @@ const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
 int               Bestiole::NB_COMPORTEMENT = 5;
 
-float RandomValues(double min, double max) {
-    double r = (double) rand() / (double) RAND_MAX;
-    return min + r * (max - min);
-}
-
-bool estDedans(double x, double x1, double x2){
-    if ((x1 <= x && x <= x2) || (x1 >= x && x >= x2)){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
 
 Bestiole::Bestiole(const std::string comportement)
 {
@@ -54,6 +44,27 @@ Bestiole::Bestiole(const std::string comportement)
     delta_yeux = RandomValues(global_delta_yeux_min, global_delta_yeux_max);
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
     vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
+
+    // initialisation des accessoires
+    accessoire = new Accessoire*[ 1 ];
+    if (RandomValues(0, 2)>1){
+        accessoire[0]= AccessoireNageoire::get_nageoire();
+    } else{
+        accessoire[0]= NoAccessoire::get_no_accessoire();
+    }
+    /*
+    if (RandomValues(0, 2)>1){
+        accessoire[1]= AccessoireNageoire::get_nageoire();
+    }else{
+        accessoire[1]= NoAccessoire::get_no_accessoire();
+    }
+    if (RandomValues(0, 2)>1){
+        accessoire[0]= AccessoireNageoire::get_nageoire();
+    }else{
+        accessoire[2]= NoAccessoire::get_no_accessoire();
+    }
+    */
+
     if (comportement == "gregaire"){
         setComportement(0);
     }
@@ -98,6 +109,26 @@ Bestiole::Bestiole() {
     gamma_ouie = RandomValues(global_gamma_ouie_min, global_gamma_ouie_max);
     delta_yeux = RandomValues(global_delta_yeux_min, global_delta_yeux_max);
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
+    // initialisation des accessoires
+    accessoire = new Accessoire*[ 1 ];
+    if (RandomValues(0, 2)>1){
+        accessoire[0]= AccessoireNageoire::get_nageoire();
+    } else{
+        accessoire[0]= NoAccessoire::get_no_accessoire();
+    }
+    /*
+    if (RandomValues(0, 2)>1){
+        accessoire[1]= AccessoireNageoire::get_nageoire();
+    }else{
+        accessoire[1]= NoAccessoire::get_no_accessoire();
+    }
+    if (RandomValues(0, 2)>1){
+        accessoire[0]= AccessoireNageoire::get_nageoire();
+    }else{
+        accessoire[2]= NoAccessoire::get_no_accessoire();
+    }
+    */
+
 }
 void Bestiole::setEsperanceVie(){
     this->esperanceVie = rand() % 100 + 1;
@@ -149,6 +180,7 @@ void Bestiole::setComportement(int comportement) {
     }
 }
 
+//constructeur par copie
 Bestiole::Bestiole(const Bestiole &b) {
     identite = b.identite;
     cout << "const Bestiole (" << identite << ") par copie" << endl;
@@ -167,6 +199,7 @@ Bestiole::Bestiole(const Bestiole &b) {
     gamma_ouie = b.gamma_ouie;
     delta_yeux = b.delta_yeux;
     delta_ouie = b.delta_ouie;
+    accessoire = b.accessoire;
 }
 
 
@@ -220,6 +253,18 @@ void Bestiole::action(Milieu &monMilieu) {
     comportement->action(this,monMilieu);
     bouge(monMilieu.getWidth(), monMilieu.getHeight());
 }
+void Bestiole::use_accessoires(UImg &support) {
+//    Accessoire *ptr_acc = ((*it)->getAccessoire())[0];
+    //ptr_acc->gadgetAction(*it);
+ //   ptr_acc->drawGadget(*it);
+    for (int i = 0; i < 1; ++i) {
+        (getAccessoire()[i])->gadgetAction(this);
+        (getAccessoire()[i])->drawGadget(this, support);
+    }
+
+}
+
+
 
 void Bestiole::draw(UImg &support) {
 
@@ -346,6 +391,6 @@ void Bestiole::draw_yeux(UImg &support) {
 }
 
 void Bestiole::inverse_orientation(Bestiole& b){
-    b.orientation =  M_PI - b.orientation;
-    orientation =  M_PI - orientation;
+    b.orientation =  M_PI + b.orientation;
+    orientation =  M_PI + orientation;
 }

@@ -9,9 +9,7 @@ const int   Milieu::PROBA_NAIS = 10; // en %
 Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
-
     cout << "const Milieu" << endl;
-
 }
 
 void Milieu::step( void ) {
@@ -24,11 +22,12 @@ void Milieu::step( void ) {
             if ((*it)->meurt()) {
                 removeMember(*it, toRemove);
             } else {
-                //this->collision(*(*it));
+                this->collision(*(*it));
                 (*it)->action(*this);
                 (*it)->draw(*this);
                 (*it)->draw_oreilles(*this);
                 (*it)->draw_yeux(*this);
+                (*it)->use_accessoires(*this);
             }
             nbBestioles = listeBestioles.size();
         }
