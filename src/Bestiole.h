@@ -37,6 +37,8 @@ private :
     double gamma_ouie;
     double delta_yeux;
     double delta_ouie;
+    int pts_vie = 100;
+    bool morte = false;
 
 
 private :
@@ -75,11 +77,32 @@ public :                                           // Forme canonique :
 
     double get_orientation();
     void set_orientation(double orientation);
-    double get_x() const;
-    double get_y() const;
-    int get_identite() const{ return this->identite;}
-    void inverse_orientation(Bestiole& b);
+
+    double getX() const { return this->x; };
+
+    double getY() const { return this->y; };
+
+    double get_x() const; // A quoi ca sert ca ?
+    double get_y() const; // A quoi ca sert ca ?
+    int get_identite() const { return this->identite; };
+
+    double getVitesse() { return this->vitesse; };
+
+    void setVitesse(double new_vitesse) { this->vitesse = new_vitesse; };
+
+    T *getCouleur() { return this->couleur; };
+
+    int getPtsVie() { return this->pts_vie; };
+
+    void setPtsVie(int new_pts_vie) { this->pts_vie = new_pts_vie; };
+
+    bool getVie() { return morte; };
+
+    void setVie(bool mort) { this->morte = mort; };
+
+    double getSize(){ return AFF_SIZE;};
+
+    void inverse_orientation(Bestiole &b);
+
 };
-
-
 #endif

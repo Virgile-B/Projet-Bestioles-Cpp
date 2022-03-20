@@ -104,7 +104,7 @@ void Bestiole::setEsperanceVie(){
 }
 
 bool Bestiole::meurt() {
-    if ((rand() % 100 + 1) > 99) {
+    if ((rand() % 1000 + 1) > 999) {
         return true;
     }
     return false;
@@ -149,6 +149,7 @@ void Bestiole::setComportement(int comportement) {
     }
 }
 
+//constructeur par copie
 Bestiole::Bestiole(const Bestiole &b) {
     identite = b.identite;
     cout << "const Bestiole (" << identite << ") par copie" << endl;
@@ -167,6 +168,8 @@ Bestiole::Bestiole(const Bestiole &b) {
     gamma_ouie = b.gamma_ouie;
     delta_yeux = b.delta_yeux;
     delta_ouie = b.delta_ouie;
+    pts_vie = b.pts_vie;  // A ne pas utiliser poru le clonage
+    morte = b.morte;
 }
 
 
@@ -346,6 +349,17 @@ void Bestiole::draw_yeux(UImg &support) {
 }
 
 void Bestiole::inverse_orientation(Bestiole& b){
-    b.orientation =  M_PI - b.orientation;
-    orientation =  M_PI - orientation;
+    if (b.comportement != ComportementGregaire::get_gregaire() ){b.orientation =  M_PI + b.orientation;}
+    if (this->comportement != ComportementGregaire::get_gregaire()) {orientation =  M_PI + orientation;} //PAS SUUUUUR DU TOUUUUT
+    int max_vitesse = max(b.getVitesse(), this->getVitesse());
+    if((b.getPtsVie()-20*max_vitesse)>0){
+        b.setPtsVie(b.getPtsVie()-20*max_vitesse);
+    }else{
+        setVie(true);
+    }
+    if((this->getPtsVie()-20*max_vitesse)>0){
+        this->setPtsVie(b.getPtsVie()-20*max_vitesse);
+    }else{
+        setVie(true);
+    }
 }
