@@ -19,7 +19,7 @@ void Milieu::step( void ) {
     std::vector < Bestiole * > toRemove;
     if (listeBestioles.size() != 0) {
         for (std::vector<Bestiole *>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
-            if ((*it)->meurt()) {
+            if ((*it)->meurt() || (*it)->getVie()) {
                 removeMember(*it, toRemove);
             } else {
                 this->collision(*(*it));
@@ -96,7 +96,7 @@ int Milieu::getNbBestioles()
 void Milieu::collision(Bestiole & b){
     std::vector<Bestiole*> voisins = this->Voisins(b);
     for ( std::vector<Bestiole*>::iterator it = voisins.begin() ; it != voisins.end() ; ++it ){
-        if (((*it)->get_x() == b.get_x()) && ((*it)->get_y() == b.get_y())){
+        if( std::sqrt(((*it)->getX() - b.getX()) * ((*it)->getX() - b.getX()) + ((*it)->getY() - b.getY()) * ((*it)->getY() - b.getY())) < b.getSize()){
             b.inverse_orientation(*(*it));
         }
     }

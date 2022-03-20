@@ -9,7 +9,9 @@
 using namespace std;
 
 class Comportement;
+
 class Accessoire;
+
 class Milieu;
 
 
@@ -38,6 +40,8 @@ private :
     double gamma_ouie;
     double delta_yeux;
     double delta_ouie;
+    int pts_vie = 100;
+    bool morte = false;
 
 
 private :
@@ -91,10 +95,22 @@ public :                                           // Forme canonique :
     double get_x() const; // A quoi ca sert ca ?
     double get_y() const; // A quoi ca sert ca ?
     int get_identite() const { return this->identite; };
-    double getVitesse() { return this->vitesse;};
-    void setVitesse(double new_vitesse) { this->vitesse = new_vitesse;};
-    T* getCouleur(){ return this->couleur;};
 
+    double getVitesse() { return this->vitesse; };
+
+    void setVitesse(double new_vitesse) { this->vitesse = new_vitesse; };
+
+    T *getCouleur() { return this->couleur; };
+
+    int getPtsVie() { return this->pts_vie; };
+
+    void setPtsVie(int new_pts_vie) { this->pts_vie = new_pts_vie; };
+
+    bool getVie() { return morte; };
+
+    void setVie(bool mort) { this->morte = mort; };
+
+    double getSize(){ return AFF_SIZE;};
 
     void inverse_orientation(Bestiole &b);
 
@@ -102,6 +118,6 @@ public :                                           // Forme canonique :
 
     void use_accessoires(UImg &support);
 
-
 };
+
 #endif

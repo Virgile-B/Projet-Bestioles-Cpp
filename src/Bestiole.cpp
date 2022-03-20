@@ -44,7 +44,6 @@ Bestiole::Bestiole(const std::string comportement)
     delta_yeux = RandomValues(global_delta_yeux_min, global_delta_yeux_max);
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
     vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
-
     // initialisation des accessoires
     accessoire = new Accessoire*[ 1 ];
     if (RandomValues(0, 2)>1){
@@ -135,7 +134,7 @@ void Bestiole::setEsperanceVie(){
 }
 
 bool Bestiole::meurt() {
-    if ((rand() % 100 + 1) > 99) {
+    if ((rand() % 1000 + 1) > 999) {
         return true;
     }
     return false;
@@ -200,6 +199,8 @@ Bestiole::Bestiole(const Bestiole &b) {
     delta_yeux = b.delta_yeux;
     delta_ouie = b.delta_ouie;
     accessoire = b.accessoire;
+    pts_vie = b.pts_vie;  // A ne pas utiliser poru le clonage
+    morte = b.morte;
 }
 
 
@@ -391,6 +392,17 @@ void Bestiole::draw_yeux(UImg &support) {
 }
 
 void Bestiole::inverse_orientation(Bestiole& b){
-    b.orientation =  M_PI + b.orientation;
-    orientation =  M_PI + orientation;
+    if (b.comportement != ComportementGregaire::get_gregaire() ){b.orientation =  M_PI + b.orientation;}
+    if (this->comportement != ComportementGregaire::get_gregaire()) {orientation =  M_PI + orientation;} //PAS SUUUUUR DU TOUUUUT
+    int max_vitesse = max(b.getVitesse(), this->getVitesse());
+    if((b.getPtsVie()-20*max_vitesse)>0){
+        b.setPtsVie(b.getPtsVie()-20*max_vitesse);
+    }else{
+        setVie(true);
+    }
+    if((this->getPtsVie()-20*max_vitesse)>0){
+        this->setPtsVie(b.getPtsVie()-20*max_vitesse);
+    }else{
+        setVie(true);
+    }
 }
