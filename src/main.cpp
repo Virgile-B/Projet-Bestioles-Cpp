@@ -60,9 +60,11 @@ int main(int argc, char **argv) {
 
     Aquarium ecosysteme(1000, 1000, 10);
     ecosysteme.getMilieu().setSimulation(std::atoi(argv[1]), argv[2]);
+    Bestiole* ptr_bestiole;
     for (int i = 1; i <= ecosysteme.getMilieu().getNbBestioles(); ++i) {
         std::cout << "first iteration" << std::endl;
-        ecosysteme.getMilieu().addMember(Bestiole(ecosysteme.getMilieu().getType()));
+        ptr_bestiole = new Bestiole(ecosysteme.getMilieu().getType());
+        ecosysteme.getMilieu().addMember(ptr_bestiole);
     }
     ecosysteme.run();
 

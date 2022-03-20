@@ -23,16 +23,16 @@ ComportementKamikaze::ComportementKamikaze(void){
 }
 
 void ComportementKamikaze::action(Bestiole *actualBestiole, Milieu &monMilieu){
-    std::vector<Bestiole> mesVoisins = monMilieu.Voisins(*actualBestiole);
+    std::vector<Bestiole*> mesVoisins = monMilieu.Voisins(*actualBestiole);
     if (mesVoisins.size() != 0){
-        double x_proche = mesVoisins.front().get_x();
-        double y_proche = mesVoisins.front().get_y();
-        for ( std::vector<Bestiole>::iterator it = mesVoisins.begin() ; it != mesVoisins.end() ; ++it ){
+        double x_proche = mesVoisins.front()->get_x();
+        double y_proche = mesVoisins.front()->get_y();
+        for ( std::vector<Bestiole*>::iterator it = mesVoisins.begin() ; it != mesVoisins.end() ; ++it ){
             double r_proche = std::pow(x_proche - actualBestiole->get_x(),2) + std::pow(y_proche - actualBestiole->get_y(),2);
-            double r = std::pow(it->get_x() - actualBestiole->get_x(),2) + std::pow(it->get_y() - actualBestiole->get_y(),2);
+            double r = std::pow((*it)->get_x() - actualBestiole->get_x(),2) + std::pow((*it)->get_y() - actualBestiole->get_y(),2);
             if ( r_proche > r ){
-                x_proche = it->get_x();
-                y_proche = it->get_y();
+                x_proche = (*it)->get_x();
+                y_proche = (*it)->get_y();
             }
         }
         double H = std::sqrt(std::pow(x_proche - actualBestiole->get_x(),2) + std::pow(y_proche - actualBestiole->get_y(),2));

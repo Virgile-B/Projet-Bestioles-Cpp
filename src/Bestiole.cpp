@@ -37,7 +37,7 @@ Bestiole::Bestiole(const std::string comportement)
 
     cout << "const Bestiole (" << identite << ") par defaut" << endl;
     comportement_multiple = false;
-    x = y = 0;
+    x = y = static_cast<double>( rand()) / RAND_MAX;
     cumulX = cumulY = 0.;
     vision = static_cast<double>( rand()) / RAND_MAX * M_PI;
     orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
@@ -80,7 +80,7 @@ Bestiole::Bestiole() {
 
     cout << "const Bestiole (" << identite << ") par defaut" << endl;
     comportement_multiple = false;
-    x = y = 0;
+    x = y = static_cast<double>( rand()) / RAND_MAX;
     cumulX = cumulY = 0.;
     orientation = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
     vitesse = static_cast<double>( rand()) / RAND_MAX * MAX_VITESSE;
@@ -135,6 +135,7 @@ void Bestiole::setComportement(int comportement) {
             break;
         case 3:
             this->comportement = ComportementPrevoyante::get_prevoyante();
+            this->couleur = this->comportement->get_couleur();
             break;
         case 4:
             if (!this->estMultiple()) {
@@ -218,7 +219,6 @@ void Bestiole::action(Milieu &monMilieu) {
     }
     comportement->action(this,monMilieu);
     bouge(monMilieu.getWidth(), monMilieu.getHeight());
-
 }
 
 void Bestiole::draw(UImg &support) {
