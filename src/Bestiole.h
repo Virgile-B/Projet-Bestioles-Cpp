@@ -65,7 +65,7 @@ public :                                           // Forme canonique :
     void setComportement(int comprotement);
     void setEsperanceVie();
 
-    bool meurt();
+    bool meurt(Milieu &monMilieu);
 
     void draw_oreilles( UImg & support );
 
@@ -79,6 +79,7 @@ public :                                           // Forme canonique :
     double get_y() const;
     int get_identite() const{ return this->identite;}
     void inverse_orientation(Bestiole& b);
+    std::string getType();
 };
 
 

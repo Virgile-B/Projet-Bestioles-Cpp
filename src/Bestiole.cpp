@@ -57,7 +57,7 @@ Bestiole::Bestiole(const std::string comportement)
     if (comportement == "gregaire"){
         setComportement(0);
     }
-    if (comportement == "kamikaze"){
+    if (comportement =="kamikaze"){
         setComportement(1);
     }
     if (comportement == "peureuse"){
@@ -103,12 +103,12 @@ void Bestiole::setEsperanceVie(){
     this->esperanceVie = rand() % 100 + 1;
 }
 
-bool Bestiole::meurt() {
-    if ((rand() % 100 + 1) > 99) {
+bool Bestiole::meurt(Milieu &monMilieu) {
+    if (rand() % 100 + 1 > 99) {
         return true;
     }
     return false;
-}
+}   
 
 void Bestiole::changerComportement() {
     if( (rand() % 100+1) > 90) {
@@ -348,4 +348,9 @@ void Bestiole::draw_yeux(UImg &support) {
 void Bestiole::inverse_orientation(Bestiole& b){
     b.orientation =  M_PI - b.orientation;
     orientation =  M_PI - orientation;
+}
+
+std::string Bestiole::getType()
+{
+    return this->comportement->get_type();
 }

@@ -1,0 +1,27 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam class {
+BackgroundColor Whitesmoke
+ArrowColor Black
+BorderColor Black
+}
+ecosysteme -> flotte : step()
+activate flotte
+    group loop [iteration over bestioles] 
+    flotte -> iter : action()
+    activate iter 
+    iter -> iter : estMultiple():true
+    iter -> iter ++ #005500  : changerComportement()
+   
+       iter -> iter ++ #silver: randomComportement()
+       iter -> iter : setComportement(comportement: int)
+       return
+
+return
+    
+iter -> flotte
+deactivate iter
+end
+flotte -> ecosysteme
+deactivate flotte
+@enduml

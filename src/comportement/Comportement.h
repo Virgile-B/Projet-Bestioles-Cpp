@@ -16,8 +16,11 @@ class Bestiole;
 class Comportement {
 public:
     T              * couleur;
+    std::string type;
     virtual void action(Bestiole * actualBestiole, Milieu &monMilieu) = 0;
     virtual T * get_couleur() = 0;
+    virtual std::string get_type() = 0;
+
 };
 
 

@@ -1,8 +1,9 @@
 #include "Aquarium.h"
 #include "Milieu.h"
 #include "Bestiole.h"
-#include <string>
 #include <iostream>
+
+
 
 double global_gamma_yeux_min;
 double global_gamma_yeux_max;
@@ -12,58 +13,60 @@ double global_delta_yeux_min;
 double global_delta_yeux_max;
 double global_delta_ouie_min;
 double global_delta_ouie_max;
+int nbPeureuse;
+int nbPrevoyante;
+int nbKamikaze;
+int nbGregaire;
+int nbMultiple;
+
 using namespace std;
 
 int main(int argc, char **argv) {
-    double gamma_yeux_min, gamma_yeux_max, gamma_ouie_min, gamma_ouie_max, delta_yeux_min, delta_yeux_max,
-            delta_ouie_min, delta_ouie_max;
-    std::cout << "Please enter the values you need for this simulation" << std::endl;
-
-    do {
-        std::cout << "Please enter a value between 0 and 1" << std::endl;
-        std::cout << "gamma_yeux_min: " << std::endl;
-        std::cin >> gamma_yeux_min;
-    } while (gamma_yeux_min > 1);
-    do {
-        std::cout << "Please enter a value between 0 and 1" << std::endl;
-        std::cout << "gamma_yeux_max: " << std::endl;
-        std::cin >> gamma_yeux_max;
-    } while (gamma_yeux_max > 1);
-    do {
-        std::cout << "Please enter a value between 0 and 1" << std::endl;
-        std::cout << "gamma_ouie_min: " << std::endl;
-        std::cin >> gamma_ouie_min;
-    } while (gamma_ouie_min > 1);
-    do {
-        std::cout << "Please enter a value between 0 and 1" << std::endl;
-        std::cout << "gamma_ouie_max: " << std::endl;
-        std::cin >> gamma_ouie_max;
-    } while (gamma_ouie_max > 1);
-    std::cout << "delta_yeux_min: " << std::endl;
-    std::cin >> delta_yeux_min;
-    std::cout << "delta_yeux_max: " << std::endl;
-    std::cin >> delta_yeux_max;
-    std::cout << "delta_ouie_min: " << std::endl;
-    std::cin >> delta_ouie_min;
-    std::cout << "delta_ouie_max: " << std::endl;
-    std::cin >> delta_ouie_max;
 
 
-    global_gamma_yeux_min = gamma_yeux_min;
-    global_gamma_yeux_max = gamma_yeux_max;
-    global_gamma_ouie_min = gamma_ouie_min;
-    global_gamma_ouie_max = gamma_ouie_max;
-    global_delta_yeux_min = delta_yeux_min;
-    global_delta_yeux_max = delta_yeux_max;
-    global_delta_ouie_min = delta_ouie_min;
-    global_delta_ouie_max = delta_ouie_max;
+    global_gamma_yeux_min=0;
+    global_gamma_yeux_max=1;
+    global_gamma_ouie_min=0;
+    global_gamma_ouie_max=1;
+    global_delta_yeux_min=0;
+    global_delta_yeux_max=65;
+    global_delta_ouie_min=5;
+    global_delta_ouie_max=30;
 
     Aquarium ecosysteme(1000, 1000, 10);
-    ecosysteme.getMilieu().setSimulation(std::atoi(argv[1]), argv[2]);
+    //prevoyante peureuse multiple gregaire kamikaze
+    nbPeureuse = std::atoi(argv[1]);
+    nbPrevoyante = std::atoi(argv[2]);
+    nbKamikaze = std::atoi(argv[3]);
+    nbGregaire = std::atoi(argv[4]);
+    nbMultiple = std::atoi(argv[5]);
+
+    ecosysteme.getMilieu().setSimulation(nbPeureuse,nbPrevoyante,nbMultiple,nbGregaire,nbKamikaze);
     Bestiole* ptr_bestiole;
-    for (int i = 1; i <= ecosysteme.getMilieu().getNbBestioles(); ++i) {
+    std::cout << ecosysteme.getMilieu().getNbMultiple() ;
+    for (int i = 1; i <= nbPeureuse; ++i) {
         std::cout << "first iteration" << std::endl;
-        ptr_bestiole = new Bestiole(ecosysteme.getMilieu().getType());
+        ptr_bestiole = new Bestiole("peureuse");
+        ecosysteme.getMilieu().addMember(ptr_bestiole);
+    }
+    for (int i = 1; i <= nbKamikaze; ++i) {
+        std::cout << "first iteration" << std::endl;
+        ptr_bestiole = new Bestiole("kamikaze");
+        ecosysteme.getMilieu().addMember(ptr_bestiole);
+    }
+    for (int i = 1; i <= nbGregaire; ++i) {
+        std::cout << "first iteration" << std::endl;
+        ptr_bestiole = new Bestiole("gregaire");
+        ecosysteme.getMilieu().addMember(ptr_bestiole);
+    }
+    for (int i = 1; i <= nbMultiple; ++i) {
+        std::cout << "first iteration" << std::endl;
+        ptr_bestiole = new Bestiole("multiple");
+        ecosysteme.getMilieu().addMember(ptr_bestiole);
+    }
+    for (int i = 1; i <= nbPrevoyante; ++i) {
+        std::cout << "first iteration" << std::endl;
+        ptr_bestiole = new Bestiole("prevoyante");
         ecosysteme.getMilieu().addMember(ptr_bestiole);
     }
     ecosysteme.run();
