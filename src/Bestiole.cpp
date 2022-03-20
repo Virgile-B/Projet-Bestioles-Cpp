@@ -37,9 +37,9 @@ Bestiole::Bestiole(const std::string comportement)
 
     cout << "const Bestiole (" << identite << ") par defaut" << endl;
     comportement_multiple = false;
-    x = y = static_cast<double>( rand()) / RAND_MAX;
+    x = y = 0;
     cumulX = cumulY = 0.;
-    vision = static_cast<double>( rand()) / RAND_MAX * M_PI;
+    vision = static_cast<double>( rand()) / RAND_MAX * M_PI / 2;
     orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
     extern double global_gamma_yeux_min;
     extern double global_gamma_yeux_max;
@@ -80,12 +80,12 @@ Bestiole::Bestiole() {
 
     cout << "const Bestiole (" << identite << ") par defaut" << endl;
     comportement_multiple = false;
-    x = y = static_cast<double>( rand()) / RAND_MAX;
+    x = y = 0;
     cumulX = cumulY = 0.;
     orientation = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
     vitesse = static_cast<double>( rand()) / RAND_MAX * MAX_VITESSE;
     randomComportement();
-    vision = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
+    vision = static_cast<double>( rand()) / RAND_MAX * M_PI/2;
     extern double global_gamma_yeux_min;
     extern double global_gamma_yeux_max;
     extern double global_gamma_ouie_min;

@@ -24,7 +24,7 @@ void Milieu::step( void ) {
             if ((*it)->meurt()) {
                 removeMember(*it, toRemove);
             } else {
-                this->collision(*(*it));
+                //this->collision(*(*it));
                 (*it)->action(*this);
                 (*it)->draw(*this);
                 (*it)->draw_oreilles(*this);
