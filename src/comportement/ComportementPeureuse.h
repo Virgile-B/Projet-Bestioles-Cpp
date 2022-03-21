@@ -27,7 +27,7 @@ public:
     T *get_couleur();
     std::string get_type();
 
-    void action(Bestiole *actualBestiole, Milieu &monMilieu) {};
+    void action(Bestiole *actualBestiole, Milieu &monMilieu);
 };
 
 

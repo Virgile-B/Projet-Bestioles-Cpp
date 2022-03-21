@@ -398,7 +398,7 @@ void Bestiole::draw_yeux(UImg &support) {
 }
 
 void Bestiole::inverse_orientation(Bestiole& b){
-    if (b.comportement != ComportementGregaire::get_gregaire() ){b.orientation =  M_PI + b.orientation;}
+    if (b.comportement != ComportementGregaire::get_gregaire()  || b.comportement != ComportementKamikaze::get_kamikaze()){b.orientation =  M_PI + b.orientation;}
     if (this->comportement != ComportementGregaire::get_gregaire()) {orientation =  M_PI + orientation;} //PAS SUUUUUR DU TOUUUUT
     int max_vitesse = max(b.getVitesse(), this->getVitesse());
     if((b.getPtsVie()-20*max_vitesse)>0){

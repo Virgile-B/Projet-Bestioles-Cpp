@@ -3,6 +3,8 @@
 //
 
 #include "ComportementPeureuse.h"
+#include <cstdlib>
+#include <cmath>
 
 ComportementPeureuse *ComportementPeureuse::comportement_peureuse = nullptr;  // Instantiating the Pointer to the singleton
 
@@ -19,6 +21,14 @@ ComportementPeureuse::ComportementPeureuse(void){
     couleur[ 2 ] = 125;
     type = "peureuse";
 }
+
+void ComportementPeureuse::action(Bestiole *b, Milieu &monMilieu){
+    std::vector<Bestiole *> voisins = monMilieu.Voisins(*b);
+    if (voisins.size()>0){ // A CHANGER
+        b->set_orientation(b->get_orientation() + M_PI); // deviation de 30 degres
+    }
+}
+
 /*
 ComportementPeureuse::~ComportementPeureuse()
 {
