@@ -1,0 +1,32 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam class {
+BackgroundColor Whitesmoke
+ArrowColor Black
+BorderColor Black
+}
+ecosysteme -> flotte : step()
+activate flotte
+    group loop [iteration over bestioles] 
+    flotte -> iter : action()
+    activate iter 
+    iter -> iter : estMultiple():false
+    iter -> comportement : action()
+    note right
+       On fait ici appel au polymorphisme,
+       la méthode action exécuté va 
+       être celle du singleton
+       du comportement lié au type de la bestiole.
+    end note
+    activate comportement #gold
+    comportement -> iter
+    deactivate comportement
+
+    iter -> flotte
+    deactivate iter
+
+deactivate iter
+end
+flotte -> ecosysteme
+deactivate flotte
+@enduml

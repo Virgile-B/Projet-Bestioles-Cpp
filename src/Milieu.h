@@ -17,7 +17,6 @@ class Milieu : public UImg
 
 private :
    static const T          white[];
-
    int                     width, height;
    std::vector<Bestiole*>   listeBestioles;
    static const int        PROBA_NAIS;
@@ -25,6 +24,11 @@ private :
    int nbBestioles;
 
 public :
+   int nb_peureuse;
+   int nb_kamikaze;
+   int nb_gregaire;
+   int nb_multiple;
+   int nb_prevoyante;
    Milieu( int _width, int _height );
    ~Milieu( void )=default;
 
@@ -37,12 +41,23 @@ public :
    void removeMember(Bestiole* b, std::vector<Bestiole*> &toRemove);
    std::vector<Bestiole*> Voisins( const Bestiole & b);
    int nbVoisins( const Bestiole & b );
-   void naissance(char* type);
-   void setSimulation(int nbBestiole, char* type);  
+   void naissance();
+   void setSimulation(int nb_peureuse, int nb_prevoyante, int nb_multiple, int nb_gregaire, int nb_kamikaze);  
    int getNbBestioles();
    char* getType();
 
    void collision(Bestiole & b);
+   void setNbPeureuse(int nb);
+   void setNbKamikaze(int nb);
+   void setNbMultiple(int nb);
+   void setNbGregaire(int nb);
+   void setNbPrevoyante(int nb);
+   int getNbPeureuse();
+   int getNbKamikaze();
+   int getNbMultiple();
+   int getNbGregaire();
+   int getNbPrevoyante();
+   
 
 };
 

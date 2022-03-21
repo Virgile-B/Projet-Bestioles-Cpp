@@ -10,12 +10,15 @@ ComportementGregaire *ComportementGregaire::comportement_gregaire = nullptr;  //
 T* ComportementGregaire::get_couleur(){
     return ComportementGregaire::get_gregaire()->couleur;
 }
-
+std::string ComportementGregaire::get_type(){
+    return ComportementGregaire::get_gregaire()->type;
+}
 ComportementGregaire::ComportementGregaire(void){
     couleur = new T[ 3 ];
     couleur[ 0 ] = 0;
     couleur[ 1 ] = 255;
     couleur[ 2 ] = 0;
+    type = "gregaire";
 }
 
 void ComportementGregaire::action(Bestiole *actualBestiole, Milieu &monMilieu){

@@ -9,12 +9,15 @@ ComportementPeureuse *ComportementPeureuse::comportement_peureuse = nullptr;  //
 T* ComportementPeureuse::get_couleur(){
     return ComportementPeureuse::get_peureuse()->couleur;
 }
-
+std::string ComportementPeureuse::get_type(){
+    return ComportementPeureuse::get_peureuse()->type;
+}
 ComportementPeureuse::ComportementPeureuse(void){
     couleur = new T[ 3 ];
     couleur[ 0 ] = 125;
     couleur[ 1 ] = 125;
     couleur[ 2 ] = 125;
+    type = "peureuse";
 }
 /*
 ComportementPeureuse::~ComportementPeureuse()

@@ -313,6 +313,7 @@ const bool Bestiole::estMultiple()
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
 
+
     double xx = x + delta_yeux * cos(orientation + vision / 2);
     double xx2 = x + delta_yeux * cos(orientation - vision / 2);
     double yy = y - delta_yeux * sin(orientation + vision / 2);
@@ -409,4 +410,9 @@ void Bestiole::inverse_orientation(Bestiole& b){
     }else{
         setVie(true);
     }
+}
+
+std::string Bestiole::getType()
+{
+    return this->comportement->get_type();
 }

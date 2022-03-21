@@ -1,0 +1,98 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam class {
+BackgroundColor Whitesmoke
+ArrowColor Black
+BorderColor Black
+}
+
+class Bestiole{
+	+ AFF_SIZE: const double
+    + MAX_VITESSE : const double
+    + LIMITE_VUE : const double
+    + next : int
+    - identie : int
+    - x,y : int
+    - cumulX, cumulY : double
+    - orientation : double
+    - vitesse : double
+    - T : *couleur 
+    - estMultiple : bool
+    + bouge( int xLim, int yLim )
+    + Bestiole(void)
+    + Bestiole(const Bestiole & b)
+    + ~Bestiole(void)
+    + initCoords( int xLim, int yLim )
+    + action( Milieu & monMilieu )
+    + draw( UImg & support )
+    + jeTeVois( const Bestiole & b ) const
+    + setComportement( int comportement) : void
+    + randomComportement() : void
+    + changerComportement(time_t curr) : bool
+}
+class Milieu{
+	- white[]: const T
+    - width, height: int
+    /'- listBestioles : vector<Bestiole>'/
+    + getWidth(): int
+    + getHeigth() : int
+    + Milieu( int _width, int _height )
+    + ~Milieu( void ) 
+    + step( void ) : void
+    + nbVoisins( const Bestiole & b ) : int
+    + addMember( const Bestiole & b ) : void
+}
+
+ class Aquarium{
+    + Aquarium( int width, int height, int _delay )
+    + ~Aquarium( void )
+    + run( void )
+    + getMilieu( void )  
+    + * flotte : Milieu 
+}
+
+abstract class Comportement{
+    - couleur: *couleur
+    + getCouleur(): *couleur
+    + action(): void
+}
+class Kamikaze{
+ 
+}
+class Gregaire{
+    
+}
+class Peureuse{
+  
+}
+class Prevoyante{
+    
+}
+
+/'*********************'/
+/' DEFINITION DES LIENS'/
+/'*********************'/
+/'Definition liens Milieu '/
+Milieu "1" <-l- "1" Aquarium : environement
+Milieu "1" o-r-> "0..n" Bestiole : bestioles
+
+/'Definition liens comportement'/
+Kamikaze -u- Comportement
+Peureuse -u- Comportement
+Gregaire -u- Comportement
+Prevoyante -u- Comportement
+
+/' Definition liens capteurs '/
+
+/' Definition liens Accessoires '/
+
+/' Definition liens vers bestioles '/
+Comportement "1"-u* "0..*" Bestiole : comportement
+
+/' Lien entre les types  '/
+Kamikaze "1" -- "0..*" Bestiole
+Gregaire "1" -- "0..*" Bestiole
+Peureuse "1" -- "0..*" Bestiole
+Prevoyante "1" -- "0..*" Bestiole
+
+@enduml 

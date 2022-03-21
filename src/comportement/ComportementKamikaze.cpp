@@ -15,11 +15,16 @@ T* ComportementKamikaze::get_couleur(){
     return ComportementKamikaze::get_kamikaze()->couleur;
 }
 
+std::string ComportementKamikaze::get_type(){
+    return ComportementKamikaze::get_kamikaze()->type;
+}
+
 ComportementKamikaze::ComportementKamikaze(void){
     couleur = new T[ 3 ];
     couleur[ 0 ] = 255;
     couleur[ 1 ] = 0;
     couleur[ 2 ] = 0;
+    type = "kamikaze";
 }
 
 void ComportementKamikaze::action(Bestiole *actualBestiole, Milieu &monMilieu){

@@ -77,7 +77,7 @@ public :                                           // Forme canonique :
 
     void setEsperanceVie();
 
-    bool meurt();
+    bool meurt(Milieu &monMilieu);
 
     void draw_oreilles(UImg &support);
 
@@ -123,6 +123,7 @@ public :                                           // Forme canonique :
 
     void use_accessoires(UImg &support);
 
+    std::string getType();
 };
 
 #endif
