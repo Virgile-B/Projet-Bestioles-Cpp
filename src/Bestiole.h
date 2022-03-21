@@ -42,6 +42,7 @@ private :
     double delta_ouie;
     int pts_vie = 100;
     bool morte = false;
+    double camouflage=0;
 
 
 private :
@@ -95,6 +96,10 @@ public :                                           // Forme canonique :
     double get_x() const; // A quoi ca sert ca ?
     double get_y() const; // A quoi ca sert ca ?
     int get_identite() const { return this->identite; };
+
+    double getCamouflage() const{ return this->camouflage;};
+
+    void setCamouflage(double new_camouflage){ this->camouflage = new_camouflage;};
 
     double getVitesse() { return this->vitesse; };
 

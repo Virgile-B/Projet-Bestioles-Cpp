@@ -11,7 +11,7 @@ class AccessoireNageoire : public Accessoire {
     AccessoireNageoire() {
         // extern double global_coef_vitesse_max; // NE PAS OUBLIER CA
         double global_coef_vitesse_max = 5.;
-        coef_vitesse = 1 + rand() / RAND_MAX * global_coef_vitesse_max;
+        coef_vitesse = 1 + rand() / RAND_MAX * (global_coef_vitesse_max-1);
     };
     //string nom;
 public:

@@ -1,5 +1,5 @@
-main : src/main.cpp Aquarium.o Bestiole.o Milieu.o Comportement.o ComportementGregaire.o ComportementKamikaze.o ComportementPeureuse.o ComportementPrevoyante.o Accessoire.o NoAccessoire.o AccessoireNageoire.o AccessoireCarapace.o
-	g++ -Wall -std=c++11 -o bin/main src/main.cpp bin/Aquarium.o bin/Bestiole.o bin/Milieu.o bin/ComportementGregaire.o bin/ComportementPeureuse.o bin/ComportementPrevoyante.o bin/ComportementKamikaze.o bin/Comportement.o bin/Accessoire.o bin/NoAccessoire.o bin/AccessoireNageoire.o bin/AccessoireCarapace.o -I . -lX11 -lpthread
+main : src/main.cpp Aquarium.o Bestiole.o Milieu.o Comportement.o ComportementGregaire.o ComportementKamikaze.o ComportementPeureuse.o ComportementPrevoyante.o Accessoire.o NoAccessoire.o AccessoireNageoire.o AccessoireCarapace.o AccessoireCamouflage.o
+	g++ -Wall -std=c++11 -o bin/main src/main.cpp bin/Aquarium.o bin/Bestiole.o bin/Milieu.o bin/ComportementGregaire.o bin/ComportementPeureuse.o bin/ComportementPrevoyante.o bin/ComportementKamikaze.o bin/Comportement.o bin/Accessoire.o bin/NoAccessoire.o bin/AccessoireNageoire.o bin/AccessoireCarapace.o bin/AccessoireCamouflage.o -I . -lX11 -lpthread
 
 Aquarium.o : src/Aquarium.h src/Aquarium.cpp
 	g++ -Wall -std=c++11  -c src/Aquarium.cpp -o bin/Aquarium.o -I .
@@ -36,6 +36,10 @@ NoAccessoire.o : src/accessoire/NoAccessoire.h src/accessoire/NoAccessoire.cpp
 
 AccessoireCarapace.o : src/accessoire/AccessoireCarapace.h src/accessoire/AccessoireCarapace.cpp
 	g++ -Wall -std=c++11  -c src/accessoire/AccessoireCarapace.cpp -o bin/AccessoireCarapace.o -I .
+
+AccessoireCamouflage.o : src/accessoire/AccessoireCamouflage.h src/accessoire/AccessoireCamouflage.cpp
+	g++ -Wall -std=c++11  -c src/accessoire/AccessoireCamouflage.cpp -o bin/AccessoireCamouflage.o -I .
+
 clean:
 	rm -rf bin/*.o bin/main *.o
 info:

@@ -19,8 +19,8 @@ class AccessoireCarapace: public Accessoire {
         double global_coef_carapace_max = 3.;
         double global_coef_ralentissement_max = 5.;
 
-        coef_carapace = 1 + rand() / RAND_MAX * global_coef_carapace_max;
-        coef_ralentissement = 1 + rand() / RAND_MAX * global_coef_ralentissement_max;
+        coef_carapace = 1 + rand() / RAND_MAX * (global_coef_carapace_max-1);
+        coef_ralentissement = 1 + rand() / RAND_MAX * (global_coef_ralentissement_max-1);
     };
 public:
     double coef_carapace;

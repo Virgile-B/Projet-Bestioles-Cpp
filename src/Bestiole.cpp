@@ -12,6 +12,7 @@
 #include "accessoire/NoAccessoire.h"
 #include "accessoire/AccessoireNageoire.h"
 #include "accessoire/AccessoireCarapace.h"
+#include "accessoire/AccessoireCamouflage.h"
 #include "utils.cpp"
 
 const double      Bestiole::AFF_SIZE = 20.;
@@ -46,7 +47,7 @@ Bestiole::Bestiole(const std::string comportement)
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
     vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
     // initialisation des accessoires
-    accessoire = new Accessoire*[ 2 ];
+    accessoire = new Accessoire*[ 3 ];
     if (RandomValues(0, 2)>1){
         accessoire[0]= AccessoireNageoire::get_nageoire();
     } else{
@@ -57,14 +58,11 @@ Bestiole::Bestiole(const std::string comportement)
     }else{
         accessoire[1]= NoAccessoire::get_no_accessoire();
     }
-    /*
     if (RandomValues(0, 2)>1){
-        accessoire[0]= AccessoireNageoire::get_nageoire();
+        accessoire[2]= AccessoireCamouflage::get_camouflage();
     }else{
         accessoire[2]= NoAccessoire::get_no_accessoire();
     }
-    */
-
     if (comportement == "gregaire"){
         setComportement(0);
     }
@@ -121,13 +119,11 @@ Bestiole::Bestiole() {
     }else{
         accessoire[1]= NoAccessoire::get_no_accessoire();
     }
-    /*
     if (RandomValues(0, 2)>1){
-        accessoire[0]= AccessoireNageoire::get_nageoire();
+        accessoire[2]= AccessoireCamouflage::get_camouflage();
     }else{
         accessoire[2]= NoAccessoire::get_no_accessoire();
     }
-    */
 
 }
 void Bestiole::setEsperanceVie(){
@@ -202,6 +198,7 @@ Bestiole::Bestiole(const Bestiole &b) {
     accessoire = b.accessoire;
     pts_vie = b.pts_vie;  // A ne pas utiliser poru le clonage
     morte = b.morte;
+    camouflage = b.camouflage;
 }
 
 
@@ -257,7 +254,7 @@ void Bestiole::action(Milieu &monMilieu) {
 }
 void Bestiole::use_accessoires(UImg &support) {
 
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 3; ++i) {
         (getAccessoire()[i])->gadgetAction(this);
         (getAccessoire()[i])->drawGadget(this, support);
     }
@@ -297,6 +294,15 @@ Bestiole &Bestiole::operator=(const Bestiole &b) {
     this->vitesse = b.vitesse;
     this->comportement_multiple = b.comportement_multiple;
     this->comportement = b.comportement;
+    this->vision = b.vision;
+    this->gamma_yeux = b.gamma_yeux;
+    this->gamma_ouie = b.gamma_ouie;
+    this->delta_yeux = b.delta_yeux;
+    this->delta_ouie = b.delta_ouie;
+    this->accessoire = b.accessoire;
+    this->pts_vie = b.pts_vie;  // A ne pas utiliser poru le clonage
+    this->morte = b.morte;
+    this->camouflage = b.camouflage;
     return *this;
 }
 
@@ -307,12 +313,11 @@ const bool Bestiole::estMultiple()
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
 
-
     double xx = x + delta_yeux * cos(orientation + vision / 2);
     double xx2 = x + delta_yeux * cos(orientation - vision / 2);
     double yy = y - delta_yeux * sin(orientation + vision / 2);
     double yy2 = y - delta_yeux * sin(orientation - vision / 2);
-    if (estDedans(b.x, xx, xx2) && estDedans(b.y, yy, yy2) && this != &b){
+    if (estDedans(b.x, xx, xx2) && estDedans(b.y, yy, yy2) && this != &b && b.getCamouflage()<gamma_yeux){
         return true;
     } else { return false; }
 }
@@ -323,7 +328,7 @@ bool Bestiole::jeTentends(const Bestiole &b) const {
         return false;
     }
     double dist = std::sqrt((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
-    if (dist <= delta_ouie) {
+    if (dist <= delta_ouie && b.getCamouflage() < gamma_ouie) {
         return true;
     } else { return false; }
 }

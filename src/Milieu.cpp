@@ -95,8 +95,8 @@ int Milieu::getNbBestioles()
 
 void Milieu::collision(Bestiole & b){
     std::vector<Bestiole*> voisins = this->Voisins(b);
-    for ( std::vector<Bestiole*>::iterator it = voisins.begin() ; it != voisins.end() ; ++it ){
-        if( std::sqrt(((*it)->getX() - b.getX()) * ((*it)->getX() - b.getX()) + ((*it)->getY() - b.getY()) * ((*it)->getY() - b.getY())) < b.getSize()){
+    for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
+        if( std::sqrt(((*it)->getX() - b.getX()) * ((*it)->getX() - b.getX()) + ((*it)->getY() - b.getY()) * ((*it)->getY() - b.getY())) < b.getSize() && b.get_identite()!=(*it)->get_identite()){
             b.inverse_orientation(*(*it));
         }
     }
