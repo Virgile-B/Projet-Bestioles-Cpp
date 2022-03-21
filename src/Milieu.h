@@ -57,7 +57,7 @@ public :
    int getNbMultiple();
    int getNbGregaire();
    int getNbPrevoyante();
-   
+   std::vector<Bestiole*> getListeBestiole(){ return this->listeBestioles;};
 
 };
 

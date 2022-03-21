@@ -22,12 +22,12 @@ void Milieu::step( void ) {
             if ((*it)->meurt((*this)) || (*it)->getVie()) {
                 removeMember(*it, toRemove);
             } else {
-                this->collision(*(*it));
                 (*it)->action(*this);
                 (*it)->draw(*this);
                 (*it)->draw_oreilles(*this);
                 (*it)->draw_yeux(*this);
                 (*it)->use_accessoires(*this);
+                this->collision(*(*it));
             }
             nbBestioles = listeBestioles.size();
         }

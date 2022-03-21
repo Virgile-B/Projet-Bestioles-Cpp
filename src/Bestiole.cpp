@@ -163,6 +163,7 @@ void Bestiole::setComportement(int comportement) {
         case 3:
             this->comportement = ComportementPrevoyante::get_prevoyante();
             this->couleur = this->comportement->get_couleur();
+            cout << "setcomportement "<< endl;
             break;
         case 4:
             if (!this->estMultiple()) {

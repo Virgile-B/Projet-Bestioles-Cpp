@@ -21,6 +21,18 @@ ComportementPrevoyante::ComportementPrevoyante(void){
     couleur[ 2 ] = 255;
     type = "prevoyante";
 }
+
+void ComportementPrevoyante::action(Bestiole *b, Milieu &monMilieu) {
+    std::vector<Bestiole *> listeBestiole = monMilieu.getListeBestiole();
+    for (std::vector<Bestiole *>::iterator it = listeBestiole.begin();
+         it != listeBestiole.end(); ++it) {
+        if (std::sqrt(((*it)->getX() - b->getX()) * ((*it)->getX() - b->getX()) +
+                      ((*it)->getY() - b->getY()) * ((*it)->getY() - b->getY())) < (b->getSize()*2.5) &&
+            b->get_identite() != (*it)->get_identite()) {
+            b->set_orientation(b->get_orientation() + 0.5); // deviation de 30 degres
+        }
+    }
+}
 /*
 ComportementPrevoyante::~ComportementPrevoyante()
 {
