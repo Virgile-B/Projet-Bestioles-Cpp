@@ -13,8 +13,10 @@
 class ComportementKamikaze : public Comportement {
     static ComportementKamikaze *comportement_kamikaze;  // Pointer to the singleton
     ComportementKamikaze();
+    int step = 0;
 
 public:
+
 
     /*
      * Static method that controls access to the singleton

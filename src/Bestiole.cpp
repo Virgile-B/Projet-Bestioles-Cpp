@@ -46,6 +46,7 @@ Bestiole::Bestiole(const std::string comportement)
     delta_yeux = RandomValues(global_delta_yeux_min, global_delta_yeux_max);
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
     vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
+    old_vitesse = vitesse;
     // initialisation des accessoires
     accessoire = new Accessoire*[ 3 ];
     if (RandomValues(0, 2)>1){
@@ -93,6 +94,7 @@ Bestiole::Bestiole() {
     cumulX = cumulY = 0.;
     orientation = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
     vitesse = static_cast<double>( rand()) / RAND_MAX * MAX_VITESSE;
+    old_vitesse = vitesse;
     randomComportement();
     vision = static_cast<double>( rand()) / RAND_MAX * M_PI/2;
     extern double global_gamma_yeux_min;
@@ -200,6 +202,8 @@ Bestiole::Bestiole(const Bestiole &b) {
     pts_vie = b.pts_vie;  // A ne pas utiliser poru le clonage
     morte = b.morte;
     camouflage = b.camouflage;
+    old_vitesse = b.old_vitesse;
+    step_peureuse = 0;
 }
 
 
@@ -304,6 +308,8 @@ Bestiole &Bestiole::operator=(const Bestiole &b) {
     this->pts_vie = b.pts_vie;  // A ne pas utiliser poru le clonage
     this->morte = b.morte;
     this->camouflage = b.camouflage;
+    this->old_vitesse = b.old_vitesse;
+    this->step_peureuse = b.step_peureuse; // A ne pas utiliser poru le clonage
     return *this;
 }
 

@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     global_delta_yeux_min=0;
     global_delta_yeux_max=65;
     global_delta_ouie_min=5;
-    global_delta_ouie_max=30;
+    global_delta_ouie_max=90;
 
     Aquarium ecosysteme(1000, 1000, 10);
     //prevoyante peureuse multiple gregaire kamikaze

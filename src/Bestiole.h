@@ -31,6 +31,8 @@ private :
     double orientation;
     double vision;
     double vitesse;
+    double old_vitesse;
+    int step_peureuse = 0;
     bool comportement_multiple;
     T *couleur;
     Comportement *comportement;
@@ -124,6 +126,12 @@ public :                                           // Forme canonique :
     void use_accessoires(UImg &support);
 
     std::string getType();
+
+    int getStepPeureuse() { return this->step_peureuse;};
+    void setStepPeureuse(int step){ this->step_peureuse = step;};
+    double getOldVitesse(){ return this->old_vitesse;};
+
+    double getMAxVitesse(){ return this->MAX_VITESSE;};
 };
 
 #endif
