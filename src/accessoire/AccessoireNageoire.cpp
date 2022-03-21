@@ -2,7 +2,6 @@
 #include <string>
 #include <cstdlib>
 #include <cmath>
-//#include "../UImg.h"
 
 AccessoireNageoire *AccessoireNageoire::accessoire_nageoire = nullptr;  // Instantiating the Pointer to the singleton
 

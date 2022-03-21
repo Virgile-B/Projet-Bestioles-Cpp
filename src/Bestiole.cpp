@@ -11,6 +11,7 @@
 #include "accessoire/Accessoire.h"
 #include "accessoire/NoAccessoire.h"
 #include "accessoire/AccessoireNageoire.h"
+#include "accessoire/AccessoireCarapace.h"
 #include "utils.cpp"
 
 const double      Bestiole::AFF_SIZE = 20.;
@@ -45,18 +46,18 @@ Bestiole::Bestiole(const std::string comportement)
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
     vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
     // initialisation des accessoires
-    accessoire = new Accessoire*[ 1 ];
+    accessoire = new Accessoire*[ 2 ];
     if (RandomValues(0, 2)>1){
         accessoire[0]= AccessoireNageoire::get_nageoire();
     } else{
         accessoire[0]= NoAccessoire::get_no_accessoire();
     }
-    /*
     if (RandomValues(0, 2)>1){
-        accessoire[1]= AccessoireNageoire::get_nageoire();
+        accessoire[1]= AccessoireCarapace::get_carapace();
     }else{
         accessoire[1]= NoAccessoire::get_no_accessoire();
     }
+    /*
     if (RandomValues(0, 2)>1){
         accessoire[0]= AccessoireNageoire::get_nageoire();
     }else{
@@ -115,12 +116,12 @@ Bestiole::Bestiole() {
     } else{
         accessoire[0]= NoAccessoire::get_no_accessoire();
     }
-    /*
     if (RandomValues(0, 2)>1){
-        accessoire[1]= AccessoireNageoire::get_nageoire();
+        accessoire[1]= AccessoireCarapace::get_carapace();
     }else{
         accessoire[1]= NoAccessoire::get_no_accessoire();
     }
+    /*
     if (RandomValues(0, 2)>1){
         accessoire[0]= AccessoireNageoire::get_nageoire();
     }else{
@@ -255,10 +256,8 @@ void Bestiole::action(Milieu &monMilieu) {
     bouge(monMilieu.getWidth(), monMilieu.getHeight());
 }
 void Bestiole::use_accessoires(UImg &support) {
-//    Accessoire *ptr_acc = ((*it)->getAccessoire())[0];
-    //ptr_acc->gadgetAction(*it);
- //   ptr_acc->drawGadget(*it);
-    for (int i = 0; i < 1; ++i) {
+
+    for (int i = 0; i < 2; ++i) {
         (getAccessoire()[i])->gadgetAction(this);
         (getAccessoire()[i])->drawGadget(this, support);
     }
