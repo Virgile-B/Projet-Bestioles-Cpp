@@ -19,7 +19,7 @@ void Milieu::step( void ) {
     std::vector < Bestiole * > toRemove;
     if (listeBestioles.size() != 0) {
         for (std::vector<Bestiole *>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
-            if ((*it)->meurt((*this) || (*it)->getVie()) {
+            if ((*it)->meurt((*this)) || (*it)->getVie()) {
                 removeMember(*it, toRemove);
             } else {
                 this->collision(*(*it));
@@ -169,7 +169,7 @@ int Milieu::getNbMultiple()
 {
     int compteur = 0;
     for (std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
-        if ((*it)->estMultiple()==true) {
+        if ((*it)->estMultiple()) {
             compteur = compteur + 1;
         }
     }
