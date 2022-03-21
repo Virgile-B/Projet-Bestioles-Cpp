@@ -25,7 +25,9 @@ Aquarium::~Aquarium( void )
 
    delete flotte;
 
-   cout << "dest Aquarium" << endl;
+   cout << "####################" << endl;
+   cout << "Fin de la Simulation" << endl;
+   cout << "####################" << endl;
 
 }
 

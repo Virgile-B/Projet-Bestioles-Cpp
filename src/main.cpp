@@ -18,6 +18,7 @@ int nbPrevoyante;
 int nbKamikaze;
 int nbGregaire;
 int nbMultiple;
+int nbStepMax;
 
 using namespace std;
 
@@ -29,9 +30,9 @@ int main(int argc, char **argv) {
     global_gamma_ouie_min=0;
     global_gamma_ouie_max=1;
     global_delta_yeux_min=0;
-    global_delta_yeux_max=65;
+    global_delta_yeux_max=150;
     global_delta_ouie_min=5;
-    global_delta_ouie_max=30;
+    global_delta_ouie_max=75;
 
     Aquarium ecosysteme(1000, 1000, 10);
     //prevoyante peureuse multiple gregaire kamikaze
@@ -40,8 +41,9 @@ int main(int argc, char **argv) {
     nbKamikaze = std::atoi(argv[3]);
     nbGregaire = std::atoi(argv[4]);
     nbMultiple = std::atoi(argv[5]);
+    nbStepMax = std::atoi(argv[6]);
 
-    ecosysteme.getMilieu().setSimulation(nbPeureuse,nbPrevoyante,nbMultiple,nbGregaire,nbKamikaze);
+    ecosysteme.getMilieu().setSimulation(nbPeureuse,nbPrevoyante,nbMultiple,nbGregaire,nbKamikaze,nbStepMax);
     Bestiole* ptr_bestiole;
     std::cout << ecosysteme.getMilieu().getNbMultiple() ;
     for (int i = 1; i <= nbPeureuse; ++i) {

@@ -22,6 +22,8 @@ private :
    static const int        PROBA_NAIS;
    char* type;
    int nbBestioles;
+   int nbStep;
+   int nbStepMax;
 
 public :
    int nb_peureuse;
@@ -42,7 +44,7 @@ public :
    std::vector<Bestiole*> Voisins( const Bestiole & b);
    int nbVoisins( const Bestiole & b );
    void naissance();
-   void setSimulation(int nb_peureuse, int nb_prevoyante, int nb_multiple, int nb_gregaire, int nb_kamikaze);  
+   void setSimulation(int nb_peureuse, int nb_prevoyante, int nb_multiple, int nb_gregaire, int nb_kamikaze, int nbStepMax = 100);  
    int getNbBestioles();
    char* getType();
 
@@ -57,7 +59,7 @@ public :
    int getNbMultiple();
    int getNbGregaire();
    int getNbPrevoyante();
-   
+   void stateSimu();
 
 };
 

@@ -2,6 +2,9 @@
 #include <string.h>
 #include <cstdlib>
 #include <ctime>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 const int   Milieu::PROBA_NAIS = 5; // en %
@@ -10,33 +13,45 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
     cout << "const Milieu" << endl;
+    nbStep = 0;
 }
 
 void Milieu::step( void ) {
-    cimg_forXY(*this, x, y)
-    fillC(x, y, 0, white[0], white[1], white[2]);
-    this->naissance();
-    std::vector < Bestiole * > toRemove;
-    if (listeBestioles.size() != 0) {
-        for (std::vector<Bestiole *>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
-            if ((*it)->meurt((*this)) || (*it)->getVie()) {
-                removeMember(*it, toRemove);
-            } else {
-                this->collision(*(*it));
-                (*it)->action(*this);
-                (*it)->draw(*this);
-                (*it)->draw_oreilles(*this);
-                (*it)->draw_yeux(*this);
-                (*it)->use_accessoires(*this);
+    nbStep = nbStep + 1;
+    if(nbStep <= nbStepMax)
+    {
+        cimg_forXY(*this, x, y)
+        fillC(x, y, 0, white[0], white[1], white[2]);
+        this->naissance();
+        std::vector < Bestiole * > toRemove;
+        if (listeBestioles.size() != 0) {
+            for (std::vector<Bestiole *>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
+                if ((*it)->meurt((*this)) || (*it)->getVie()) {
+                    removeMember(*it, toRemove);
+                } else {
+                    this->collision(*(*it));
+                    (*it)->action(*this);
+                    (*it)->draw(*this);
+                    (*it)->draw_oreilles(*this);
+                    (*it)->draw_yeux(*this);
+                    (*it)->use_accessoires(*this);
+                }
+                nbBestioles = listeBestioles.size();
             }
-            nbBestioles = listeBestioles.size();
-        }
-        if (!(toRemove.empty())){
-            for (std::vector<Bestiole *>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
-                listeBestioles.erase(std::remove(listeBestioles.begin(), listeBestioles.end(), *it), listeBestioles.end());
-                (*it)->~Bestiole();
+            if (!(toRemove.empty())){
+                for (std::vector<Bestiole *>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
+                    listeBestioles.erase(std::remove(listeBestioles.begin(), listeBestioles.end(), *it), listeBestioles.end());
+                    (*it)->~Bestiole();
+                }
             }
         }
+        stateSimu(); 
+    }
+    else 
+    {
+        system("clear");
+        std::cout << "Simulation terminée" << std::endl;
+        std::exit;
     }
 }
 
@@ -96,13 +111,14 @@ void Milieu::removeMember(Bestiole *b, std::vector<Bestiole*> &toRemove) {
     toRemove.push_back(b);
 }
 
-void Milieu::setSimulation(int nb_peureuse, int nb_prevoyante, int nb_multiple, int nb_gregaire, int nb_kamikaze)
+void Milieu::setSimulation(int nb_peureuse, int nb_prevoyante, int nb_multiple, int nb_gregaire, int nb_kamikaze, int nbStepMax)
 {
     this->nb_peureuse = nb_peureuse;
     this->nb_prevoyante = nb_prevoyante;
     this->nb_multiple = nb_multiple;
     this->nb_gregaire = nb_gregaire;
     this->nb_kamikaze = nb_kamikaze;
+    this->nbStepMax = nbStepMax;
 }
 
 char* Milieu::getType()
@@ -194,4 +210,35 @@ int Milieu::getNbPrevoyante()
         }
     }
     return compteur;
+}
+
+void Milieu::stateSimu()
+{   
+    system("clear");
+    std::cout << "######################" << std::endl;
+    std::cout << "Etat de la simulation  " << std::endl;
+    std::cout << "######################" << std::endl;
+    std::cout << "Step -> " << nbStep << std::endl;
+    std::cout << "Nombre total de bestioles : " << listeBestioles.size() << std::endl;
+    std::cout << "Nb prevoyantes courrant - initial : " << getNbPrevoyante() << "-" << nb_prevoyante << std::endl;
+    std::cout << "Nb gregaires courrant - initial : " << getNbGregaire() << "-" << nb_gregaire << std::endl;
+    std::cout << "Nb kamikazes courrant - initial : " << getNbKamikaze() << "-" << nb_kamikaze << std::endl;
+    std::cout << "Nb multiples courrant - initial : " << getNbMultiple() << "-" << nb_multiple << std::endl;
+    std::cout << "Nb peureuses courrant - initial : " << getNbPeureuse() << "-" << nb_peureuse << std::endl;
+    if(nbStep == nbStepMax)
+    {
+        ofstream out;
+        out.open ("simulation_out.txt");
+        out << "######################" << std::endl;
+        out << "Etat de la simulation  " << std::endl;
+        out << "######################" << std::endl;
+        out << "Step -> " << nbStep << std::endl;
+        out << "Nombre total de bestioles : " << listeBestioles.size() << std::endl;
+        out << "Nb prevoyantes courrant - initial : " << getNbPrevoyante() << "-" << nb_prevoyante << std::endl;
+        out << "Nb gregaires courrant - initial : " << getNbGregaire() << "-" << nb_gregaire << std::endl;
+        out << "Nb kamikazes courrant - initial : " << getNbKamikaze() << "-" << nb_kamikaze << std::endl;
+        out << "Nb multiples courrant - initial : " << getNbMultiple() << "-" << nb_multiple << std::endl;
+        out << "Nb peureuses courrant - initial : " << getNbPeureuse() << "-" << nb_peureuse << std::endl;
+        out.close();
+    }
 }
