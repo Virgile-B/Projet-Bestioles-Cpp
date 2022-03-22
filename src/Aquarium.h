@@ -19,7 +19,7 @@ private :
    Milieu       * flotte;
 
    int            delay;
-
+   bool           pause;
 public :
    Aquarium( int width, int height, int _delay );
    ~Aquarium( void );

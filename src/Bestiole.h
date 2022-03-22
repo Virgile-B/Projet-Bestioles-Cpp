@@ -79,7 +79,9 @@ public :                                           // Forme canonique :
 
     void setEsperanceVie();
 
-    bool meurt(Milieu &monMilieu);
+    bool meurt();
+
+    bool clone();
 
     void draw_oreilles(UImg &support);
 
@@ -130,7 +132,6 @@ public :                                           // Forme canonique :
     int getStepPeureuse() { return this->step_peureuse;};
     void setStepPeureuse(int step){ this->step_peureuse = step;};
     double getOldVitesse(){ return this->old_vitesse;};
-
     double getMAxVitesse(){ return this->MAX_VITESSE;};
 };
 

@@ -41,6 +41,7 @@ public :
 
    void addMember(Bestiole* b ) {listeBestioles.push_back(b); listeBestioles.back()->initCoords(width, height); }
    void removeMember(Bestiole* b, std::vector<Bestiole*> &toRemove);
+   void cloneMember(Bestiole* b ){listeBestioles.push_back(b); listeBestioles.back(); }
    std::vector<Bestiole*> Voisins( const Bestiole & b);
    int nbVoisins( const Bestiole & b );
    void naissance();
@@ -60,7 +61,7 @@ public :
    int getNbGregaire();
    int getNbPrevoyante();
    std::vector<Bestiole*> getListeBestiole(){ return this->listeBestioles;};
-   void stateSimu();
+   void stateSimu(bool save);
 
 };
 

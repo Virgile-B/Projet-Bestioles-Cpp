@@ -26,15 +26,15 @@ void Milieu::step( void ) {
         std::vector < Bestiole * > toRemove;
         if (listeBestioles.size() != 0) {
             for (std::vector<Bestiole *>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
-                if ((*it)->meurt((*this)) || (*it)->getVie()) {
+                if ((*it)->meurt() || (*it)->getVie()) {
                     removeMember(*it, toRemove);
                 } else {
+                    this->collision(*(*it));
                     (*it)->action(*this);
                     (*it)->draw(*this);
                     (*it)->draw_oreilles(*this);
                     (*it)->draw_yeux(*this);
                     (*it)->use_accessoires(*this);
-                    this->collision(*(*it));
                 }
                 nbBestioles = listeBestioles.size();
             }
@@ -45,9 +45,8 @@ void Milieu::step( void ) {
                 }
             }
         }
-        stateSimu();
     }
-    else
+    else 
     {
         system("clear");
         std::cout << "Simulation terminée" << std::endl;
@@ -165,7 +164,7 @@ int Milieu::getNbPeureuse()
 {
     int compteur = 0;
     for (std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
-        if ((*it)->getType() == "peureuse") {
+        if ((*it)->getType() == "peureuse" && !(*it)->estMultiple()) {
             compteur = compteur + 1;
         }
     }
@@ -175,7 +174,7 @@ int Milieu::getNbKamikaze()
 {
     int compteur = 0;
     for (std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
-        if ((*it)->getType()=="kamikaze") {
+        if ((*it)->getType()=="kamikaze" && !(*it)->estMultiple()) {
             compteur = compteur + 1;
         }
     }
@@ -195,7 +194,7 @@ int Milieu::getNbGregaire()
 {
    int compteur = 0;
     for (std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
-        if ((*it)->getType()=="gregaire") {
+        if ((*it)->getType()=="gregaire"&& !(*it)->estMultiple()) {
             compteur = compteur + 1;
         }
     }
@@ -205,26 +204,27 @@ int Milieu::getNbPrevoyante()
 {
    int compteur = 0;
     for (std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
-        if ((*it)->getType()=="prevoyante") {
+        if ((*it)->getType()=="prevoyante" && !(*it)->estMultiple()) {
             compteur = compteur + 1;
         }
     }
     return compteur;
 }
 
-void Milieu::stateSimu()
-{
+void Milieu::stateSimu(bool save)
+{   
     system("clear");
     std::cout << "######################" << std::endl;
     std::cout << "Etat de la simulation  " << std::endl;
     std::cout << "######################" << std::endl;
     std::cout << "Step -> " << nbStep << std::endl;
     std::cout << "Nombre total de bestioles : " << listeBestioles.size() << std::endl;
-    std::cout << "Nb prevoyantes courrant - initial : " << getNbPrevoyante() << "-" << nb_prevoyante << std::endl;
+    std::cout << "Nb prevoyantes initial : " << getNbPrevoyante() << "-" << nb_prevoyante << std::endl;
     std::cout << "Nb gregaires courrant - initial : " << getNbGregaire() << "-" << nb_gregaire << std::endl;
     std::cout << "Nb kamikazes courrant - initial : " << getNbKamikaze() << "-" << nb_kamikaze << std::endl;
     std::cout << "Nb multiples courrant - initial : " << getNbMultiple() << "-" << nb_multiple << std::endl;
     std::cout << "Nb peureuses courrant - initial : " << getNbPeureuse() << "-" << nb_peureuse << std::endl;
+    std::cout << "######################" << std::endl;
     if(nbStep == nbStepMax)
     {
         ofstream out;
@@ -239,6 +239,7 @@ void Milieu::stateSimu()
         out << "Nb kamikazes courrant - initial : " << getNbKamikaze() << "-" << nb_kamikaze << std::endl;
         out << "Nb multiples courrant - initial : " << getNbMultiple() << "-" << nb_multiple << std::endl;
         out << "Nb peureuses courrant - initial : " << getNbPeureuse() << "-" << nb_peureuse << std::endl;
+        out << "######################" << std::endl;
         out.close();
     }
 }

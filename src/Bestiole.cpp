@@ -46,7 +46,6 @@ Bestiole::Bestiole(const std::string comportement)
     delta_yeux = RandomValues(global_delta_yeux_min, global_delta_yeux_max);
     delta_ouie = RandomValues(global_delta_ouie_min, global_delta_ouie_max);
     vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
-    old_vitesse = vitesse;
     // initialisation des accessoires
     accessoire = new Accessoire*[ 3 ];
     if (RandomValues(0, 2)>1){
@@ -94,7 +93,6 @@ Bestiole::Bestiole() {
     cumulX = cumulY = 0.;
     orientation = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
     vitesse = static_cast<double>( rand()) / RAND_MAX * MAX_VITESSE;
-    old_vitesse = vitesse;
     randomComportement();
     vision = static_cast<double>( rand()) / RAND_MAX * M_PI/2;
     extern double global_gamma_yeux_min;
@@ -132,12 +130,21 @@ void Bestiole::setEsperanceVie(){
     this->esperanceVie = rand() % 100 + 1;
 }
 
-bool Bestiole::meurt(Milieu &monMilieu) {
+bool Bestiole::meurt() {
     if ((rand() % 1000 + 1) > 999) {
         return true;
     }
     return false;
 }
+
+bool Bestiole::clone() {
+    if ((rand() % 100 + 1) > 90) {
+        return true;
+    }
+    return false;
+}
+
+
 
 void Bestiole::changerComportement() {
     if( (rand() % 100+1) > 90) {
@@ -165,7 +172,6 @@ void Bestiole::setComportement(int comportement) {
         case 3:
             this->comportement = ComportementPrevoyante::get_prevoyante();
             this->couleur = this->comportement->get_couleur();
-            cout << "setcomportement "<< endl;
             break;
         case 4:
             if (!this->estMultiple()) {
@@ -183,7 +189,6 @@ void Bestiole::setComportement(int comportement) {
 Bestiole::Bestiole(const Bestiole &b) {
     identite = b.identite;
     cout << "const Bestiole (" << identite << ") par copie" << endl;
-
     x = b.x;
     y = b.y;
     cumulX = b.cumulX;
@@ -202,8 +207,7 @@ Bestiole::Bestiole(const Bestiole &b) {
     pts_vie = b.pts_vie;  // A ne pas utiliser poru le clonage
     morte = b.morte;
     camouflage = b.camouflage;
-    old_vitesse = b.old_vitesse;
-    step_peureuse = 0;
+    cout << "copie" << endl;
 }
 
 
@@ -308,8 +312,6 @@ Bestiole &Bestiole::operator=(const Bestiole &b) {
     this->pts_vie = b.pts_vie;  // A ne pas utiliser poru le clonage
     this->morte = b.morte;
     this->camouflage = b.camouflage;
-    this->old_vitesse = b.old_vitesse;
-    this->step_peureuse = b.step_peureuse; // A ne pas utiliser poru le clonage
     return *this;
 }
 
@@ -404,7 +406,7 @@ void Bestiole::draw_yeux(UImg &support) {
 }
 
 void Bestiole::inverse_orientation(Bestiole& b){
-    if (b.comportement != ComportementGregaire::get_gregaire()  || b.comportement != ComportementKamikaze::get_kamikaze()){b.orientation =  M_PI + b.orientation;}
+    if (b.comportement != ComportementGregaire::get_gregaire() ){b.orientation =  M_PI + b.orientation;}
     if (this->comportement != ComportementGregaire::get_gregaire()) {orientation =  M_PI + orientation;} //PAS SUUUUUR DU TOUUUUT
     int max_vitesse = max(b.getVitesse(), this->getVitesse());
     if((b.getPtsVie()-20*max_vitesse)>0){
