@@ -17,7 +17,7 @@ class Aquarium : public CImgDisplay
 
 private :
    Milieu       * flotte;
-
+   bool pause = false;
    int            delay;
 
 public :

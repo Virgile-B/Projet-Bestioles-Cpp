@@ -79,7 +79,7 @@ public :                                           // Forme canonique :
 
     void setEsperanceVie();
 
-    bool meurt(Milieu &monMilieu);
+    bool meurt();
 
     void draw_oreilles(UImg &support);
 

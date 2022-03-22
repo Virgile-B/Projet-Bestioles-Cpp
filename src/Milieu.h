@@ -60,7 +60,7 @@ public :
    int getNbGregaire();
    int getNbPrevoyante();
    std::vector<Bestiole*> getListeBestiole(){ return this->listeBestioles;};
-   void stateSimu();
+   void stateSimu(bool save);
 
 };
 

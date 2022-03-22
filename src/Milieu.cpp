@@ -26,7 +26,7 @@ void Milieu::step( void ) {
         std::vector < Bestiole * > toRemove;
         if (listeBestioles.size() != 0) {
             for (std::vector<Bestiole *>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
-                if ((*it)->meurt((*this)) || (*it)->getVie()) {
+                if ((*it)->meurt() || (*it)->getVie()) {
                     removeMember(*it, toRemove);
                 } else {
                     (*it)->action(*this);
@@ -45,7 +45,6 @@ void Milieu::step( void ) {
                 }
             }
         }
-        stateSimu();
     }
     else
     {
@@ -212,21 +211,23 @@ int Milieu::getNbPrevoyante()
     return compteur;
 }
 
-void Milieu::stateSimu()
-{
+void Milieu::stateSimu(bool save)
+{   
     system("clear");
     std::cout << "######################" << std::endl;
     std::cout << "Etat de la simulation  " << std::endl;
     std::cout << "######################" << std::endl;
     std::cout << "Step -> " << nbStep << std::endl;
     std::cout << "Nombre total de bestioles : " << listeBestioles.size() << std::endl;
-    std::cout << "Nb prevoyantes courrant - initial : " << getNbPrevoyante() << "-" << nb_prevoyante << std::endl;
+    std::cout << "Nb prevoyantes initial : " << getNbPrevoyante() << "-" << nb_prevoyante << std::endl;
     std::cout << "Nb gregaires courrant - initial : " << getNbGregaire() << "-" << nb_gregaire << std::endl;
     std::cout << "Nb kamikazes courrant - initial : " << getNbKamikaze() << "-" << nb_kamikaze << std::endl;
     std::cout << "Nb multiples courrant - initial : " << getNbMultiple() << "-" << nb_multiple << std::endl;
     std::cout << "Nb peureuses courrant - initial : " << getNbPeureuse() << "-" << nb_peureuse << std::endl;
-    if(nbStep == nbStepMax)
+    std::cout << "######################" << std::endl;
+    if(nbStep == nbStepMax || save)
     {
+        std::cout << "Simulation courrante enregistrée : simulation_out.txt " << std::endl;
         ofstream out;
         out.open ("simulation_out.txt");
         out << "######################" << std::endl;
@@ -239,6 +240,7 @@ void Milieu::stateSimu()
         out << "Nb kamikazes courrant - initial : " << getNbKamikaze() << "-" << nb_kamikaze << std::endl;
         out << "Nb multiples courrant - initial : " << getNbMultiple() << "-" << nb_multiple << std::endl;
         out << "Nb peureuses courrant - initial : " << getNbPeureuse() << "-" << nb_peureuse << std::endl;
+        out << "######################" << std::endl;
         out.close();
     }
 }

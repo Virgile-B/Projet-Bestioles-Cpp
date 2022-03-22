@@ -1,0 +1,11 @@
+######################
+Etat de la simulation  
+######################
+Step -> 925
+Nombre total de bestioles : 23
+Nb prevoyantes courrant - initial : 0-0
+Nb gregaires courrant - initial : 0-0
+Nb kamikazes courrant - initial : 0-0
+Nb multiples courrant - initial : 0-0
+Nb peureuses courrant - initial : 23-10
+######################

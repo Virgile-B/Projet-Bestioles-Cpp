@@ -132,7 +132,7 @@ void Bestiole::setEsperanceVie(){
     this->esperanceVie = rand() % 100 + 1;
 }
 
-bool Bestiole::meurt(Milieu &monMilieu) {
+bool Bestiole::meurt() {
     if ((rand() % 1000 + 1) > 999) {
         return true;
     }
