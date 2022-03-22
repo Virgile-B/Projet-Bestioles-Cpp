@@ -32,7 +32,7 @@ private :
     double vision;
     double vitesse;
     double old_vitesse;
-    int step_peureuse = 0;
+    int step_comportement = 0;
     bool comportement_multiple;
     T *couleur;
     Comportement *comportement;
@@ -128,8 +128,8 @@ public :                                           // Forme canonique :
 
     std::string getType();
 
-    int getStepPeureuse() { return this->step_peureuse;};
-    void setStepPeureuse(int step){ this->step_peureuse = step;};
+    int getStepComportement() { return this->step_comportement;};
+    void setStepComportement(int step){ this->step_comportement = step;};
     double getOldVitesse(){ return this->old_vitesse;};
     double setOldVitesse(double vitesse){this->old_vitesse = vitesse;};
 

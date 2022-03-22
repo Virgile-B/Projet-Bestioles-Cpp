@@ -35,8 +35,11 @@ void Milieu::step( void ) {
                     (*it)->draw_oreilles(*this);
                     (*it)->draw_yeux(*this);
                     (*it)->use_accessoires(*this);
-                    this->collision(*(*it));
-                }if((*it)->meurt((*this)) || (*it)->getVie()){
+                }
+            }
+            for (std::vector<Bestiole *>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
+                this->collision(*(*it));
+                if((*it)->meurt((*this)) || (*it)->getVie()){
                     removeMember(*it, toRemove);
                 }
                 nbBestioles = listeBestioles.size();
@@ -146,11 +149,11 @@ int Milieu::getNbBestioles()
 void Milieu::collision(Bestiole & b){
 
     for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
-        if( std::sqrt(((*it)->getX() - b.getX()) * ((*it)->getX() - b.getX()) + ((*it)->getY() - b.getY()) * ((*it)->getY() - b.getY())) < b.getSize() && b.get_identite()!=(*it)->get_identite()){
+       // cout << "dist "<< b.get_identite() << " "<< std::sqrt(((*it)->getX() - b.getX()) * ((*it)->getX() - b.getX()) + ((*it)->getY() - b.getY()) * ((*it)->getY() - b.getY()))<<endl;
+        if( std::sqrt(((*it)->getX() - b.getX()) * ((*it)->getX() - b.getX()) + ((*it)->getY() - b.getY()) * ((*it)->getY() - b.getY())) < (b.getSize()) && b.get_identite()!=(*it)->get_identite()){
             double max_vitesse = (b.getVitesse() >= (*it)->getVitesse())? b.getVitesse() : (*it)->getVitesse();
             cout << "identite "<< b.get_identite()<< endl;
             b.inverse_orientation(max_vitesse);
-
         }
     }
 }

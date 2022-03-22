@@ -202,7 +202,7 @@ Bestiole::Bestiole(const Bestiole &b) {
     morte = b.morte;
     camouflage = b.camouflage;
     old_vitesse = b.old_vitesse;
-    step_peureuse = 0;
+    step_comportement = 0;
 }
 
 
@@ -330,7 +330,7 @@ Bestiole &Bestiole::operator=(const Bestiole &b) {
     this->morte = b.morte;
     this->camouflage = b.camouflage;
     this->old_vitesse = b.old_vitesse;
-    this->step_peureuse = b.step_peureuse; // A ne pas utiliser poru le clonage
+    this->step_comportement = b.step_comportement; // A ne pas utiliser poru le clonage
     return *this;
 }
 
@@ -357,6 +357,7 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
     cout << b.x << endl;
     cout << b.y << endl;
     if (estDedans(b.x, x, max(xx2, xx) )&& estDedans(b.y, yy, yy2) && this != &b && b.getCamouflage()<gamma_yeux){
+        cout << this-> get_identite()<< " voit " << b.get_identite()<< endl;
         return true;
     } else { return false; }
 }
@@ -368,6 +369,7 @@ bool Bestiole::jeTentends(const Bestiole &b) const {
     }
     double dist = std::sqrt((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
     if (dist <= delta_ouie && b.getCamouflage() < gamma_ouie) {
+        cout << this-> get_identite()<< " entend " << b.get_identite()<< endl;
         return true;
     } else { return false; }
 }

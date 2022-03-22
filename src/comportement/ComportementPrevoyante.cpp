@@ -29,8 +29,14 @@ void ComportementPrevoyante::action(Bestiole *b, Milieu &monMilieu) {
         if (std::sqrt(((*it)->getX() - b->getX()) * ((*it)->getX() - b->getX()) +
                       ((*it)->getY() - b->getY()) * ((*it)->getY() - b->getY())) < (b->getSize()*2.5) &&
             b->get_identite() != (*it)->get_identite()) {
-            b->set_orientation(b->get_orientation() + 0.5); // deviation de 30 degres
+            if (b->getStepComportement()==0){
+                b->set_orientation(b->get_orientation() + 1); // deviation de 30 degres
+                b->setStepComportement(8);
+            }
         }
+    }
+    if (b->getStepComportement()>0){
+        b->setStepComportement(b->getStepComportement()-1);
     }
 }
 /*
