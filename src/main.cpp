@@ -2,7 +2,7 @@
 #include "Milieu.h"
 #include "Bestiole.h"
 #include <iostream>
-
+#include "test.cpp"
 
 
 double global_gamma_yeux_min;
@@ -19,6 +19,7 @@ int nbKamikaze;
 int nbGregaire;
 int nbMultiple;
 int nbStepMax;
+std::string test;
 
 using namespace std;
 
@@ -34,45 +35,51 @@ int main(int argc, char **argv) {
     global_delta_ouie_min=5;
     global_delta_ouie_max=75;
 
-    Aquarium ecosysteme(1000, 1000, 10);
-    //prevoyante peureuse multiple gregaire kamikaze
-    nbPeureuse = std::atoi(argv[1]);
-    nbPrevoyante = std::atoi(argv[2]);
-    nbKamikaze = std::atoi(argv[3]);
-    nbGregaire = std::atoi(argv[4]);
-    nbMultiple = std::atoi(argv[5]);
-    nbStepMax = std::atoi(argv[6]);
+    std::cout << "Do you want to test the product ? Please answer yes or no" << std::endl;
+    std::cin >> test;
+    if(test.compare("yes")==0) {
+        runTest();
+    }else {
 
-    ecosysteme.getMilieu().setSimulation(nbPeureuse,nbPrevoyante,nbMultiple,nbGregaire,nbKamikaze,nbStepMax);
-    Bestiole* ptr_bestiole;
-    std::cout << ecosysteme.getMilieu().getNbMultiple() ;
-    for (int i = 1; i <= nbPeureuse; ++i) {
-        std::cout << "first iteration" << std::endl;
-        ptr_bestiole = new Bestiole("peureuse");
-        ecosysteme.getMilieu().addMember(ptr_bestiole);
-    }
-    for (int i = 1; i <= nbKamikaze; ++i) {
-        std::cout << "first iteration" << std::endl;
-        ptr_bestiole = new Bestiole("kamikaze");
-        ecosysteme.getMilieu().addMember(ptr_bestiole);
-    }
-    for (int i = 1; i <= nbGregaire; ++i) {
-        std::cout << "first iteration" << std::endl;
-        ptr_bestiole = new Bestiole("gregaire");
-        ecosysteme.getMilieu().addMember(ptr_bestiole);
-    }
-    for (int i = 1; i <= nbMultiple; ++i) {
-        std::cout << "first iteration" << std::endl;
-        ptr_bestiole = new Bestiole("multiple");
-        ecosysteme.getMilieu().addMember(ptr_bestiole);
-    }
-    for (int i = 1; i <= nbPrevoyante; ++i) {
-        std::cout << "first iteration" << std::endl;
-        ptr_bestiole = new Bestiole("prevoyante");
-        ecosysteme.getMilieu().addMember(ptr_bestiole);
-    }
-    ecosysteme.run();
+        Aquarium ecosysteme(1000, 1000, 10);
+        //prevoyante peureuse multiple gregaire kamikaze
+        nbPeureuse = std::atoi(argv[1]);
+        nbPrevoyante = std::atoi(argv[2]);
+        nbKamikaze = std::atoi(argv[3]);
+        nbGregaire = std::atoi(argv[4]);
+        nbMultiple = std::atoi(argv[5]);
+        nbStepMax = std::atoi(argv[6]);
 
+        ecosysteme.getMilieu().setSimulation(nbPeureuse, nbPrevoyante, nbMultiple, nbGregaire, nbKamikaze, nbStepMax);
+        Bestiole *ptr_bestiole;
+        std::cout << ecosysteme.getMilieu().getNbMultiple();
+        for (int i = 1; i <= nbPeureuse; ++i) {
+            std::cout << "first iteration" << std::endl;
+            ptr_bestiole = new Bestiole("peureuse");
+            ecosysteme.getMilieu().addMember(ptr_bestiole);
+        }
+        for (int i = 1; i <= nbKamikaze; ++i) {
+            std::cout << "first iteration" << std::endl;
+            ptr_bestiole = new Bestiole("kamikaze");
+            ecosysteme.getMilieu().addMember(ptr_bestiole);
+        }
+        for (int i = 1; i <= nbGregaire; ++i) {
+            std::cout << "first iteration" << std::endl;
+            ptr_bestiole = new Bestiole("gregaire");
+            ecosysteme.getMilieu().addMember(ptr_bestiole);
+        }
+        for (int i = 1; i <= nbMultiple; ++i) {
+            std::cout << "first iteration" << std::endl;
+            ptr_bestiole = new Bestiole("multiple");
+            ecosysteme.getMilieu().addMember(ptr_bestiole);
+        }
+        for (int i = 1; i <= nbPrevoyante; ++i) {
+            std::cout << "first iteration" << std::endl;
+            ptr_bestiole = new Bestiole("prevoyante");
+            ecosysteme.getMilieu().addMember(ptr_bestiole);
+        }
+        ecosysteme.run();
+    }
     return 0;
 }
 

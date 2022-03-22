@@ -3,7 +3,7 @@
 
 
 #include "UImg.h"
-
+#include <vector>
 #include <iostream>
 
 using namespace std;
@@ -45,6 +45,7 @@ private :
     int pts_vie = 100;
     bool morte = false;
     double camouflage=0;
+    int step_accessoire = 0;
 
 
 private :
@@ -119,7 +120,7 @@ public :                                           // Forme canonique :
 
     double getSize(){ return AFF_SIZE;};
 
-    void inverse_orientation(Bestiole &b);
+    void inverse_orientation(double max_vitesse);
 
     Accessoire **getAccessoire() { return this->accessoire; };
 
@@ -130,8 +131,22 @@ public :                                           // Forme canonique :
     int getStepPeureuse() { return this->step_peureuse;};
     void setStepPeureuse(int step){ this->step_peureuse = step;};
     double getOldVitesse(){ return this->old_vitesse;};
+    double setOldVitesse(double vitesse){this->old_vitesse = vitesse;};
 
     double getMAxVitesse(){ return this->MAX_VITESSE;};
-};
+
+    void initTestCoords(double x0,double y0, double  orientation0);
+
+    void setAccessoire(std::vector<std::string> accessoires);
+
+    void setDeltaYeux(double delta){this->delta_yeux = delta;};
+    void setDeltaOuie(double delta){this->delta_ouie = delta;};
+
+    void setStepAccessoire(){ this->step_accessoire+=1;};
+    int getStepAccessoire(){return this->step_accessoire;};
+
+    void setComportementMultiple(bool multiple){this->comportement_multiple = multiple;};
+
+    };
 
 #endif

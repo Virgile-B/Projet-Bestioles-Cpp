@@ -10,8 +10,14 @@
 AccessoireCarapace *AccessoireCarapace::accessoire_carapace = nullptr;
 
 void AccessoireCarapace::gadgetAction(Bestiole *b) {
-    b->setPtsVie(coef_carapace * b->getPtsVie());
-    b->setVitesse((b->getVitesse()) / coef_ralentissement);
+    if (b->getStepAccessoire()==0){
+        cout<<"old_vie "<<b->getPtsVie()<<endl;
+        b->setPtsVie(coef_carapace * (b->getPtsVie()));
+        cout<<"coef carapace "<<coef_carapace<<endl;
+        b->setVitesse((b->getVitesse()) / coef_ralentissement);
+        cout<<"new_vie "<<b->getPtsVie()<<endl;
+    }
+    b->setStepAccessoire();
 }
 
 void AccessoireCarapace::drawGadget(Bestiole *b, UImg &support) {

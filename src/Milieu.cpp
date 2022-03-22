@@ -26,15 +26,18 @@ void Milieu::step( void ) {
         std::vector < Bestiole * > toRemove;
         if (listeBestioles.size() != 0) {
             for (std::vector<Bestiole *>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
-                if ((*it)->meurt((*this)) || (*it)->getVie()) {
-                    removeMember(*it, toRemove);
-                } else {
+                cout<<"pts vie "<<(*it)->getPtsVie()<<endl;
+                cout<<"vitesse "<<(*it)->getVitesse()<<endl;
+
+                if(!((*it)->meurt((*this)) || (*it)->getVie())) {
                     (*it)->action(*this);
                     (*it)->draw(*this);
                     (*it)->draw_oreilles(*this);
                     (*it)->draw_yeux(*this);
                     (*it)->use_accessoires(*this);
                     this->collision(*(*it));
+                }if((*it)->meurt((*this)) || (*it)->getVie()){
+                    removeMember(*it, toRemove);
                 }
                 nbBestioles = listeBestioles.size();
             }
@@ -66,6 +69,15 @@ std::vector<Bestiole*> Milieu::Voisins( const Bestiole & b)
     }
     return listeVoisins;
 }
+
+void Milieu::addMember(Bestiole* b ) {
+    extern std::string test;
+    listeBestioles.push_back(b);
+    if (test.compare("yes")!=0) {
+        listeBestioles.back()->initCoords(width, height);
+    }
+}
+
 
 void Milieu::naissance()
 {
@@ -132,10 +144,13 @@ int Milieu::getNbBestioles()
 }
 
 void Milieu::collision(Bestiole & b){
-    std::vector<Bestiole*> voisins = this->Voisins(b);
+
     for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
         if( std::sqrt(((*it)->getX() - b.getX()) * ((*it)->getX() - b.getX()) + ((*it)->getY() - b.getY()) * ((*it)->getY() - b.getY())) < b.getSize() && b.get_identite()!=(*it)->get_identite()){
-            b.inverse_orientation(*(*it));
+            double max_vitesse = (b.getVitesse() >= (*it)->getVitesse())? b.getVitesse() : (*it)->getVitesse();
+            cout << "identite "<< b.get_identite()<< endl;
+            b.inverse_orientation(max_vitesse);
+
         }
     }
 }
