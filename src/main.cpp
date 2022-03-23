@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
     {
         double global_initializer;
         int index_line = 0;
-        while (fichier >> global_initializer && index_line < 8)
+        while (index_line < 8 && fichier >> global_initializer)
         {
             *var_glob[index_line]=global_initializer;
             index_line+=1;
