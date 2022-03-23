@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
     {
         double global_initializer;  
         int index_line = 0;
-        while (fichier >> global_initializer && index_line < 8) 
+        while (index_line < 8 && fichier >> global_initializer) 
         {
             *var_glob[index_line]=global_initializer;
             index_line+=1;
@@ -97,6 +97,14 @@ int main(int argc, char **argv) {
     global_delta_ouie_min=5;
     global_delta_ouie_max=75;
     */
+    for(int i=0; i<var_glob.size(); ++i){
+    cout << *var_glob[i] << endl;
+    }
+    cout << "vecteur 2 : " << endl;
+
+    for(int i=0; i<var_nbs.size(); ++i){
+        cout << *var_nbs[i] << endl;
+    }
 
     Aquarium ecosysteme(1000, 1000, 10);
     //prevoyante peureuse multiple gregaire kamikaze
