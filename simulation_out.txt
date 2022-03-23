@@ -1,10 +1,11 @@
 ######################
 Etat de la simulation  
 ######################
-Step -> 100
-Nombre total de bestioles : 14
-Nb prevoyantes courrant - initial : 0-0
-Nb gregaires courrant - initial : 0-0
-Nb kamikazes courrant - initial : 0-0
-Nb multiples courrant - initial : 0-0
-Nb peureuses courrant - initial : 14-10
+Step -> 661
+Nombre total de bestioles : 0
+Nb prevoyantes courrant - initial : 0-2
+Nb gregaires courrant - initial : 0-2
+Nb kamikazes courrant - initial : 0-2
+Nb multiples courrant - initial : 0-2
+Nb peureuses courrant - initial : 0-2
+######################

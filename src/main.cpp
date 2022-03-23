@@ -15,17 +15,30 @@ double global_delta_yeux_min=0;
 double global_delta_yeux_max=0;
 double global_delta_ouie_min=0;
 double global_delta_ouie_max=0;
+double global_coef_camouflage_min=0;
+double global_coef_camouflage_max=0;
+double global_coef_carapace_max=0;
+double global_coef_ralentissement_max=0;
+double global_coef_vitesse_max=0;
+double global_alpha_vision_min=0;
+double global_alpha_vision_max=0;
+
 int nbPeureuse=0;
 int nbPrevoyante=0;
 int nbKamikaze=0;
 int nbGregaire=0;
 int nbMultiple=0;
 int nbStepMax=0;
+int PROBA_MORT=0;
+int PROBA_NAISSANCE=0;
 std::string test;
 
 using namespace std;
 
 int main(int argc, char **argv) {
+
+    // Récupération des variables globales du fichier bin/init_bestioles.txt
+
     vector<double *> var_glob;
     double *global_gamma_yeux_min_p = &global_gamma_yeux_min;
     double *global_gamma_yeux_max_p = &global_gamma_yeux_max;
@@ -35,6 +48,13 @@ int main(int argc, char **argv) {
     double *global_delta_yeux_max_p = &global_delta_yeux_max;
     double *global_delta_ouie_min_p = &global_delta_ouie_min;
     double *global_delta_ouie_max_p = &global_delta_ouie_max;
+    double *global_coef_camouflage_min_p = &global_coef_camouflage_min;
+    double *global_coef_camouflage_max_p = &global_coef_camouflage_max;
+    double *global_coef_carapace_max_p = &global_coef_carapace_max;
+    double *global_coef_ralentissement_max_p = &global_coef_ralentissement_max;
+    double *global_coef_vitesse_max_p = &global_coef_vitesse_max;
+    double *global_alpha_vision_min_p = &global_alpha_vision_min;
+    double *global_alpha_vision_max_p = &global_alpha_vision_max;
     var_glob.push_back(global_gamma_yeux_min_p);
     var_glob.push_back(global_gamma_yeux_max_p);
     var_glob.push_back(global_gamma_ouie_min_p);
@@ -43,14 +63,25 @@ int main(int argc, char **argv) {
     var_glob.push_back(global_delta_yeux_max_p);
     var_glob.push_back(global_delta_ouie_min_p);
     var_glob.push_back(global_delta_ouie_max_p);
+    var_glob.push_back(global_coef_camouflage_min_p);
+    var_glob.push_back(global_coef_camouflage_max_p);
+    var_glob.push_back(global_coef_carapace_max_p);
+    var_glob.push_back(global_coef_ralentissement_max_p);
+    var_glob.push_back(global_coef_vitesse_max_p);
+    var_glob.push_back(global_alpha_vision_min_p);
+    var_glob.push_back(global_alpha_vision_max_p);
 
     vector<int *> var_nbs;
+    int *PROBA_MORT_p = &PROBA_MORT;
+    int *PROBA_NAISSANCE_p = &PROBA_NAISSANCE;
     int *nbPeureuse_p = &nbPeureuse;
     int *nbPrevoyante_p = &nbPrevoyante;
     int *nbKamikaze_p = &nbKamikaze;
     int *nbGregaire_p = &nbGregaire;
     int *nbMultiple_p = &nbMultiple;
     int *nbStepMax_p = &nbStepMax;
+    var_nbs.push_back(PROBA_MORT_p);
+    var_nbs.push_back(PROBA_NAISSANCE_p);
     var_nbs.push_back(nbPeureuse_p);
     var_nbs.push_back(nbPrevoyante_p);
     var_nbs.push_back(nbKamikaze_p);
@@ -64,7 +95,7 @@ int main(int argc, char **argv) {
     {
         double global_initializer;
         int index_line = 0;
-        while (index_line < 8 && fichier >> global_initializer)
+        while (index_line < 16 && fichier >> global_initializer)
         {
             *var_glob[index_line]=global_initializer;
             index_line+=1;

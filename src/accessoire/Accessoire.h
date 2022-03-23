@@ -11,8 +11,11 @@ class Bestiole;
  */
 class Accessoire {
 public:
-    virtual void gadgetAction(Bestiole* b) =0;
-    virtual void drawGadget(Bestiole* b, UImg &support)=0;
+    // méthode abstraite pour activer l'accessoire
+    virtual void gadgetAction(Bestiole *b) = 0;
+
+    // méthode abstraite pour dessiner l'accessoire
+    virtual void drawGadget(Bestiole *b, UImg &support) = 0;
 };
 
 #endif
