@@ -3,7 +3,8 @@
 #include "Bestiole.h"
 #include <iostream>
 #include <fstream>
-#include "test.cpp"
+#include <sstream>
+#include"test.cpp"
 
 
 
@@ -59,32 +60,40 @@ int main(int argc, char **argv) {
     var_nbs.push_back(nbStepMax_p);
 
     string chemin = "bin/init_bestioles.txt";
-    ifstream fichier(chemin, ios::in); //ouverture du fichier
-    if(fichier.is_open())
+    ifstream fichier(chemin, ios::in);
+    if(fichier.is_open()) 
     {
-        double global_initializer;
         int index_line = 0;
-        while (index_line < 8 && fichier >> global_initializer)
+        string line;
+        while (index_line < 8 && getline(fichier, line))
         {
-            *var_glob[index_line]=global_initializer;
+            stringstream ss(line);
+            string strline;
+            double doubleline;
+
+            ss >> strline >> doubleline;
+            *var_glob[index_line]=doubleline;
             index_line+=1;
         }
 
-        int nb_bestiole;
         index_line=0;
-        while (fichier >> nb_bestiole)
-        {
+        while (getline(fichier, line)) 
+        { 
+            stringstream ss2(line);
+            string strline;
+            int intline;
 
-            *var_nbs[index_line]=nb_bestiole;
+            ss2 >> strline >> intline;
+            *var_nbs[index_line]=intline;
             index_line+=1;
 
             if (fichier.eof())  // Test si on est en fin de fichier
                 break ;
         }
 
-        fichier.close();
-    }
-    else
+        fichier.close();   
+    } 
+    else 
     {
       cout << "ERREUR : Impossible d'ouvrir le fichier !" << endl;
     }
