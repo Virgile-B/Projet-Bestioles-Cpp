@@ -23,17 +23,20 @@ ComportementGregaire::ComportementGregaire(void){
 
 void ComportementGregaire::action(Bestiole *actualBestiole, Milieu &monMilieu){
     std::vector<Bestiole*> mesVoisins = monMilieu.Voisins(*actualBestiole);
-    //std::cout << actualBestiole->get_x() << " " << actualBestiole->get_y() << std::endl;
     if (mesVoisins.size() != 0){
-        double dir_moy = 0.;
+        double dir_moy = 0.; // direction moyenne des bestioles voisines
         for ( std::vector<Bestiole*>::iterator it = mesVoisins.begin() ; it != mesVoisins.end() ; ++it ){
-            dir_moy += ((*it)->get_orientation());
+            dir_moy += ((*it)->get_orientation()); // calcul de l'orientation moyenne
         }
 
-        actualBestiole->set_orientation(dir_moy/(mesVoisins.size()));
+        actualBestiole->set_orientation(dir_moy/(mesVoisins.size())); // changement d'orientation
     }
     else{
         actualBestiole->set_orientation(actualBestiole->get_orientation());
     }
 }
 
+ComportementGregaire::~ComportementGregaire()
+{
+    delete[] couleur;
+}

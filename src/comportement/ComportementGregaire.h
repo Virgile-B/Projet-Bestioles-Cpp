@@ -15,6 +15,7 @@
 class ComportementGregaire : public Comportement {
     static ComportementGregaire *comportement_gregaire;  // Pointer to the singleton
     ComportementGregaire();
+    ~ComportementGregaire();
 public:
 
     /*

@@ -13,7 +13,7 @@
 class ComportementPrevoyante : public Comportement {
     static ComportementPrevoyante *comportement_prevoyante;  // Pointer to the singleton
     ComportementPrevoyante();
-
+    ~ComportementPrevoyante();
 
 public:
 

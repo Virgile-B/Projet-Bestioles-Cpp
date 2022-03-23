@@ -31,16 +31,15 @@ void ComportementPeureuse::action(Bestiole *b, Milieu &monMilieu){
             b->setStepComportement(15);
         }
     }
-    if (b->getStepComportement()>0){
+    if (b->getStepComportement()>0){    // changement de vitesse de la bestiole à sa vitesse maximale
         b->setVitesse(b->getMAxVitesse());
         b->setStepComportement(b->getStepComportement()-1);
-    } else if (b->getStepComportement() == 0 ){
+    } else if (b->getStepComportement() == 0 ){  // retour de la bestiole à sa vitesse initiale
         b->setVitesse(b->getOldVitesse());
     }
 }
 
-/*
 ComportementPeureuse::~ComportementPeureuse()
 {
     delete[] couleur;
-}*/
+}

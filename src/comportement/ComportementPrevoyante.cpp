@@ -39,9 +39,8 @@ void ComportementPrevoyante::action(Bestiole *b, Milieu &monMilieu) {
         b->setStepComportement(b->getStepComportement()-1);
     }
 }
-/*
+
 ComportementPrevoyante::~ComportementPrevoyante()
 {
     delete[] couleur;
 }
-*/

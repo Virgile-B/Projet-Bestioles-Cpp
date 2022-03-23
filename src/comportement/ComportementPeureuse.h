@@ -13,6 +13,7 @@
 class ComportementPeureuse : public Comportement {
     static ComportementPeureuse *comportement_peureuse;  // Pointer to the singleton
     ComportementPeureuse();
+    ~ComportementPeureuse();
 public:
 
     /*
