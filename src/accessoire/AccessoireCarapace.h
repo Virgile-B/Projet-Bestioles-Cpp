@@ -24,14 +24,13 @@ class AccessoireCarapace : public Accessoire {
      * entre 1 et global_coef_carapace_max et 1 et global_coef_ralentissement_max
     */
     AccessoireCarapace() {
-        // extern double global_coef_carapace_max; // NE PAS OUBLIER CA
-        // extern double global_coef_ralentissement_max; // NE PAS OUBLIER CA
+        extern float RandomValues(double min, double max); // defninie dans utils.cpp
+        extern double global_coef_carapace_max; // Récupération de la variable gloable global_coef_carapace_max
+        extern double global_coef_ralentissement_max; // Récupération de la variable gloable global_coef_ralentissement_max
         srand(time(0)); // initialisation du générateur aléatoire
-        int global_coef_carapace_max = 10;
-        int global_coef_ralentissement_max = 5;
 
-        coef_carapace = 1 + (rand() % global_coef_carapace_max);
-        coef_ralentissement = 1 + (rand() % global_coef_ralentissement_max);
+        coef_carapace = RandomValues(1,global_coef_carapace_max);
+        coef_ralentissement = RandomValues(1, global_coef_ralentissement_max);
     };
 public:
     double coef_carapace; // coefficient carapace à multiplier aux points de vie de la bestiole

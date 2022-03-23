@@ -22,13 +22,14 @@ class AccessoireCamouflage : public Accessoire {
      * global_coef_camouflage_max
     */
     AccessoireCamouflage() {
-        // extern double global_coef_carapace_max; // NE PAS OUBLIER CA
-        // extern double global_coef_ralentissement_max; // NE PAS OUBLIER CA
-        double global_coef_camouflage_min = 0.;
-        double global_coef_camouflage_max = 1.;
+        extern float RandomValues(double min, double max); // defninie dans utils.cpp
+        extern double global_coef_camouflage_min; // Récupération de la variable gloable global_coef_camouflage_min
+        extern double global_coef_camouflage_max; // Récupération de la variable gloable global_coef_camouflage_max
+        srand(time(0)); // initialisation du générateur aléatoire
+        global_coef_camouflage_min = (global_coef_camouflage_min>1)? 1 : global_coef_camouflage_min;
+        global_coef_camouflage_max = (global_coef_camouflage_max>1)? 1 : global_coef_camouflage_max;
 
-        coef_camouflage = global_coef_camouflage_min +
-                          rand() / RAND_MAX * (global_coef_camouflage_max - global_coef_camouflage_min);
+        coef_camouflage = RandomValues(global_coef_camouflage_min, global_coef_camouflage_max);
     };
 
 public:

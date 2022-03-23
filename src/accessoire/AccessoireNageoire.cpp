@@ -20,10 +20,10 @@ void AccessoireNageoire::gadgetAction(Bestiole *b) {
 
 void AccessoireNageoire::drawGadget(Bestiole *b, UImg &support) {
     // Positions pour tracer les nageoires
-    double xx = b->getX() + 50 * b->getVitesse() * cos(b->get_orientation() + 0.5 + M_PI); //  nageoire angle 30degres
-    double xx2 = b->getX() + 50 * b->getVitesse() * cos(b->get_orientation() - 0.5 + M_PI);
-    double yy = b->getY() - 50 * b->getVitesse() * sin(b->get_orientation() + 0.5 + M_PI);
-    double yy2 = b->getY() - 50 * b->getVitesse() * sin(b->get_orientation() - 0.5 + M_PI);
+    double xx = b->getX() + 8 * b->getVitesse() * cos(b->get_orientation() + 0.5 + M_PI); // nageoire angle 30degres
+    double xx2 = b->getX() + 8 * b->getVitesse() * cos(b->get_orientation() - 0.5 + M_PI);
+    double yy = b->getY() - 8 * b->getVitesse() * sin(b->get_orientation() + 0.5 + M_PI);
+    double yy2 = b->getY() - 8 * b->getVitesse() * sin(b->get_orientation() - 0.5 + M_PI);
 
     // Dessin des nageoires
     support.draw_line(b->getX(), b->getY(), xx, yy, b->getCouleur());

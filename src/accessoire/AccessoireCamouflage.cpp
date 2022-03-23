@@ -17,7 +17,7 @@ void AccessoireCamouflage::drawGadget(Bestiole *b, UImg &support) {
     double y = b->getY(); // ordonnée de la bestiole b
     double orientation = b->get_orientation(); // orientation de la bestiole b
     double AFF_SIZE = b->getSize(); // Taille de la bestiole b
-    double delta = 5 * coef_camouflage; // taille du camouflage
+    double delta = 2.5 * coef_camouflage; // taille du camouflage
 
     // Dessin des yeux rouges pour camouflage
     double xt_av_pupille = x + cos(orientation - 0.5) * AFF_SIZE / 1.4;

@@ -30,7 +30,6 @@ Bestiole::Bestiole(const std::string comportement) {
     comportement_multiple = false;  // Par défaut les bestioles n'ont pas de comportement multiple
     x = y = 0;
     cumulX = cumulY = 0.;
-    vision = static_cast<double>( rand()) / RAND_MAX * M_PI / 2;  // Vision de la bestiole entre 0 et 180 degrés
     orientation = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
 
     // récupération des variables globales
@@ -42,8 +41,13 @@ Bestiole::Bestiole(const std::string comportement) {
     extern double global_delta_yeux_max;
     extern double global_delta_ouie_min;
     extern double global_delta_ouie_max;
+    extern double global_alpha_vision_max;
+    extern double global_alpha_vision_min;
+
 
     // Initialisation des données pour les capteurs
+    vision = RandomValues(min(global_alpha_vision_min, M_PI / 2.),
+                          min(global_alpha_vision_max, M_PI / 2)); // Car la bestiole voit en face d'elle
     gamma_yeux = RandomValues(global_gamma_yeux_min, global_gamma_yeux_max);
     gamma_ouie = RandomValues(global_gamma_ouie_min, global_gamma_ouie_max);
     delta_yeux = RandomValues(global_delta_yeux_min, global_delta_yeux_max);

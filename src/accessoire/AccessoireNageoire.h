@@ -18,10 +18,11 @@ class AccessoireNageoire : public Accessoire {
  * Constructeur pour initialiser le coef_vitesse pris aléatoirement entre 1 et global_coef_vitesse_max
     */
     AccessoireNageoire() {
+        extern float RandomValues(double min, double max); // defninie dans utils.cpp
+
         srand(time(0));
-        // extern double global_coef_vitesse_max; // NE PAS OUBLIER CA
-        int global_coef_vitesse_max = 5.;
-        coef_vitesse = 1 + (rand() % global_coef_vitesse_max);;
+        extern double global_coef_vitesse_max; // Récupération de la variable gloable global_coef_vitesse_max
+        coef_vitesse = RandomValues(1,global_coef_vitesse_max);
     };
 
 public:
