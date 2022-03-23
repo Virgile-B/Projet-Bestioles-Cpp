@@ -29,7 +29,7 @@ void Milieu::step( void ) {
                 cout<<"pts vie "<<(*it)->getPtsVie()<<endl;
                 cout<<"vitesse "<<(*it)->getVitesse()<<endl;
 
-                if(!((*it)->meurt((*this)) || (*it)->getVie())) {
+                if(!((*it)->meurt() || (*it)->getVie())) {
                     (*it)->action(*this);
                     (*it)->draw(*this);
                     (*it)->draw_oreilles(*this);
@@ -39,7 +39,7 @@ void Milieu::step( void ) {
             }
             for (std::vector<Bestiole *>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it) {
                 this->collision(*(*it));
-                if((*it)->meurt((*this)) || (*it)->getVie()){
+                if((*it)->meurt() || (*it)->getVie()){
                     removeMember(*it, toRemove);
                 }
                 nbBestioles = listeBestioles.size();

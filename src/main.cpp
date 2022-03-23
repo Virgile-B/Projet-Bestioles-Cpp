@@ -97,12 +97,6 @@ int main(int argc, char **argv) {
 
         Aquarium ecosysteme(1000, 1000, 10);
         //prevoyante peureuse multiple gregaire kamikaze
-        nbPeureuse = std::atoi(argv[1]);
-        nbPrevoyante = std::atoi(argv[2]);
-        nbKamikaze = std::atoi(argv[3]);
-        nbGregaire = std::atoi(argv[4]);
-        nbMultiple = std::atoi(argv[5]);
-        nbStepMax = std::atoi(argv[6]);
 
         ecosysteme.getMilieu().setSimulation(nbPeureuse, nbPrevoyante, nbMultiple, nbGregaire, nbKamikaze, nbStepMax);
         Bestiole *ptr_bestiole;
