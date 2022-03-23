@@ -3,7 +3,8 @@
 #include "Bestiole.h"
 #include <iostream>
 #include <fstream>
-#include "test.cpp"
+#include <sstream>
+#include"test.cpp"
 
 
 
@@ -89,43 +90,13 @@ int main(int argc, char **argv) {
     var_nbs.push_back(nbMultiple_p);
     var_nbs.push_back(nbStepMax_p);
 
-    string chemin = "bin/init_bestioles.txt";
-    ifstream fichier(chemin, ios::in); //ouverture du fichier
-    if(fichier.is_open())
-    {
-        double global_initializer;
-        int index_line = 0;
-        while (index_line < 16 && fichier >> global_initializer)
-        {
-            *var_glob[index_line]=global_initializer;
-            index_line+=1;
-        }
-
-        int nb_bestiole;
-        index_line=0;
-        while (fichier >> nb_bestiole)
-        {
-
-            *var_nbs[index_line]=nb_bestiole;
-            index_line+=1;
-
-            if (fichier.eof())  // Test si on est en fin de fichier
-                break ;
-        }
-
-        fichier.close();
-    }
-    else
-    {
-      cout << "ERREUR : Impossible d'ouvrir le fichier !" << endl;
-    }
-
     std::cout << "Do you want to test the product ? Please answer yes or no" << std::endl;
     std::cin >> test;
     if(test.compare("yes")==0) {
+        initiateVariables(0);
         runTest();
     }else {
-
+        initiateVariables(1);
         Aquarium ecosysteme(1000, 1000, 10);
         //prevoyante peureuse multiple gregaire kamikaze
 
