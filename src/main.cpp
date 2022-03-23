@@ -21,11 +21,16 @@ int nbKamikaze=0;
 int nbGregaire=0;
 int nbMultiple=0;
 int nbStepMax=0;
+int PROBA_MORT=0;
+int PROBA_NAISSANCE=0;
 std::string test;
 
 using namespace std;
 
 int main(int argc, char **argv) {
+
+    // Récupération des variables globales du fichier bin/init_bestioles.txt
+
     vector<double *> var_glob;
     double *global_gamma_yeux_min_p = &global_gamma_yeux_min;
     double *global_gamma_yeux_max_p = &global_gamma_yeux_max;
@@ -45,12 +50,16 @@ int main(int argc, char **argv) {
     var_glob.push_back(global_delta_ouie_max_p);
 
     vector<int *> var_nbs;
+    int *PROBA_MORT_p = &PROBA_MORT;
+    int *PROBA_NAISSANCE_p = &PROBA_NAISSANCE;
     int *nbPeureuse_p = &nbPeureuse;
     int *nbPrevoyante_p = &nbPrevoyante;
     int *nbKamikaze_p = &nbKamikaze;
     int *nbGregaire_p = &nbGregaire;
     int *nbMultiple_p = &nbMultiple;
     int *nbStepMax_p = &nbStepMax;
+    var_nbs.push_back(PROBA_MORT_p);
+    var_nbs.push_back(PROBA_NAISSANCE_p);
     var_nbs.push_back(nbPeureuse_p);
     var_nbs.push_back(nbPrevoyante_p);
     var_nbs.push_back(nbKamikaze_p);
