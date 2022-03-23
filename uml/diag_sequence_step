@@ -1,0 +1,62 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam class {
+BackgroundColor Whitesmoke
+ArrowColor Black
+BorderColor Black
+}
+
+ecosysteme -> flotte : step()
+activate listeBestiole
+activate flotte
+    group if [nbStep <= nbStepMax]
+      flotte -> flotte : naissance()
+        group if [listeBestioles.size() >= 0]
+            group for [iteration over bestioles]
+                 group if [bestiole pas morte ou avec des points de vie]
+                     flotte -> iteration : action()                     
+                     activate iteration             
+                     flotte <-- iteration
+                     deactivate iteration
+                     flotte -> iteration : draw()
+                     activate iteration             
+                     flotte <-- iteration
+                     deactivate iteration
+                     flotte -> iteration : draw_oreilles()
+                     activate iteration             
+                     flotte <-- iteration
+                     deactivate iteration
+                     flotte -> iteration : draw_yeux()
+                     activate iteration             
+                     flotte <-- iteration
+                     deactivate iteration
+                     flotte -> iteration : use_accessoires()
+                     activate iteration             
+                     flotte <-- iteration
+                     deactivate iteration
+                 end
+                 group for [iteration over bestioles]
+                 flotte -> flotte : colision
+                 group if [bestiole pas morte ou vivante]
+                     flotte->flotte : removeMember(iteration, toRemove)
+                     activate toRemove
+                 end
+                 group if [toRemove non vide]
+                     group for [iteration bestioles à supprimer]
+                     flotte -> listeBestiole : erase(...)
+                     listeBestiole --> flotte
+                     end
+
+                     deactivate toRemove
+                 end
+                 end
+                 
+            end
+        else
+        end
+    else fin de la simulation    
+    end
+flotte -> ecosysteme
+deactivate listeBestiole
+deactivate flotte
+@enduml
