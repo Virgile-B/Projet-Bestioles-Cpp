@@ -6,16 +6,13 @@
 
 class Bestiole;
 
-
+/*
+ * Interface Accessoire qui sera appelée par Bestiole
+ */
 class Accessoire {
 public:
     virtual void gadgetAction(Bestiole* b) =0;
     virtual void drawGadget(Bestiole* b, UImg &support)=0;
-  //public :
-    //virtual double getVitesse();
-    //Carapace = probabilité mort
-    //virtual double getProbDeath();
-    //virtual double getCamouflage();
 };
 
 #endif

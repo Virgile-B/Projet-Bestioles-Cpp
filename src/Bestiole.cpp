@@ -271,7 +271,6 @@ void Bestiole::setAccessoire(std::vector<std::string> accessoires ){
 
 
 void Bestiole::action(Milieu &monMilieu) {
-    cout << "entered"<<endl;
     if (this->estMultiple()) {
         this->changerComportement();
     }
@@ -340,24 +339,11 @@ const bool Bestiole::estMultiple()
 }
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
-
-
     double xx = x + delta_yeux * cos(orientation + vision / 2);
     double xx2 = x + delta_yeux * cos(orientation - vision / 2);
     double yy = y - delta_yeux * sin(orientation + vision / 2);
     double yy2 = y - delta_yeux * sin(orientation - vision / 2);
-    cout<<"pts vie "<<this->pts_vie<<endl;
-    cout<<"pts vie "<<b.pts_vie<<endl;
-    cout << xx << endl;
-    cout << xx2 << endl;
-    cout << yy << endl;
-    cout << yy2 << endl;
-    cout << x << endl;
-    cout << y << endl;
-    cout << b.x << endl;
-    cout << b.y << endl;
     if (estDedans(b.x, x, max(xx2, xx) )&& estDedans(b.y, yy, yy2) && this != &b && b.getCamouflage()<gamma_yeux){
-        cout << this-> get_identite()<< " voit " << b.get_identite()<< endl;
         return true;
     } else { return false; }
 }
@@ -369,7 +355,6 @@ bool Bestiole::jeTentends(const Bestiole &b) const {
     }
     double dist = std::sqrt((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
     if (dist <= delta_ouie && b.getCamouflage() < gamma_ouie) {
-        cout << this-> get_identite()<< " entend " << b.get_identite()<< endl;
         return true;
     } else { return false; }
 }
@@ -443,7 +428,6 @@ void Bestiole::inverse_orientation(double max_vitesse){
         this->setPtsVie(0);
         this->setVie(true);
     }
-    cout <<"after inverseorient "<< this->getPtsVie()<< endl;
 }
 
 std::string Bestiole::getType()
