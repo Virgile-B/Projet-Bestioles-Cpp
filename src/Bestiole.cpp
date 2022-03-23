@@ -165,7 +165,6 @@ void Bestiole::setComportement(int comportement) {
         case 3:
             this->comportement = ComportementPrevoyante::get_prevoyante();
             this->couleur = this->comportement->get_couleur();
-            cout << "setcomportement "<< endl;
             break;
         case 4:
             if (!this->estMultiple()) {
@@ -203,7 +202,7 @@ Bestiole::Bestiole(const Bestiole &b) {
     morte = b.morte;
     camouflage = b.camouflage;
     old_vitesse = b.old_vitesse;
-    step_peureuse = 0;
+    step_comportement = 0;
 }
 
 
@@ -212,6 +211,12 @@ void Bestiole::initCoords(int xLim, int yLim) {
     x = rand() % xLim;
     y = rand() % yLim;
 
+}
+
+void Bestiole::initTestCoords(double x0, double y0, double orientation0){
+    x= x0;
+    y= y0;
+    orientation = orientation0;
 }
 
 
@@ -249,8 +254,24 @@ void Bestiole::bouge(int xLim, int yLim) {
 
 }
 
+void Bestiole::setAccessoire(std::vector<std::string> accessoires ){
+    for (int i=0; i<3; ++i){
+        if (accessoires[i].compare("nageoires") ==0){
+            accessoire[i]= AccessoireNageoire::get_nageoire();
+        }
+        else if(accessoires[i].compare("carapace")==0){
+            accessoire[i]= AccessoireCarapace::get_carapace();
+        } else if (accessoires[i].compare("camouflage")==0) {
+            accessoire[i] = AccessoireCamouflage::get_camouflage();
+        }else {
+            accessoire[i]= NoAccessoire::get_no_accessoire();
+        }
+    }
+}
+
 
 void Bestiole::action(Milieu &monMilieu) {
+    cout << "entered"<<endl;
     if (this->estMultiple()) {
         this->changerComportement();
     }
@@ -309,7 +330,7 @@ Bestiole &Bestiole::operator=(const Bestiole &b) {
     this->morte = b.morte;
     this->camouflage = b.camouflage;
     this->old_vitesse = b.old_vitesse;
-    this->step_peureuse = b.step_peureuse; // A ne pas utiliser poru le clonage
+    this->step_comportement = b.step_comportement; // A ne pas utiliser poru le clonage
     return *this;
 }
 
@@ -325,7 +346,18 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
     double xx2 = x + delta_yeux * cos(orientation - vision / 2);
     double yy = y - delta_yeux * sin(orientation + vision / 2);
     double yy2 = y - delta_yeux * sin(orientation - vision / 2);
-    if (estDedans(b.x, xx, xx2) && estDedans(b.y, yy, yy2) && this != &b && b.getCamouflage()<gamma_yeux){
+    cout<<"pts vie "<<this->pts_vie<<endl;
+    cout<<"pts vie "<<b.pts_vie<<endl;
+    cout << xx << endl;
+    cout << xx2 << endl;
+    cout << yy << endl;
+    cout << yy2 << endl;
+    cout << x << endl;
+    cout << y << endl;
+    cout << b.x << endl;
+    cout << b.y << endl;
+    if (estDedans(b.x, x, max(xx2, xx) )&& estDedans(b.y, yy, yy2) && this != &b && b.getCamouflage()<gamma_yeux){
+        cout << this-> get_identite()<< " voit " << b.get_identite()<< endl;
         return true;
     } else { return false; }
 }
@@ -337,6 +369,7 @@ bool Bestiole::jeTentends(const Bestiole &b) const {
     }
     double dist = std::sqrt((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
     if (dist <= delta_ouie && b.getCamouflage() < gamma_ouie) {
+        cout << this-> get_identite()<< " entend " << b.get_identite()<< endl;
         return true;
     } else { return false; }
 }
@@ -403,20 +436,14 @@ void Bestiole::draw_yeux(UImg &support) {
     support.draw_circle(centre_rayon_x, centre_rayon_y, rayon, couleur, 0.05);
 }
 
-void Bestiole::inverse_orientation(Bestiole& b){
-    if (b.comportement != ComportementGregaire::get_gregaire()  || b.comportement != ComportementKamikaze::get_kamikaze()){b.orientation =  M_PI + b.orientation;}
-    if (this->comportement != ComportementGregaire::get_gregaire()) {orientation =  M_PI + orientation;} //PAS SUUUUUR DU TOUUUUT
-    int max_vitesse = max(b.getVitesse(), this->getVitesse());
-    if((b.getPtsVie()-20*max_vitesse)>0){
-        b.setPtsVie(b.getPtsVie()-20*max_vitesse);
-    }else{
-        setVie(true);
-    }
+void Bestiole::inverse_orientation(double max_vitesse){
     if((this->getPtsVie()-20*max_vitesse)>0){
-        this->setPtsVie(b.getPtsVie()-20*max_vitesse);
+        this->setPtsVie(this->getPtsVie()-20*max_vitesse);
     }else{
-        setVie(true);
+        this->setPtsVie(0);
+        this->setVie(true);
     }
+    cout <<"after inverseorient "<< this->getPtsVie()<< endl;
 }
 
 std::string Bestiole::getType()

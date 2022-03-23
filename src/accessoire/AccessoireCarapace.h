@@ -16,11 +16,12 @@ class AccessoireCarapace: public Accessoire {
     AccessoireCarapace(){
         // extern double global_coef_carapace_max; // NE PAS OUBLIER CA
         // extern double global_coef_ralentissement_max; // NE PAS OUBLIER CA
-        double global_coef_carapace_max = 3.;
-        double global_coef_ralentissement_max = 5.;
+        srand(time(0));
+        int global_coef_carapace_max = 10;
+        int global_coef_ralentissement_max = 5;
 
-        coef_carapace = 1 + rand() / RAND_MAX * (global_coef_carapace_max-1);
-        coef_ralentissement = 1 + rand() / RAND_MAX * (global_coef_ralentissement_max-1);
+        coef_carapace = 1 + (rand()%global_coef_carapace_max);
+        coef_ralentissement = 1 + (rand() % global_coef_ralentissement_max);
     };
 public:
     double coef_carapace;

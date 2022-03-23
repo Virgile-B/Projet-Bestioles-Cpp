@@ -9,9 +9,10 @@ class Bestiole;
 class AccessoireNageoire : public Accessoire {
     static AccessoireNageoire *accessoire_nageoire;  // Pointer to the singleton
     AccessoireNageoire() {
+        srand(time(0));
         // extern double global_coef_vitesse_max; // NE PAS OUBLIER CA
-        double global_coef_vitesse_max = 5.;
-        coef_vitesse = 1 + rand() / RAND_MAX * (global_coef_vitesse_max-1);
+        int global_coef_vitesse_max = 5.;
+        coef_vitesse = 1 + (rand()%global_coef_vitesse_max);;
     };
     //string nom;
 public:

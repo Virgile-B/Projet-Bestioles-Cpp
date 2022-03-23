@@ -39,7 +39,7 @@ public :
 
    void step( void );
 
-   void addMember(Bestiole* b ) {listeBestioles.push_back(b); listeBestioles.back()->initCoords(width, height); }
+   void addMember(Bestiole* b );
    void removeMember(Bestiole* b, std::vector<Bestiole*> &toRemove);
    std::vector<Bestiole*> Voisins( const Bestiole & b);
    int nbVoisins( const Bestiole & b );

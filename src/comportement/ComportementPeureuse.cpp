@@ -24,14 +24,17 @@ ComportementPeureuse::ComportementPeureuse(void){
 
 void ComportementPeureuse::action(Bestiole *b, Milieu &monMilieu){
     std::vector<Bestiole *> voisins = monMilieu.Voisins(*b);
-    if (voisins.size()>0){ // A CHANGER
-        b->setStepPeureuse(10);
-        b->set_orientation(b->get_orientation() + M_PI); // deviation de 30 degres
+    if (voisins.size()>2){ // A CHANGER
+        std::cout<< "voisins grands"<< std::endl;
+        if (b->getStepComportement()==0){
+            b->set_orientation(b->get_orientation() + M_PI); // deviation de 30 degres
+            b->setStepComportement(15);
+        }
     }
-    if (b->getStepPeureuse()>0){
+    if (b->getStepComportement()>0){
         b->setVitesse(b->getMAxVitesse());
-        b->setStepPeureuse(b->getStepPeureuse()-1);
-    } else if (b->getStepPeureuse() == 0 ){
+        b->setStepComportement(b->getStepComportement()-1);
+    } else if (b->getStepComportement() == 0 ){
         b->setVitesse(b->getOldVitesse());
     }
 }
