@@ -4,5 +4,5 @@
 
 #include "NoAccessoire.h"
 
-NoAccessoire *NoAccessoire::no_accessoire = nullptr;  // Instantiating the Pointer to the singleton
+NoAccessoire *NoAccessoire::no_accessoire = nullptr;  // Initilisation du pointeur sur le singleton
 
