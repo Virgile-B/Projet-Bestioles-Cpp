@@ -59,51 +59,13 @@ int main(int argc, char **argv) {
     var_nbs.push_back(nbMultiple_p);
     var_nbs.push_back(nbStepMax_p);
 
-    string chemin = "bin/init_bestioles.txt";
-    ifstream fichier(chemin, ios::in);
-    if(fichier.is_open()) 
-    {
-        int index_line = 0;
-        string line;
-        while (index_line < 8 && getline(fichier, line))
-        {
-            stringstream ss(line);
-            string strline;
-            double doubleline;
-
-            ss >> strline >> doubleline;
-            *var_glob[index_line]=doubleline;
-            index_line+=1;
-        }
-
-        index_line=0;
-        while (getline(fichier, line)) 
-        { 
-            stringstream ss2(line);
-            string strline;
-            int intline;
-
-            ss2 >> strline >> intline;
-            *var_nbs[index_line]=intline;
-            index_line+=1;
-
-            if (fichier.eof())  // Test si on est en fin de fichier
-                break ;
-        }
-
-        fichier.close();   
-    } 
-    else 
-    {
-      cout << "ERREUR : Impossible d'ouvrir le fichier !" << endl;
-    }
-
     std::cout << "Do you want to test the product ? Please answer yes or no" << std::endl;
     std::cin >> test;
     if(test.compare("yes")==0) {
+        initiateVariables(0);
         runTest();
     }else {
-
+        initiateVariables(1);
         Aquarium ecosysteme(1000, 1000, 10);
         //prevoyante peureuse multiple gregaire kamikaze
 
