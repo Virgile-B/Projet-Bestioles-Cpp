@@ -314,13 +314,23 @@ void initiateVariables(int index){
     extern double global_delta_yeux_max;
     extern double global_delta_ouie_min;
     extern double global_delta_ouie_max;
+    extern double global_coef_camouflage_min;
+    extern double global_coef_camouflage_max;
+    extern double global_coef_carapace_max;
+    extern double global_coef_ralentissement_max;
+    extern double global_coef_vitesse_max;
+    extern double global_alpha_vision_min;
+    extern double global_alpha_vision_max;
     extern int nbPeureuse;
     extern int nbPrevoyante;
     extern int nbKamikaze;
     extern int nbGregaire;
     extern int nbMultiple;
     extern int nbStepMax;
-    
+    int PROBA_MORT;
+    int PROBA_NAISSANCE;
+
+
     // on créé un vecteur de pointeur vers les variables globale d'ouïe et de vision
     vector<double *> var_glob;
     double *global_gamma_yeux_min_p = &global_gamma_yeux_min;
@@ -331,7 +341,14 @@ void initiateVariables(int index){
     double *global_delta_yeux_max_p = &global_delta_yeux_max;
     double *global_delta_ouie_min_p = &global_delta_ouie_min;
     double *global_delta_ouie_max_p = &global_delta_ouie_max;
-    // on rempli ce vecteur
+    double *global_coef_camouflage_min_p = &global_coef_camouflage_min;
+    double *global_coef_camouflage_max_p = &global_coef_camouflage_max;
+    double *global_coef_carapace_max_p = &global_coef_carapace_max;
+    double *global_coef_ralentissement_max_p = &global_coef_ralentissement_max;
+    double *global_coef_vitesse_max_p = &global_coef_vitesse_max;
+    double *global_alpha_vision_min_p = &global_alpha_vision_min;
+    double *global_alpha_vision_max_p = &global_alpha_vision_max;
+    // on remplit ce vecteur
     var_glob.push_back(global_gamma_yeux_min_p);
     var_glob.push_back(global_gamma_yeux_max_p);
     var_glob.push_back(global_gamma_ouie_min_p);
@@ -340,14 +357,25 @@ void initiateVariables(int index){
     var_glob.push_back(global_delta_yeux_max_p);
     var_glob.push_back(global_delta_ouie_min_p);
     var_glob.push_back(global_delta_ouie_max_p);
+    var_glob.push_back(global_coef_camouflage_min_p);
+    var_glob.push_back(global_coef_camouflage_max_p);
+    var_glob.push_back(global_coef_carapace_max_p);
+    var_glob.push_back(global_coef_ralentissement_max_p);
+    var_glob.push_back(global_coef_vitesse_max_p);
+    var_glob.push_back(global_alpha_vision_min_p);
+    var_glob.push_back(global_alpha_vision_max_p);
     // on fait la même chose avec le nombre de chaque comportement dans la simulation
     vector<int *> var_nbs;
+    int *PROBA_MORT_p = &PROBA_MORT;
+    int *PROBA_NAISSANCE_p = &PROBA_NAISSANCE;
     int *nbPeureuse_p = &nbPeureuse;
     int *nbPrevoyante_p = &nbPrevoyante;
     int *nbKamikaze_p = &nbKamikaze;
     int *nbGregaire_p = &nbGregaire;
     int *nbMultiple_p = &nbMultiple;
     int *nbStepMax_p = &nbStepMax;
+    var_nbs.push_back(PROBA_MORT_p);
+    var_nbs.push_back(PROBA_NAISSANCE_p);
     var_nbs.push_back(nbPeureuse_p);
     var_nbs.push_back(nbPrevoyante_p);
     var_nbs.push_back(nbKamikaze_p);
@@ -368,7 +396,7 @@ void initiateVariables(int index){
             // cette variable servira à stocker une ligne dans le fichier texte
             string line;
             // tant que l'on est dans les 8 premières lignes, soit le vecteur 1...
-            while (index_line < 8 && getline(fichier, line))
+            while (index_line < 16 && getline(fichier, line))
             {
                 // on créé un stringstream...
                 stringstream ss(line);
@@ -414,7 +442,7 @@ void initiateVariables(int index){
         {
             int index_line = 0;
             string line;
-            while (index_line < 8 && getline(fichier, line))
+            while (index_line < 16 && getline(fichier, line))
             {
                 stringstream ss(line);
                 string strline;
