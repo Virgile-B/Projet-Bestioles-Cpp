@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
     var_nbs.push_back(nbMultiple_p);
     var_nbs.push_back(nbStepMax_p);
 
-    string chemin = "init_bestioles.txt";
+    string chemin = "bin/init_bestioles.txt";
     ifstream fichier(chemin, ios::in); //ouverture du fichier
     if(fichier.is_open()) 
     {
