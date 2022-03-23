@@ -25,7 +25,6 @@ ComportementPeureuse::ComportementPeureuse(void){
 void ComportementPeureuse::action(Bestiole *b, Milieu &monMilieu){
     std::vector<Bestiole *> voisins = monMilieu.Voisins(*b);
     if (voisins.size()>2){ // A CHANGER
-        std::cout<< "voisins grands"<< std::endl;
         if (b->getStepComportement()==0){
             b->set_orientation(b->get_orientation() + M_PI); // deviation de 30 degres
             b->setStepComportement(15);

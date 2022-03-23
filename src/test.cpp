@@ -50,19 +50,15 @@ void runTest() {
             // Création de la première bestiole à gauche
             Bestiole *ptr_bestiole1;
             ptr_bestiole1 = new Bestiole();
-            cout << "vitesse " << ptr_bestiole1->getVitesse() << endl;
             setBestiole(ptr_bestiole1, 300, 500, 0, {"noAccessoires", "noAccessoires", "noAccessoires"}, 0, 5., 200,
                         200, false);
-            cout << "vitesse " << ptr_bestiole1->getVitesse() << endl;
             ecosysteme.getMilieu().addMember(ptr_bestiole1);
 
             // Création de la seconde bestiole à droite
             Bestiole *ptr_bestiole2;
             ptr_bestiole2 = new Bestiole();
-            cout << "vitesse " << ptr_bestiole2->getVitesse() << endl;
             setBestiole(ptr_bestiole2, 600, 500, M_PI, {"noAccessoires", "noAccessoires", "camouflage"}, 0, 5., 50.,
                         0., false);
-            cout << "vitesse " << ptr_bestiole2->getVitesse() << endl;
             ecosysteme.getMilieu().addMember(ptr_bestiole2);
             break;
         }
@@ -254,7 +250,7 @@ void runTest() {
             // Création de la seconde bestiole à droite
             Bestiole *ptr_bestiole2;
             ptr_bestiole2 = new Bestiole();
-            setBestiole(ptr_bestiole2, 800, 500, M_PI, {"noAccessoires", "noAccessoires", "noAccessoires"}, 1, 6., 150.,
+            setBestiole(ptr_bestiole2, 800, 500, M_PI, {"noAccessoires", "noAccessoires", "noAccessoires"}, 2, 6., 150.,
                         150.,
                         false);
             ecosysteme.getMilieu().addMember(ptr_bestiole2);
@@ -327,8 +323,8 @@ void initiateVariables(int index){
     extern int nbGregaire;
     extern int nbMultiple;
     extern int nbStepMax;
-    int PROBA_MORT;
-    int PROBA_NAISSANCE;
+    extern int PROBA_MORT;
+    extern int PROBA_NAISSANCE;
 
 
     // on créé un vecteur de pointeur vers les variables globale d'ouïe et de vision
@@ -396,7 +392,7 @@ void initiateVariables(int index){
             // cette variable servira à stocker une ligne dans le fichier texte
             string line;
             // tant que l'on est dans les 8 premières lignes, soit le vecteur 1...
-            while (index_line < 16 && getline(fichier, line))
+            while (index_line < 15 && getline(fichier, line))
             {
                 // on créé un stringstream...
                 stringstream ss(line);
@@ -409,11 +405,12 @@ void initiateVariables(int index){
                 ss >> strline >> doubleline;
                 *var_glob[index_line]=doubleline;
                 index_line+=1;
+
             }
             // on refait la même chose avec le deuxième vecteur
             index_line=0;
             while (getline(fichier, line)) 
-            { 
+            {
                 stringstream ss2(line);
                 string strline;
                 int intline;
@@ -442,7 +439,7 @@ void initiateVariables(int index){
         {
             int index_line = 0;
             string line;
-            while (index_line < 16 && getline(fichier, line))
+            while (index_line < 15 && getline(fichier, line))
             {
                 stringstream ss(line);
                 string strline;
@@ -475,6 +472,4 @@ void initiateVariables(int index){
         cout << "ERREUR : Impossible d'ouvrir le fichier !" << endl;
         }
     }
-    
-    
 }

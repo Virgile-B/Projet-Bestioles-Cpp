@@ -84,35 +84,30 @@ void Milieu::naissance() {
     extern int PROBA_NAISSANCE;
     if (nb_peureuse != 0) {
         if ((std::rand() % 100 + 1) > 100 - PROBA_NAISSANCE) {
-            std::cout << "naissance peureuse" << std::endl;
             Bestiole *ptr_bestiole = new Bestiole("peureuse");
             addMember(ptr_bestiole);
         }
     }
     if (nb_prevoyante != 0) {
         if ((std::rand() % 100 + 1) > 100 - PROBA_NAISSANCE) {
-            std::cout << "naissance prevoyante" << std::endl;
             Bestiole *ptr_bestiole = new Bestiole("prevoyante");
             addMember(ptr_bestiole);
         }
     }
     if (nb_gregaire != 0) {
         if ((std::rand() % 100 + 1) > 100 - PROBA_NAISSANCE) {
-            std::cout << "naissance gregaire" << std::endl;
             Bestiole *ptr_bestiole = new Bestiole("gregaire");
             addMember(ptr_bestiole);
         }
     }
     if (nb_kamikaze != 0) {
         if ((std::rand() % 100 + 1) > 100 - PROBA_NAISSANCE) {
-            std::cout << "naissance kamikaze" << std::endl;
             Bestiole *ptr_bestiole = new Bestiole("kamikaze");
             addMember(ptr_bestiole);
         }
     }
     if (nb_multiple != 0) {
         if ((std::rand() % 100 + 1) > 100 - PROBA_NAISSANCE) {
-            std::cout << "naissance multiple" << std::endl;
             Bestiole *ptr_bestiole = new Bestiole("multiple");
             addMember(ptr_bestiole);
         }

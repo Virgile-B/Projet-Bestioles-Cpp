@@ -37,59 +37,6 @@ std::string test;
 using namespace std;
 
 int main(int argc, char **argv) {
-
-    // Récupération des variables globales du fichier bin/init_bestioles.txt
-
-    vector<double *> var_glob;
-    double *global_gamma_yeux_min_p = &global_gamma_yeux_min;
-    double *global_gamma_yeux_max_p = &global_gamma_yeux_max;
-    double *global_gamma_ouie_min_p = &global_gamma_ouie_min;
-    double *global_gamma_ouie_max_p = &global_gamma_ouie_max;
-    double *global_delta_yeux_min_p = &global_delta_yeux_min;
-    double *global_delta_yeux_max_p = &global_delta_yeux_max;
-    double *global_delta_ouie_min_p = &global_delta_ouie_min;
-    double *global_delta_ouie_max_p = &global_delta_ouie_max;
-    double *global_coef_camouflage_min_p = &global_coef_camouflage_min;
-    double *global_coef_camouflage_max_p = &global_coef_camouflage_max;
-    double *global_coef_carapace_max_p = &global_coef_carapace_max;
-    double *global_coef_ralentissement_max_p = &global_coef_ralentissement_max;
-    double *global_coef_vitesse_max_p = &global_coef_vitesse_max;
-    double *global_alpha_vision_min_p = &global_alpha_vision_min;
-    double *global_alpha_vision_max_p = &global_alpha_vision_max;
-    var_glob.push_back(global_gamma_yeux_min_p);
-    var_glob.push_back(global_gamma_yeux_max_p);
-    var_glob.push_back(global_gamma_ouie_min_p);
-    var_glob.push_back(global_gamma_ouie_max_p);
-    var_glob.push_back(global_delta_yeux_min_p);
-    var_glob.push_back(global_delta_yeux_max_p);
-    var_glob.push_back(global_delta_ouie_min_p);
-    var_glob.push_back(global_delta_ouie_max_p);
-    var_glob.push_back(global_coef_camouflage_min_p);
-    var_glob.push_back(global_coef_camouflage_max_p);
-    var_glob.push_back(global_coef_carapace_max_p);
-    var_glob.push_back(global_coef_ralentissement_max_p);
-    var_glob.push_back(global_coef_vitesse_max_p);
-    var_glob.push_back(global_alpha_vision_min_p);
-    var_glob.push_back(global_alpha_vision_max_p);
-
-    vector<int *> var_nbs;
-    int *PROBA_MORT_p = &PROBA_MORT;
-    int *PROBA_NAISSANCE_p = &PROBA_NAISSANCE;
-    int *nbPeureuse_p = &nbPeureuse;
-    int *nbPrevoyante_p = &nbPrevoyante;
-    int *nbKamikaze_p = &nbKamikaze;
-    int *nbGregaire_p = &nbGregaire;
-    int *nbMultiple_p = &nbMultiple;
-    int *nbStepMax_p = &nbStepMax;
-    var_nbs.push_back(PROBA_MORT_p);
-    var_nbs.push_back(PROBA_NAISSANCE_p);
-    var_nbs.push_back(nbPeureuse_p);
-    var_nbs.push_back(nbPrevoyante_p);
-    var_nbs.push_back(nbKamikaze_p);
-    var_nbs.push_back(nbGregaire_p);
-    var_nbs.push_back(nbMultiple_p);
-    var_nbs.push_back(nbStepMax_p);
-
     std::cout << "Do you want to test the product ? Please answer yes or no" << std::endl;
     std::cin >> test;
     if(test.compare("yes")==0) {
@@ -104,27 +51,22 @@ int main(int argc, char **argv) {
         Bestiole *ptr_bestiole;
         std::cout << ecosysteme.getMilieu().getNbMultiple();
         for (int i = 1; i <= nbPeureuse; ++i) {
-            std::cout << "first iteration" << std::endl;
             ptr_bestiole = new Bestiole("peureuse");
             ecosysteme.getMilieu().addMember(ptr_bestiole);
         }
         for (int i = 1; i <= nbKamikaze; ++i) {
-            std::cout << "first iteration" << std::endl;
             ptr_bestiole = new Bestiole("kamikaze");
             ecosysteme.getMilieu().addMember(ptr_bestiole);
         }
         for (int i = 1; i <= nbGregaire; ++i) {
-            std::cout << "first iteration" << std::endl;
             ptr_bestiole = new Bestiole("gregaire");
             ecosysteme.getMilieu().addMember(ptr_bestiole);
         }
         for (int i = 1; i <= nbMultiple; ++i) {
-            std::cout << "first iteration" << std::endl;
             ptr_bestiole = new Bestiole("multiple");
             ecosysteme.getMilieu().addMember(ptr_bestiole);
         }
         for (int i = 1; i <= nbPrevoyante; ++i) {
-            std::cout << "first iteration" << std::endl;
             ptr_bestiole = new Bestiole("prevoyante");
             ecosysteme.getMilieu().addMember(ptr_bestiole);
         }
